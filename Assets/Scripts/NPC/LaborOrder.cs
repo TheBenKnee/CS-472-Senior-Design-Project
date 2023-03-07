@@ -1,25 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaborOrder
-{
-    public Pawn assignedPawn;
-    public GameObject targetObject;
-    public int ttc;
-    //public string[] actions; // list of actions require to complete the order. (go to tree, chop wood, etc)
-    public string type = "generic";
+[System.Serializable]
+public enum LaborType { FireFight, Patient, Doctor, Sleep, Basic, Warden, Handle, Cook, Hunt, Construct, Grow, Mine, Farm, Woodcut, Smith, Tailor, Art, Craft, Haul, Clean, Research };
 
-    /*
-    // Start is called before the first frame update
-    void Start()
+[System.Serializable]
+public struct LaborOrder
+{
+    public LaborType? laborType;
+    public float timeToComplete;
+    public int orderNumber;
+    public static int orderCount = 0;
+
+    public const int NUM_OF_LABOR_TYPES = 21;
+    const float MIN_TTC = 3.0f;
+    const float MAX_TTC = 5.0f;
+
+    public LaborOrder(LaborType laborType, float timeToComplete)
     {
-        
+        this.laborType = laborType;
+        this.timeToComplete = timeToComplete;
+        orderNumber = ++orderCount;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }*/
+    // default constructor for testing struct
+    public LaborOrder(bool isRandom){
+        laborType = (LaborType)UnityEngine.Random.Range(0, NUM_OF_LABOR_TYPES);
+        timeToComplete = UnityEngine.Random.Range(MIN_TTC, MAX_TTC);
+        orderNumber = ++orderCount;
+    }
+
+    public LaborType getLaborType() {
+        return (LaborType)laborType;
+    }
 }
