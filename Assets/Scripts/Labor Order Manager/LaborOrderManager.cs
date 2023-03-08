@@ -14,11 +14,11 @@ public class LaborOrderManager : MonoBehaviour
     private static Queue<Pawn> availablePawns;
     private static Queue<LaborOrder>[] laborQueues;
     private static int laborOrderTotal;
-    public static int numOfLaborTypes;
+    private static int numOfLaborTypes;
 
-    public const int NUM_OF_PAWNS_TO_SPAWN = 10;
+    private const int NUM_OF_PAWNS_TO_SPAWN = 10;
 
-    // iterate through the array of labor queues and sum the total number of labor orders at each queue
+    // returns the total number of labor orders that are currently queued
     public static int getNumOfLaborOrders()
     {
         int total = 0;
@@ -28,23 +28,33 @@ public class LaborOrderManager : MonoBehaviour
         return total;
     }
 
+    // returns the total number of labor types that exist
+    public static int getNumberOfLaborTypes()
+    {
+        return numOfLaborTypes;
+    }
+
+    // returns the total number of labor orders that has ever been queued (used for unique order numbers)
     public static int getLaborOrderTotal()
     {
         return laborOrderTotal;
     }
 
+    // adds a pawn to the queue of available pawns which will be assigned to a labor order
     public static void addPawn(Pawn pawn)
     {
         // add pawn to the queue
         availablePawns.Enqueue(pawn);
     }
 
+    // returns a pawn from the queue of available pawns
     public static Pawn getAvailablePawn()
     {
         // return pawn from the queue
         return availablePawns.Dequeue();
     }
 
+    // adds a labor order to the appropriate queue of labor orders
     public static void addLaborOrder(LaborOrder laborOrder)
     {
         // check if the labor order is already in the queue
@@ -56,37 +66,37 @@ public class LaborOrderManager : MonoBehaviour
         }
     }
 
-
+    // get the number of available pawns
     public static int getPawnCount(){
         return availablePawns.Count;
     }
 
+    // dequeue a pawn and assign it a labor order if possible, do nothing otherwise
     private void assignPawn()
     {
         try{
 
-            if(availablePawns.Count > 0 && getNumOfLaborOrders() > 0){
+            if(availablePawns.Count > 0 && getNumOfLaborOrders() > 0){                                                                      // if there are pawns and labor orders available
 
-                Pawn pawn = getAvailablePawn();
-                List<LaborType>[] laborTypePriority = pawn.getLaborTypePriority();
+                Pawn pawn = getAvailablePawn(); // dequeue a pawn
+                List<LaborType>[] laborTypePriority = pawn.getLaborTypePriority();                                                          // get the labor type priority of the pawn
 
-                for(int i = 0; i < laborTypePriority.Length; i++){
+                for(int i = 0; i < laborTypePriority.Length; i++){                                                                          // iterate through the labor type priority of the pawn
                     if(laborTypePriority[i] != null) {
-                        for(int j = 0; j < laborTypePriority[i].Count; j++){
-                            if(laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0){
-                                pawn.setCurrentLaborOrder(laborQueues[(int)laborTypePriority[i][j]].Dequeue());
+                        for(int j = 0; j < laborTypePriority[i].Count; j++){                                                                // iterate through the labor types at each level of the labor type priorities of the pawn
+                            if(laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0){   // if the queue of the labor type is not empty
+                                pawn.setCurrentLaborOrder(laborQueues[(int)laborTypePriority[i][j]].Dequeue());                             // dequeue the labor order from the queue and assign it to the pawn
                                 return;
                             }
                         }
                     }
                 }
-
             }
+
+            // the pawn will add itself back to the queue once it is done with its current labor order
 
         }catch(Exception e){
             Debug.Log(e);
-            // set play mode to false
-            //UnityEditor.EditorApplication.isPlaying = false;
         }
 
     }

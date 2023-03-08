@@ -12,29 +12,30 @@ public class Pawn : BaseNPC
     
     private const int NUM_OF_PRIORITY_LEVELS = 4;
 
+    // set the current labor order of the pawn and indicate that the pawn is assigned to a labor order
     public void setCurrentLaborOrder(LaborOrder laborOrder) {
         currentLaborOrder = laborOrder;
         isAssigned = true;
     }
 
+    // get the current labor type priorities of the pawn
     public List<LaborType>[] getLaborTypePriority() {
         return LaborTypePriority;
     }
 
     // coroutine to complete labor order by waiting for the time to complete
     public IEnumerator completeCurrentLaborOrder() {
+		// wait the time to complete the labor order
+        yield return new WaitForSeconds(currentLaborOrder.getTimeToComplete());
+
+		// debug print the pawn name and the labor type and the labor number and time to complete
+        Debug.Log($"{pawnName,-10} completed {currentLaborOrder.getLaborType(),-10} {currentLaborOrder.getOrderNumber(),-10} in {currentLaborOrder.getTimeToComplete(),-5:F2} seconds");
 
 		// set the current labor order to null
         isAssigned = false;
 
-		// wait the time to complete the labor order
-        yield return new WaitForSeconds(currentLaborOrder.getTimeToComplete());
-
         // add the pawn back to the queue of available pawns
         LaborOrderManager.addPawn(this);
-
-		// debug print the pawn name and the labor type and the labor number and time to complete
-        Debug.Log($"{pawnName,-10} completed {currentLaborOrder.getLaborType(),-10} {currentLaborOrder.getOrderNumber(),-10} in {currentLaborOrder.getTimeToComplete(),-5:F2} seconds");
 
         // stop the coroutine
         StopCoroutine(completeCurrentLaborOrder());
