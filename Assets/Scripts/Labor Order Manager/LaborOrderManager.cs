@@ -11,6 +11,7 @@ public class LaborOrderManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject pawn_prefab;
+    [SerializeField]
     private static Queue<Pawn> availablePawns;
     private static Queue<LaborOrder>[] laborQueues;
     private static int laborOrderTotal;
@@ -75,6 +76,11 @@ public class LaborOrderManager : MonoBehaviour
     private void assignPawn()
     {
         try{
+            // print out the list of available pawns
+            //Debug.Log("Available Pawns: " + availablePawns.Count);
+            //foreach(Pawn pawn in availablePawns){
+            //    Debug.Log(pawn);
+            //}
 
             // if there are pawns and labor orders available
                 // get the labor type priority of the pawn
@@ -99,8 +105,11 @@ public class LaborOrderManager : MonoBehaviour
                         }
                     }
                 }
-            }
 
+                // if there were no labor orders which matched
+                Debug.Log("NO MATCHING ORDERS.");
+                addPawn(pawn);
+            }
         }catch(Exception e){
             Debug.Log(e);
         }
