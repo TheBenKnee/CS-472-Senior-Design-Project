@@ -4,35 +4,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public enum LaborType { FireFight, Patient, Doctor, Sleep, Basic, Warden, Handle, Cook, Hunt, Construct, Grow, Mine, Farm, Woodcut, Smith, Tailor, Art, Craft, Haul, Clean, Research };
-
-[System.Serializable]
 public struct LaborOrder
 {
-    public LaborType? laborType;
-    public float timeToComplete;
-    public int orderNumber;
-    public static int orderCount = 0;
+    private LaborType laborType;
+    private float timeToComplete;
+    private int orderNumber;
 
-    public const int NUM_OF_LABOR_TYPES = 21;
-    const float MIN_TTC = 3.0f;
-    const float MAX_TTC = 5.0f;
+    private const float MIN_TTC = 3.0f;
+    private const float MAX_TTC = 5.0f;
 
     public LaborOrder(LaborType laborType, float timeToComplete)
     {
         this.laborType = laborType;
         this.timeToComplete = timeToComplete;
-        orderNumber = ++orderCount;
+        orderNumber = LaborOrderManager.getNumOfLaborOrders();
+        LaborOrderManager.addLaborOrder(this);
     }
 
-    // default constructor for testing struct
-    public LaborOrder(bool isRandom){
-        laborType = (LaborType)UnityEngine.Random.Range(0, NUM_OF_LABOR_TYPES);
+    public LaborOrder(bool isRandomConstructor)
+    {
+        laborType = (LaborType)UnityEngine.Random.Range(0, LaborOrderManager.numOfLaborTypes);
         timeToComplete = UnityEngine.Random.Range(MIN_TTC, MAX_TTC);
-        orderNumber = ++orderCount;
+        orderNumber = LaborOrderManager.getNumOfLaborOrders();
+        LaborOrderManager.addLaborOrder(this);
     }
 
     public LaborType getLaborType() {
-        return (LaborType)laborType;
+        return laborType;
     }
+
+    public float getTimeToComplete() {
+        return timeToComplete;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }    
 }

@@ -11,18 +11,19 @@ public class PawnEditor : Editor
         base.OnInspectorGUI();
 
         Pawn pawn = (Pawn)target;
+        List<LaborType>[] LaborTypePriority = pawn.getLaborTypePriority();
 
-        if (pawn != null && pawn.queueAnswerPriority != null)
+        if (pawn != null && LaborTypePriority != null)
         {
-            EditorGUILayout.LabelField("Queue Answer Priority:");
+            EditorGUILayout.LabelField("Labor Type Priority:");
 
-            for (int i = 0; i < pawn.queueAnswerPriority.Length; i++)
+            for (int i = 0; i < LaborTypePriority.Length; i++)
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("List " + i + ":");
-                for (int j = 0; j < pawn.queueAnswerPriority[i].Count; j++)
+                for (int j = 0; j < LaborTypePriority[i].Count; j++)
                 {
-                    pawn.queueAnswerPriority[i][j] = (LaborType)EditorGUILayout.EnumPopup(pawn.queueAnswerPriority[i][j]);
+                    LaborTypePriority[i][j] = (LaborType)EditorGUILayout.EnumPopup(LaborTypePriority[i][j]);
                 }
                 EditorGUILayout.EndHorizontal();
             }
