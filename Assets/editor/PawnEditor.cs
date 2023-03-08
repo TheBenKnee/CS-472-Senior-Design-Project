@@ -28,5 +28,16 @@ public class PawnEditor : Editor
                 EditorGUILayout.EndHorizontal();
             }
         }
+
+        if(GUILayout.Button("Move Labor Type To Priority Level"))
+        {
+            // Call the moveLaborTypeToPriorityLevel function with a random labor type and a random priority level
+            int type = Random.Range(0, LaborOrderManager.getNumberOfLaborTypes());
+            int priority = Random.Range(0, 4);
+            pawn.moveLaborTypeToPriorityLevel((LaborType)type, priority);
+            
+            // debug print the moved labor type and the priority level
+            Debug.Log("Moved " + (LaborType)type + " to priority level " + priority);
+        }
     }
 }

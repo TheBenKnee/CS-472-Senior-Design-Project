@@ -76,29 +76,34 @@ public class LaborOrderManager : MonoBehaviour
     {
         try{
 
-            if(availablePawns.Count > 0 && getNumOfLaborOrders() > 0){                                                                      // if there are pawns and labor orders available
+            // if there are pawns and labor orders available
+                // get the labor type priority of the pawn
+                // iterate through the labor type priority of the pawn
+                    // iterate through the labor types at each level of the labor type priorities of the pawn
+                        // if the queue of the labor type is not empty
+                            // dequeue the labor order from the queue and assign it to the pawn
+            // the pawn will add itself back to the queue once it is done with its current labor order
+
+            if(availablePawns.Count > 0 && getNumOfLaborOrders() > 0){
 
                 Pawn pawn = getAvailablePawn(); // dequeue a pawn
-                List<LaborType>[] laborTypePriority = pawn.getLaborTypePriority();                                                          // get the labor type priority of the pawn
+                List<LaborType>[] laborTypePriority = pawn.getLaborTypePriority();
 
-                for(int i = 0; i < laborTypePriority.Length; i++){                                                                          // iterate through the labor type priority of the pawn
+                for(int i = 0; i < laborTypePriority.Length; i++){                                                                          
                     if(laborTypePriority[i] != null) {
-                        for(int j = 0; j < laborTypePriority[i].Count; j++){                                                                // iterate through the labor types at each level of the labor type priorities of the pawn
-                            if(laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0){   // if the queue of the labor type is not empty
-                                pawn.setCurrentLaborOrder(laborQueues[(int)laborTypePriority[i][j]].Dequeue());                             // dequeue the labor order from the queue and assign it to the pawn
+                        for(int j = 0; j < laborTypePriority[i].Count; j++){
+                            if(laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0){
+                                pawn.setCurrentLaborOrder(laborQueues[(int)laborTypePriority[i][j]].Dequeue());
                                 return;
                             }
                         }
                     }
                 }
             }
-            
-            // the pawn will add itself back to the queue once it is done with its current labor order
 
         }catch(Exception e){
             Debug.Log(e);
         }
-
     }
 
     // Start is called before the first frame update
