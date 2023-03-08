@@ -111,7 +111,7 @@ public class LaborOrderManager : MonoBehaviour
             laborQueues[i] = new Queue<LaborOrder>();
         }
 
-        // generate 100 labor orders with random labor types and random ttc's and add them to the appropriate queue in the array of labor order queues
+        // generate 100 labor orders with random labor types and random ttc's (0.5 seconds to 1 second) and add them to the appropriate queue in the array of labor order queues
         for(int i = 0; i < 100; i++){
             addLaborOrder(new LaborOrder((LaborType)UnityEngine.Random.Range(0, numOfLaborTypes), UnityEngine.Random.Range(0.5f, 1.0f)));
         }

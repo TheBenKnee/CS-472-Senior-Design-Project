@@ -34,7 +34,7 @@ public class Pawn : BaseNPC
         LaborOrderManager.addPawn(this);
 
 		// debug print the pawn name and the labor type and the labor number and time to complete
-        Debug.Log(pawnName + " completed " + currentLaborOrder.getLaborType() + " " + currentLaborOrder.getOrderNumber() + " in " + currentLaborOrder.getTimeToComplete() + " seconds");
+        Debug.Log($"{pawnName,-10} completed {currentLaborOrder.getLaborType(),-10} {currentLaborOrder.getOrderNumber(),-10} in {currentLaborOrder.getTimeToComplete(),-5:F2} seconds");
 
         // stop the coroutine
         StopCoroutine(completeCurrentLaborOrder());
