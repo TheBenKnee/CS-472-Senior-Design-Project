@@ -15,7 +15,7 @@ public class PawnEditor : Editor
 
         if (pawn != null && LaborTypePriority != null)
         {
-            EditorGUILayout.LabelField("Labor Type Priority:");
+            EditorGUILayout.LabelField("Labor Type Priority:"); // display the labor type priority array of lists
 
             for (int i = 0; i < LaborTypePriority.Length; i++)
             {
@@ -29,7 +29,7 @@ public class PawnEditor : Editor
             }
         }
 
-        if(GUILayout.Button("Move Labor Type To Priority Level"))
+        if(GUILayout.Button("Move Labor Type To Priority Level")) // button to move a random labor type to a random priority level for testing purposes (this will be used by UI developers)
         {
             // Call the moveLaborTypeToPriorityLevel function with a random labor type and a random priority level
             int type = Random.Range(0, LaborOrderManager.getNumberOfLaborTypes());

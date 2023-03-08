@@ -5,11 +5,12 @@ using UnityEngine;
 public class Pawn : BaseNPC
 {
 	[SerializeField]
-    private List<LaborType>[] LaborTypePriority;
-    private LaborOrder currentLaborOrder;
-    private string pawnName;
-    private bool isAssigned;
+    private List<LaborType>[] LaborTypePriority;    // required for LaborOrderManager labor order assignment logic
+    private LaborOrder currentLaborOrder;           // set by LaborOrderManager
+    private bool isAssigned;                        // set to true when the pawn is assigned to a labor order, set to false when the pawn completes the labor order, controls Update() logic
     
+    private string pawnName;
+
     private const int NUM_OF_PRIORITY_LEVELS = 4;
 
     public void moveLaborTypeToPriorityLevel(LaborType laborType, int priorityLevel) { // take a labor type and move it to the X priority level
