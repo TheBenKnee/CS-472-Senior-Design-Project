@@ -113,7 +113,7 @@ public class Map : MonoBehaviour
             pawn.transform.SetParent(newLayer.transform);
             pawn.transform.position = new Vector3(origin.x + 2 + newLayer.transform.position.x, origin.y - 1, 0);
             Pawn p = pawnPrefab.GetComponent<Pawn>();
-            //p.setPawnName("test");
+            p.setPawnName("test");
 
 
             // create labor order for the pawn
@@ -121,7 +121,7 @@ public class Map : MonoBehaviour
             
             // this will add the labor order to the labor order manager where it will automatically be assigned to a pawn
             // from there, the pawn script will handle the rest of the labor order
-            //LaborOrderManager.enqueueLaborOrder(cutTreeOrder);
+            LaborOrderManager.addLaborOrder(cutTreeOrder);
 
             layers.Add(newLayerComp);
         }

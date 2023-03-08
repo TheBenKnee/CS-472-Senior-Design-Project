@@ -92,7 +92,7 @@ public class LaborOrderManager : MonoBehaviour
                     }
                 }
             }
-
+            
             // the pawn will add itself back to the queue once it is done with its current labor order
 
         }catch(Exception e){

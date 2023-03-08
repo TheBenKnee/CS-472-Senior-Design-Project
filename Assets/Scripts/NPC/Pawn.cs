@@ -12,6 +12,26 @@ public class Pawn : BaseNPC
     
     private const int NUM_OF_PRIORITY_LEVELS = 4;
 
+    public void moveLaborTypeToPriorityLevel(LaborType laborType, int priorityLevel) { // take a labor type and move it to the X priority level
+        
+        // iterate through the labor type priorities and remove the labor type from the list
+        for(int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++) {
+            if(LaborTypePriority[i].Contains(laborType)) {
+                LaborTypePriority[i].Remove(laborType);
+            }
+        }
+
+        // add the labor type to the priority level
+        LaborTypePriority[priorityLevel].Add(laborType);
+        LaborTypePriority[priorityLevel].Sort();
+    }
+
+    // set the pawnName of the pawn
+    public void setPawnName(string pawnName) {
+        this.pawnName = pawnName;
+        name = pawnName;
+    }
+
     // set the current labor order of the pawn and indicate that the pawn is assigned to a labor order
     public void setCurrentLaborOrder(LaborOrder laborOrder) {
         currentLaborOrder = laborOrder;
@@ -24,7 +44,7 @@ public class Pawn : BaseNPC
     }
 
     // coroutine to complete labor order by waiting for the time to complete
-    public IEnumerator completeCurrentLaborOrder() {
+    private IEnumerator completeCurrentLaborOrder() {
 
 		// set the current labor order to null
         isAssigned = false;
