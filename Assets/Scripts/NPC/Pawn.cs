@@ -33,8 +33,8 @@ public class Pawn : BaseNPC
         // add the pawn back to the queue of available pawns
         LaborOrderManager.addPawn(this);
 
-		// debug print the pawn name and the labor type and time to complete
-        Debug.Log(pawnName + " completed " + currentLaborOrder.getLaborType() + " in " + currentLaborOrder.getTimeToComplete() + " seconds\t(Number of Labor Orders Remaining: " + LaborOrderManager.getNumOfLaborOrders() + ")");
+		// debug print the pawn name and the labor type and the labor number and time to complete
+        Debug.Log(pawnName + " completed " + currentLaborOrder.getLaborType() + " " + currentLaborOrder.getOrderNumber() + " in " + currentLaborOrder.getTimeToComplete() + " seconds");
 
         // stop the coroutine
         StopCoroutine(completeCurrentLaborOrder());

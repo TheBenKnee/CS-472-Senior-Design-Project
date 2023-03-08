@@ -47,10 +47,15 @@ public class LaborOrderManager : MonoBehaviour
 
     public static void addLaborOrder(LaborOrder laborOrder)
     {
-        // add labor order to the queue
-        laborQueues[(int)laborOrder.getLaborType()].Enqueue(laborOrder);
-        laborOrderTotal++;
+        // check if the labor order is already in the queue
+        if (!laborQueues[(int)laborOrder.getLaborType()].Contains(laborOrder))
+        {
+            // add labor order to the queue
+            laborQueues[(int)laborOrder.getLaborType()].Enqueue(laborOrder);
+            laborOrderTotal++;
+        }
     }
+
 
     public static int getPawnCount(){
         return availablePawns.Count;
@@ -106,21 +111,15 @@ public class LaborOrderManager : MonoBehaviour
             laborQueues[i] = new Queue<LaborOrder>();
         }
 
-        // iterate through the array of labor order queues and populate each with 3 random labor orders
-        for(int i = 0; i < numOfLaborTypes; i++){
-            for(int j = 0; j < 3; j++){
-                addLaborOrder(new LaborOrder(true));
-            }
+        // generate 100 labor orders with random labor types and random ttc's and add them to the appropriate queue in the array of labor order queues
+        for(int i = 0; i < 100; i++){
+            addLaborOrder(new LaborOrder((LaborType)UnityEngine.Random.Range(0, numOfLaborTypes), UnityEngine.Random.Range(0.5f, 1.0f)));
         }
     }
 
     void Start(){
         // print the total number of pawns and the total number of labor orders 
-        try{
-            Debug.Log("Number of Pawns: " + getPawnCount() + " Number of Labor Orders: " + getNumOfLaborOrders());
-        }catch{
-            //Debug.Log("Error: Number of Pawns: " + getPawnCount() + " Number of Labor Orders: " + getNumOfLaborOrders());
-        }
+        Debug.Log("Number of Pawns: " + getPawnCount() + "\tNumber of Labor Orders: " + getNumOfLaborOrders());
     }
 
     // Update is called once per frame

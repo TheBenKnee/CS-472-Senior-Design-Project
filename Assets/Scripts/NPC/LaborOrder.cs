@@ -10,8 +10,8 @@ public struct LaborOrder
     private float timeToComplete;
     private int orderNumber;
 
-    private const float MIN_TTC = 3.0f;
-    private const float MAX_TTC = 5.0f;
+    private const float MIN_TTC = 0.5f;
+    private const float MAX_TTC = 1.0f;
 
     public LaborOrder(LaborType laborType, float timeToComplete)
     {
