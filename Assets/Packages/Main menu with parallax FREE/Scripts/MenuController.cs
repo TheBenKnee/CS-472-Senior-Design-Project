@@ -86,6 +86,7 @@ public class MenuController : MonoBehaviour {
         //Set the activeBackground array length
         if (useParallax) { activeBackground = new GameObject[backgroundsParallax.Length]; } else { activeBackground = new GameObject[backgrounds.Length]; }
         initiate();      
+        Screen.SetResolution(1920, 1080, true);
     }
 
 	void Update () {
@@ -225,7 +226,7 @@ public class MenuController : MonoBehaviour {
     public void newGame()
     {
         //Loads the first scene, change the number to your desired scene
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     //Continue
