@@ -9,15 +9,11 @@ namespace Tests
 {
     public class StorageTests
     {
-
-        private GameObject obj;
-
         private Storage storage;
 
         [SetUp]
         public void Setup()
         {
-            storage = new Storage();
         }
 
         [Test]
