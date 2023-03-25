@@ -11,11 +11,6 @@ namespace Tests
     {
         private Storage storage;
 
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void addWorkerTest()
         {
