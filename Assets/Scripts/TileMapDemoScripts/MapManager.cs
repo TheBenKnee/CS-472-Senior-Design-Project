@@ -9,7 +9,10 @@ public class MapManager : MonoBehaviour
     private GameObject grid;
     private GameObject tileMapGameObject;
     private Tilemap tileMap;
+
     private Player player;
+
+    private PathFinding pathFinding;
 
     private void Awake()
     {
@@ -17,8 +20,8 @@ public class MapManager : MonoBehaviour
         CreateTileMap();
         InitializeTileMap();
         
-
         player = (Player)FindObjectOfType(typeof(Player));
+        pathFinding = new PathFinding(tileMap);
     }
 
     void Start()
@@ -28,39 +31,28 @@ public class MapManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // If mouse left click
-        {
-            Vector2 mouseLocationAtClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int tileMapLocation = tileMap.WorldToCell(mouseLocationAtClick);
-            TileBase clickedTile = tileMap.GetTile(tileMapLocation); // Get clicked tile
+        updateGameObjects();
+    }
 
-            // Set player position to clicked position
-            player.transform.position = new Vector3(tileMapLocation.x, tileMapLocation.y, 0);
-            
-            // Cast from TileBase to BaseTile and check the tile type
+    private void updateGameObjects()
+    {
+        Vector3Int tileLocation = getTileLocation();
+
+        if (Input.GetMouseButtonDown(0)){
+            TileBase clickedTile = tileMap.GetTile(tileLocation); // Get clicked tile
+            player.updatePath(pathFinding.getPath(Vector3Int.FloorToInt(player.transform.position), tileLocation));
+
             BaseTile baseTile = (BaseTile)clickedTile;
-            switch (baseTile.getTileInformation())
-            {
-                case 1:
-                    try
-                    {
-                        RockTile rockTile = (RockTile)baseTile;
-                        rockTile.printInformation();
-                        rockTile.printResources();
-                    }
-                    catch (InvalidCastException) { }
-                    break;
-                case 2:
-                    try
-                    {
-                        GrassTile grassTile = (GrassTile)baseTile;
-                        grassTile.printInformation();
-                    }
-                    catch (InvalidCastException) { }
-                    break;
-            }
+            baseTile.debugPrintInformation();
         }
 
+        player.updateLocation(10.0f * Time.deltaTime);
+    }
+
+    private Vector3Int getTileLocation()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return tileMap.WorldToCell(mousePosition);
     }
 
     private void CreateGrid()
@@ -88,14 +80,14 @@ public class MapManager : MonoBehaviour
                 {
                     int resources = UnityEngine.Random.Range(1, 50);
                     RockTile rockTile = ScriptableObject.CreateInstance<RockTile>();
-                    rockTile.setTileInformation(x, y, 1, true);
+                    rockTile.InitializeTileData(x, y, TileType.ROCK, true);
                     rockTile.setResources(resources);
                     tileMap.SetTile(new Vector3Int(x, y, 0), rockTile);
                 }
                 else
                 {
                     GrassTile grassTile = ScriptableObject.CreateInstance<GrassTile>();
-                    grassTile.setTileInformation(x, y, 2, false);
+                    grassTile.InitializeTileData(x, y, TileType.GRASS, false);
                     tileMap.SetTile(new Vector3Int(x, y, 0), grassTile);
                 }
             }
@@ -152,7 +144,7 @@ public class MapManager : MonoBehaviour
                 if (term1*term1+term2*term2 <= 4)
                 {
                     GrassTile grassTile = ScriptableObject.CreateInstance<GrassTile>();
-                    grassTile.setTileInformation(x, y, 2, false);
+                    grassTile.InitializeTileData(x, y, TileType.GRASS, false);
                     tileMap.SetTile(new Vector3Int(x, y, 0), grassTile);
 
                     
@@ -160,14 +152,14 @@ public class MapManager : MonoBehaviour
                     {
                         GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", new Vector3(x + 0.5f, y + 0.5f, 0f));
                         tree.transform.parent = grid.transform;
-                        LaborOrderManager.addLaborOrder(new LaborOrder_Woodcut(tree));
+                        //LaborOrderManager.addLaborOrder(new LaborOrder_Woodcut(tree)); // needs to be updated
                         treecount++;
                     }
                     else if (UnityEngine.Random.Range(0, 100) == 0)  // create pawn
                     {
                         GameObject pawn = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn", "", new Vector3(x + 0.5f, y + 0.5f, 0f));
                         pawn.transform.parent = grid.transform;
-                        LaborOrderManager.addPawn(pawn.GetComponent<Pawn>());
+                        //LaborOrderManager.addPawn(pawn.GetComponent<Pawn>()); // needs to be updated
                     }
 
                         
@@ -175,7 +167,7 @@ public class MapManager : MonoBehaviour
                 else
                 {
                     WaterTile waterTile = ScriptableObject.CreateInstance<WaterTile>();
-                    waterTile.setTileInformation(x, y, 1, true);
+                    waterTile.InitializeTileData(x, y, TileType.WATER, true);
                     tileMap.SetTile(new Vector3Int(x, y, 0), waterTile);
                     
                 }
