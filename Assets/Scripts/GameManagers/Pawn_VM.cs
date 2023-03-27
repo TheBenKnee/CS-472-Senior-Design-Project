@@ -7,25 +7,16 @@ using System.Linq;
 public class Pawn_VM : MonoBehaviour
 {
     [SerializeField]
-    // Priority list for different types of labor
-    private List<LaborType>[] LaborTypePriority;
-    // Reference to the current labor order
-    private LaborOrder_Base_VM currentLaborOrder;
-    // Indicates if the pawn is currently assigned to a labor order
-    private bool isAssigned;
-    // Counter for the total number of pawns
-    private static int pawnCount = 0;
-    // Number of priority levels for labor types
-    private const int NUM_OF_PRIORITY_LEVELS = 4;
-    // List of positions for the pawn to follow
-    private List<Vector3> path;
-    // Speed of the pawn movement
-    private float pawnSpeed = 1f;
-    // Current position of the pawn in the grid
-    private Vector3Int position;
+    private List<LaborType>[] LaborTypePriority;        // Priority list for different types of labor
+    private LaborOrder_Base_VM currentLaborOrder;       // Reference to the current labor order
+    private bool isAssigned;                            // Indicates if the pawn is currently assigned to a labor order
+    private static int pawnCount = 0;                   // Counter for the total number of pawns
+    private const int NUM_OF_PRIORITY_LEVELS = 4;       // Number of priority levels for labor types
+    private List<Vector3> path;                         // List of positions for the pawn to follow
+    private float pawnSpeed = 1f;                       // Speed of the pawn movement
+    private Vector3Int position;                        // Current position of the pawn in the grid
 
-    // Name of the pawn
-    private string pawnName;
+    private string pawnName;                            // Name of the pawn
 
     // Sets the path for the pawn
     public void setPath(List<Vector3> path)
@@ -63,6 +54,12 @@ public class Pawn_VM : MonoBehaviour
         this.pawnName = pawnName;
     }
 
+    // Gets the name of the pawn
+    public string getPawnName()
+    {
+        return pawnName;
+    }
+
     // Gets the tile the pawn is currently on from the tilemap
     public TileBase getPawnTileFromTilemap()
     {
@@ -90,8 +87,14 @@ public class Pawn_VM : MonoBehaviour
     // Sets the current labor order for the pawn
     public void setCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
     {
-        currentLaborOrder = LaborOrder_Base_VM;
-        isAssigned = true;
+        if(isAssigned)
+        {
+            Debug.LogError("Pawn is already assigned to a labor order");
+        }else
+        {
+            currentLaborOrder = LaborOrder_Base_VM;
+            isAssigned = true;
+        }
     }
 
     // Gets the current labor type priority list
@@ -103,8 +106,6 @@ public class Pawn_VM : MonoBehaviour
     // Coroutine to complete the current labor order
     private IEnumerator completeCurrentLaborOrder()
     {
-        isAssigned = false;
-
         TileBase foundTile = getLaborOrderTileFromTilemap();
         TileBase currentTile = getPawnTileFromTilemap();
 
@@ -214,6 +215,7 @@ public class Pawn_VM : MonoBehaviour
         if (isAssigned)
         {
             StartCoroutine(completeCurrentLaborOrder());
+            isAssigned = false;
         }
         else
         {

@@ -77,30 +77,43 @@ public class LaborOrderManager : MonoBehaviour
     }
 
     // Method to assign a labor task to a pawn if possible (based on priority)
-    private void assignPawn()
+    private void assignPawns()
     {
-        Pawn_VM pawn = getAvailablePawn();
-        List<LaborType>[] laborTypePriority = pawn.getLaborTypePriority();
+        while(availablePawns.Count > 0 && getNumOfLaborOrders() > 0){
+            
+            Pawn_VM pawn = getAvailablePawn();
+            List<LaborType>[] laborTypePriority = pawn.getLaborTypePriority();
+            bool found = false;
 
-        for (int i = 0; i < laborTypePriority.Length; i++)
-        {
-            if (laborTypePriority[i] != null)
+            for (int i = 0; i < laborTypePriority.Length; i++)
             {
-                for (int j = 0; j < laborTypePriority[i].Count; j++)
+                if (laborTypePriority[i] != null)
                 {
-                    if (laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0)
+                    for (int j = 0; j < laborTypePriority[i].Count; j++)
                     {
-                        LaborOrder_Base_VM order = laborQueues[(int)laborTypePriority[i][j]].Dequeue();
-                        pawn.setCurrentLaborOrder(order);
-                        return;
+                        if (laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0)
+                        {
+                            LaborOrder_Base_VM order = laborQueues[(int)laborTypePriority[i][j]].Dequeue();
+                            pawn.setCurrentLaborOrder(order);
+                            found = true;
+                            break;
+                        }
                     }
                 }
+
+                if (found)
+                {
+                    break;
+                }
+            }
+
+            // if there were no labor orders which matched the pawn's priorities
+            if (!found)
+            {
+                Debug.Log("NO MATCHING ORDERS.");
+                addPawn(pawn);
             }
         }
-
-        // if there were no labor orders which matched
-        Debug.Log("NO MATCHING ORDERS.");
-        addPawn(pawn);
     }
 
     // Awake method to initialize variables and set up the labor task queues
@@ -142,7 +155,10 @@ public class LaborOrderManager : MonoBehaviour
     {
         if (availablePawns.Count > 0 && getNumOfLaborOrders() > 0)
         {
-            assignPawn();
+            assignPawns();
+        }else{
+            // print the number of pawns in the queue and the number of labor tasks in the queue
+            //Debug.Log("Pawns: " + getPawnCount() + " Labor Orders: " + getNumOfLaborOrders());
         }
     }
 }

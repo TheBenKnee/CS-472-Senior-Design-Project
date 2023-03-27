@@ -23,7 +23,6 @@ public class LaborOrder_Base_VM
         this.laborType = laborType;
         this.timeToComplete = timeToComplete;
         orderNumber = LaborOrderManager.getNumOfLaborOrders();
-        LaborOrderManager.addLaborOrder(this);
     }
 
     // random constructor
@@ -42,7 +41,6 @@ public class LaborOrder_Base_VM
 
         // set the order number and add the labor order to the LaborOrderManager
         orderNumber = LaborOrderManager.getNumOfLaborOrders();
-        LaborOrderManager.addLaborOrder(this);
     }
 
     // default constructor
