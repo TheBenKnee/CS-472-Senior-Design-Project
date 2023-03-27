@@ -15,7 +15,6 @@ public class BaseTile : Tile
     public bool visited;
     protected bool isCollision;
     public BaseTile parent;
-    
 
     //A* Pathfinding Info
     public List<BaseTile> neighbors = new List<BaseTile>();
@@ -27,9 +26,15 @@ public class BaseTile : Tile
 
         x = 0; y = 0;
 
+    public override void RefreshTile(Vector3Int position, ITilemap tilemap)
+    {
+        base.RefreshTile(position, tilemap);
+    }
+
+    private void InitializePathfindingVariables()
+    {
         distance = -1;
         visited = false;
-        isCollision = false;
         parent = null;
     }
 

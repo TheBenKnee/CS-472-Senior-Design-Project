@@ -11,7 +11,6 @@ public class MapManager : MonoBehaviour
     private Tilemap tileMap;
 
     private Player player;
-    private HighlightTile highlightTile;
 
     private PathFinding pathFinding;
 
@@ -23,7 +22,6 @@ public class MapManager : MonoBehaviour
         InitializeTileMap();
         
         player = (Player)FindObjectOfType(typeof(Player));
-        //highlightTile = (HighlightTile)FindObjectOfType(typeof(HighlightTile));
         pathFinding = new PathFinding(tileMap);
     }
 
