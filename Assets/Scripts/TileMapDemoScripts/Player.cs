@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("Update");
+
     }
 
     public void updateLocation(float speed)
