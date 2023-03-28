@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 // PathfindingManager class to handle pathfinding on a grid of tiles
 public class PathfindingManager : MonoBehaviour
 {
-    private static int _width, _height;
+    protected static int _width, _height;
 
     // Method to Get a path between two points on the grid
     public static List<Vector3> GetPath(Vector3Int current, Vector3Int tarGet)
@@ -41,7 +41,7 @@ public class PathfindingManager : MonoBehaviour
     }
 
     // Method to reSet grid values for pathfinding
-    private static void reSetGrid()
+    protected static void reSetGrid()
     {
         // Iterate through each tile in the grid and reSet its properties
         for (int x = GridManager.MIN_HORIZONTAL; x < GridManager.MAX_HORIZONTAL; x++)
@@ -66,7 +66,7 @@ public class PathfindingManager : MonoBehaviour
     }
 
     // Method to Get the next node in the pathfinding process
-    private static BaseTile_VM GetNextNode()
+    protected static BaseTile_VM GetNextNode()
     {
         BaseTile_VM nextNode = null;
         // Iterate through each tile in the grid and find the next tile to process

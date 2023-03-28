@@ -12,19 +12,18 @@ public class LaborOrderManager_VM : MonoBehaviour
 {
     [SerializeField]
     // Variables for managing pawns, labor tasks, and labor types
-    private GameObject pawn_prefab;
-    private static Queue<Pawn_VM> availablePawns;
-    private static Queue<LaborOrder_Base_VM>[] laborQueues;
-    private static int laborOrderTotal;
-    private static int numOfLaborTypes;
+    protected GameObject pawn_prefab;
+    protected static Queue<Pawn_VM> availablePawns;
+    protected static Queue<LaborOrder_Base_VM>[] laborQueues;
+    protected static int laborOrderTotal;
 
-    private const int NUM_OF_PAWNS_TO_SPAWN = 10;
+    protected const int NUM_OF_PAWNS_TO_SPAWN = 10;
 
     // Method to Get the total number of labor tasks in the queue
     public static int GetNumOfLaborOrders()
     {
         int total = 0;
-        for (int i = 0; i < numOfLaborTypes; i++)
+        for (int i = 0; i < GetNumberOfLaborTypes(); i++)
         {
             total += laborQueues[i].Count;
         }
@@ -34,7 +33,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     // Method to Get the total number of labor types
     public static int GetNumberOfLaborTypes()
     {
-        return numOfLaborTypes;
+        return Enum.GetNames(typeof(LaborType)).Length;
     }
 
     // Method to Get the total number of labor tasks ever queued
@@ -77,7 +76,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     }
 
     // Method to assign a labor task to a pawn if possible (based on priority)
-    private void AssignPawns()
+    protected void AssignPawns()
     {
         while(availablePawns.Count > 0 && GetNumOfLaborOrders() > 0){
             
@@ -116,28 +115,38 @@ public class LaborOrderManager_VM : MonoBehaviour
         }
     }
 
-    // Awake method to initialize variables and Set up the labor task queues
-    void Awake()
+    // Method to initialize and populate pawn queue (Instantiate them as the children of this object)
+    public void InitializePawns()
     {
-        laborOrderTotal = 0;
-        numOfLaborTypes = Enum.GetNames(typeof(LaborType)).Length;
-
-        // initialize and populate pawn queue (Instantiate them as the children of this object)
         availablePawns = new Queue<Pawn_VM>();
         for (int i = 0; i < NUM_OF_PAWNS_TO_SPAWN; i++)
         {
             AddPawn(Instantiate(pawn_prefab, transform.Find("Pawns")).GetComponent<Pawn_VM>());
         }
+    }
 
-        // initialize the array of labor order queues
-        laborQueues = new Queue<LaborOrder_Base_VM>[numOfLaborTypes];
+    // Method to initialize the array of labor order queues
+    public void InitializeLaborQueues()
+    {
+        laborQueues = new Queue<LaborOrder_Base_VM>[GetNumberOfLaborTypes()];
 
         // iterate through the array of labor order queues and initialize each queue
-        for (int i = 0; i < numOfLaborTypes; i++)
+        for (int i = 0; i < GetNumberOfLaborTypes(); i++)
         {
             laborQueues[i] = new Queue<LaborOrder_Base_VM>();
         }
+    }
 
+    // Awake method to initialize variables and Set up the labor task queues
+    void Awake()
+    {
+        laborOrderTotal = 0;
+
+        // initialize and populate pawn queue (Instantiate them as the children of this object)
+        InitializePawns();
+
+        // initialize the array of labor order queues & iterate through the array of labor order queues and initialize each queue
+        InitializeLaborQueues();
     }
 
     // Start method to generate and queue random labor tasks

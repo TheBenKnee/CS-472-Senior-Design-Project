@@ -3,66 +3,92 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.Tilemaps;
 
 public class LaborOrder_Base_VM_Tests
 {
-    private GameObject gridManagerObject;
-    private GridManager gridManager;
-    private GameObject gridObject;
+    LaborOrderManager_VM laborOrderManager;
 
     [SetUp]
     public void SetUp()
     {
-        gridManagerObject = new GameObject("GridManager");
-        gridManager = gridManagerObject.AddComponent<GridManager>();
-
-        gridObject = new GameObject("Grid");
-        gridObject.AddComponent<Grid>();
-        gridObject.AddComponent<Tilemap>();
-        gridObject.transform.SetParent(gridManagerObject.transform);
-
-        gridManager.InitializeGrid();
-        gridManager.GenerateTileMap();
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        Object.DestroyImmediate(gridManagerObject);
+        GameObject go = new GameObject();
+        laborOrderManager = go.AddComponent<LaborOrderManager_VM>();
+        laborOrderManager.InitializeLaborQueues();
     }
 
     [Test]
-    public void Constructor_SetsCorrectValues()
+    public void Constructor_WithParameters_SetsPropertiesCorrectly()
     {
-        // Arrange
-        LaborType laborType = LaborType.Basic;
+        //ARRANGE
+        LaborType laborType = LaborType.Cook;
         float timeToComplete = 1.5f;
 
-        // Act
+        //ACT
         LaborOrder_Base_VM laborOrder = new LaborOrder_Base_VM(laborType, timeToComplete);
 
-        // Assert
+        //ASSERT
         Assert.AreEqual(laborType, laborOrder.GetLaborType());
         Assert.AreEqual(timeToComplete, laborOrder.GetTimeToComplete());
     }
 
-    [UnityTest]
-    public IEnumerator RandomConstructor_SetsValidValues()
+    [Test]
+    public void DefaultConstructor_SetsPropertiesToDefault()
     {
-        gridManager.InitializeGrid();
+        //ARRANGE
+        LaborOrder_Base_VM laborOrder = new LaborOrder_Base_VM();
 
-        // Arrange & Act
-        LaborOrder_Base_VM laborOrder = new LaborOrder_Base_VM(true);
+        //ACT
+        LaborType laborType = laborOrder.GetLaborType();
+        float timeToComplete = laborOrder.GetTimeToComplete();
 
-        // Assert
-        //Assert.IsTrue(System.Enum.IsDefined(typeof(LaborType), laborOrder.GetLaborType()));
-        //Assert.IsTrue(laborOrder.GetTimeToComplete() >= 0.5f && laborOrder.GetTimeToComplete() <= 1.0f);
-        //Assert.IsTrue(laborOrder.GetLaborOrderLocation().x >= GridManager.MIN_HORIZONTAL && laborOrder.GetLaborOrderLocation().x < GridManager.MAX_HORIZONTAL);
-        //Assert.IsTrue(laborOrder.GetLaborOrderLocation().y >= GridManager.MIN_VERTICAL && laborOrder.GetLaborOrderLocation().y < GridManager.MAX_VERTICAL);
-        
-        yield return null;
+        //ASSERT
+        Assert.AreEqual(default(LaborType), laborType);
+        Assert.AreEqual(0, timeToComplete);
     }
 
-    // Add more tests if needed, e.g., for the Execute method
+    [Test]
+    public void GetLaborType_ReturnsCorrectLaborType()
+    {
+        //ARRANGE
+        LaborType laborType = LaborType.Research;
+        float timeToComplete = 2.0f;
+        LaborOrder_Base_VM laborOrder = new LaborOrder_Base_VM(laborType, timeToComplete);
+
+        //ACT
+        LaborType result = laborOrder.GetLaborType();
+
+        //ASSERT
+        Assert.AreEqual(laborType, result);
+    }
+
+    [Test]
+    public void GetTimeToComplete_ReturnsCorrectTimeToComplete()
+    {
+        //ARRANGE
+        LaborType laborType = LaborType.Woodcut;
+        float timeToComplete = 3.5f;
+        LaborOrder_Base_VM laborOrder = new LaborOrder_Base_VM(laborType, timeToComplete);
+
+        //ACT
+        float result = laborOrder.GetTimeToComplete();
+
+        //ASSERT
+        Assert.AreEqual(timeToComplete, result);
+    }
+
+    [Test]
+    public void GetOrderNumber_ReturnsCorrectOrderNumber()
+    {
+        //ARRANGE
+        LaborType laborType = LaborType.Mine;
+        float timeToComplete = 4.0f;
+        LaborOrder_Base_VM laborOrder = new LaborOrder_Base_VM(laborType, timeToComplete);
+        int orderNumber = 0;
+
+        //ACT
+        int result = laborOrder.GetOrderNumber();
+
+        //ASSERT
+        Assert.AreEqual(orderNumber, result);
+    }
 }

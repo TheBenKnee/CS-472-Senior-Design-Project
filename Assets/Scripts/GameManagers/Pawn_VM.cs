@@ -7,16 +7,34 @@ using System.Linq;
 public class Pawn_VM : MonoBehaviour
 {
     [SerializeField]
-    private List<LaborType>[] LaborTypePriority;        // Priority list for different types of labor
-    private LaborOrder_Base_VM currentLaborOrder;       // Reference to the current labor order
-    private bool isAssigned;                            // Indicates if the pawn is currently assigned to a labor order
-    private static int pawnCount = 0;                   // Counter for the total number of pawns
-    private const int NUM_OF_PRIORITY_LEVELS = 4;       // Number of priority levels for labor types
-    private List<Vector3> path;                         // List of positions for the pawn to follow
-    private float pawnSpeed = 1f;                       // Speed of the pawn movement
-    private Vector3Int position;                        // Current position of the pawn in the grid
+    protected List<LaborType>[] LaborTypePriority;        // Priority list for different types of labor
+    protected LaborOrder_Base_VM currentLaborOrder;       // Reference to the current labor order
+    protected bool isAssigned;                            // Indicates if the pawn is currently assigned to a labor order
+    protected static int pawnCount = 0;                   // Counter for the total number of pawns
+    protected const int NUM_OF_PRIORITY_LEVELS = 4;       // Number of priority levels for labor types
+    protected List<Vector3> path;                         // List of positions for the pawn to follow
+    protected float pawnSpeed = 1f;                       // Speed of the pawn movement
+    protected Vector3Int position;                        // Current position of the pawn in the grid
 
-    private string pawnName;                            // Name of the pawn
+    protected string pawnName;                            // Name of the pawn
+
+    // pawn constructor - NOT CALLED WHEN SPAWNED AS SCRIPTABLE OBJECT, WHICH WE DO - SO WE NEED TO INITIALIZE IN THE START METHOD
+    public Pawn_VM()
+    {
+        // Initialize the priority list for different types of labor
+        LaborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
+        for (int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++)
+        {
+            LaborTypePriority[i] = new List<LaborType>();
+        }
+
+        // Initialize the path list
+        path = new List<Vector3>();
+
+        // Initialize the pawn name
+        pawnName = "Pawn " + pawnCount;
+        pawnCount++;
+    }
 
     // Sets the path for the pawn
     public void SetPath(List<Vector3> path)
@@ -110,7 +128,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Coroutine to complete the current labor order
-    private IEnumerator CompleteCurrentLaborOrder()
+    protected IEnumerator CompleteCurrentLaborOrder()
     {
         TileBase foundTile = GetLaborOrderTileFromTilemap();
         TileBase currentTile = GetPawnTileFromTilemap();
@@ -141,7 +159,7 @@ public class Pawn_VM : MonoBehaviour
 
         yield return StartCoroutine(currentLaborOrder.Execute(this));
 
-        Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.GetOrderNumber(),-5} TTC: {currentLaborOrder.GetTimeToComplete(),-10:F2} {"Order Type: " + currentLaborOrder.GetLaborType(),-50} {tarGet.returnTileInformation(),-80}");
+        Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.GetOrderNumber(),-5} TTC: {currentLaborOrder.GetTimeToComplete(),-10:F2} {"Order Type: " + currentLaborOrder.GetLaborType(),-25} {tarGet.returnTileInformation(),-80}");
 
         LaborOrderManager_VM.AddPawn(this);
     }
@@ -164,7 +182,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Coroutine to move the pawn along the path
-    private IEnumerator TakePath()
+    protected IEnumerator TakePath()
     {
         int pathIndex = 0;
 

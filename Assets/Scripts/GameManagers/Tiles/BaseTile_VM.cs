@@ -123,7 +123,6 @@ public class BaseTile_VM : Tile
         if (resource == null)
         {
             // print the information of the tile include the type, collision, resource, resource count, and position. left align the text using interpolation and evenly space the columns.
-            this.position = new Vector3(2, 2, 0);
             return $"Tile Type: {type,-10} Collision: {isCollision,-10} Position: {position,-50}";
         }
         else

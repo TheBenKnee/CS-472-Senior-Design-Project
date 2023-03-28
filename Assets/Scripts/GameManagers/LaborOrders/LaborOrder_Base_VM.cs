@@ -11,7 +11,7 @@ public class LaborOrder_Base_VM
     protected LaborType laborType;                    // type of labor needed
     protected Vector3Int location;                    // location of the labor order in the grid
     protected float timeToComplete;                   // time it takes to complete the labor order
-    protected int orderNumber;                        // order number of the labor order
+    protected int orderNumber;                   // order number of the labor order
 
     // constants used for random constructor
     public const float MIN_TTC = 0.5f;               // minimum time to complete
