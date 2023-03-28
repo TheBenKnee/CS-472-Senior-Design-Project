@@ -19,7 +19,7 @@ public class Pawn_VM : MonoBehaviour
     private string pawnName;                            // Name of the pawn
 
     // Sets the path for the pawn
-    public void setPath(List<Vector3> path)
+    public void SetPath(List<Vector3> path)
     {
         this.path = path;
     }
@@ -49,43 +49,43 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Sets the name of the pawn
-    public void setPawnName(string pawnName)
+    public void SetPawnName(string pawnName)
     {
         this.pawnName = pawnName;
     }
 
     // Gets the name of the pawn
-    public string getPawnName()
+    public string GetPawnName()
     {
         return pawnName;
     }
 
     // Gets the tile the pawn is currently on from the tilemap
-    public TileBase getPawnTileFromTilemap()
+    public TileBase GetPawnTileFromTilemap()
     {
         TileBase tile = GridManager.tileMap.GetTile(GridManager.tileMap.WorldToCell(transform.position));
         if (tile == null)
         {
-            Debug.LogError(pawnName + " found a null tile at current location - getPawnTileFromTilemap");
+            Debug.LogError(pawnName + " found a null tile at current location - GetPawnTileFromTilemap");
             return null;
         }
         return tile;
     }
 
     // Gets the tile of the current labor order from the tilemap
-    public TileBase getLaborOrderTileFromTilemap()
+    public TileBase GetLaborOrderTileFromTilemap()
     {
-        TileBase tile = GridManager.tileMap.GetTile(currentLaborOrder.getLaborOrderLocation());
+        TileBase tile = GridManager.tileMap.GetTile(currentLaborOrder.GetLaborOrderLocation());
         if (tile == null)
         {
-            Debug.LogError(pawnName + " found a null tile at current location - getLaborOrderTileFromTilemap");
+            Debug.LogError(pawnName + " found a null tile at current location - GetLaborOrderTileFromTilemap");
             return null;
         }
         return tile;
     }
 
     // Sets the current labor order for the pawn
-    public void setCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
+    public void SetCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
     {
         if(isAssigned)
         {
@@ -98,7 +98,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Gets the current labor type priority list
-    public List<LaborType>[] getLaborTypePriority()
+    public List<LaborType>[] GetLaborTypePriority()
     {
         return LaborTypePriority;
     }
@@ -106,8 +106,8 @@ public class Pawn_VM : MonoBehaviour
     // Coroutine to complete the current labor order
     private IEnumerator completeCurrentLaborOrder()
     {
-        TileBase foundTile = getLaborOrderTileFromTilemap();
-        TileBase currentTile = getPawnTileFromTilemap();
+        TileBase foundTile = GetLaborOrderTileFromTilemap();
+        TileBase currentTile = GetPawnTileFromTilemap();
 
         if (foundTile == null)
         {
@@ -123,19 +123,19 @@ public class Pawn_VM : MonoBehaviour
             yield break;
         }
 
-        BaseTile_VM target = (BaseTile_VM)foundTile;
+        BaseTile_VM tarGet = (BaseTile_VM)foundTile;
         BaseTile_VM current = (BaseTile_VM)currentTile;
 
-        Vector3Int x = Vector3Int.FloorToInt(target.getPosition());
-        Vector3Int y = Vector3Int.FloorToInt(current.getPosition());
+        Vector3Int x = Vector3Int.FloorToInt(tarGet.GetPosition());
+        Vector3Int y = Vector3Int.FloorToInt(current.GetPosition());
 
-        setPath(PathfindingManager.getPath(x, y));
+        SetPath(PathfindingManager.GetPath(x, y));
 
         yield return StartCoroutine(takePath());
 
         yield return StartCoroutine(currentLaborOrder.execute(this));
 
-        Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.getOrderNumber(),-5} TTC: {currentLaborOrder.getTimeToComplete(),-10:F2} {"Order Type: " + currentLaborOrder.getLaborType(),-50} {target.returnTileInformation(),-80}");
+        Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.GetOrderNumber(),-5} TTC: {currentLaborOrder.GetTimeToComplete(),-10:F2} {"Order Type: " + currentLaborOrder.GetLaborType(),-50} {tarGet.returnTileInformation(),-80}");
 
         LaborOrderManager_VM.addPawn(this);
     }
