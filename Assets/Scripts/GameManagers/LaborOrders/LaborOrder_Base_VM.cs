@@ -80,7 +80,7 @@ public class LaborOrder_Base_VM
     }
 
     // method to execute the labor order for the assigned pawn. Overridden by labor specific classes
-    public virtual IEnumerator execute(Pawn_VM pawn)
+    public virtual IEnumerator Execute(Pawn_VM pawn)
     {
         yield return new WaitForSeconds(timeToComplete);
     }

@@ -22,6 +22,18 @@ public class BaseTile_VM : Tile
 
     // This is a ScriptableObject, so no constructor is called when it is created
 
+    // method to return the resource of the tile
+    public GameObject? GetResource()
+    {
+        return resource;
+    }
+
+    // method to return the resourceCount of the tile
+    public int GetResourceCount()
+    {
+        return resourceCount;
+    }
+
     // method to return the position of the tile
     public Vector3 GetPosition()
     {
@@ -111,12 +123,13 @@ public class BaseTile_VM : Tile
         if (resource == null)
         {
             // print the information of the tile include the type, collision, resource, resource count, and position. left align the text using interpolation and evenly space the columns.
-            return $"Tile Type: {type,-10} Collison: {isCollision,-10} Position: {position,-50}";
+            this.position = new Vector3(2, 2, 0);
+            return $"Tile Type: {type,-10} Collision: {isCollision,-10} Position: {position,-50}";
         }
         else
         {
             // print the information of the tile include the type, collision, resource, resource count, and position. left align the text using interpolation and evenly space the columns.
-            return $"Tile Type: {type,-10} Collison: {isCollision,-10} Resource: {resource.name,-10} ResourceCount: {resourceCount,-10} Position: {position,-50}";
+            return $"Tile Type: {type,-10} Collision: {isCollision,-10} Resource: {resource.name,-10} ResourceCount: {resourceCount,-10} Position: {position,-50}";
         }
     }
 

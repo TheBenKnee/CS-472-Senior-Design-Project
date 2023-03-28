@@ -61,8 +61,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    // Awake method to initialize the grid and tilemap components, and Set up the grid with random tiles
-    void Awake()
+    public void InitializeGrid()
     {
         // Get the Grid component from the "Grid" child object
         grid = transform.Find("Grid").GetComponent<Grid>();
@@ -72,5 +71,11 @@ public class GridManager : MonoBehaviour
 
         // Generate the grid with random tiles
         SetTileMap();
+    }
+
+    // Awake method to initialize the grid and tilemap components, and Set up the grid with random tiles
+    void Awake()
+    {
+        InitializeGrid();
     }
 }

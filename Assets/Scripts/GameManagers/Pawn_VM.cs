@@ -24,8 +24,14 @@ public class Pawn_VM : MonoBehaviour
         this.path = path;
     }
 
+    // Get the path for the pawn
+    public List<Vector3> GetPath()
+    {
+        return path;
+    }
+
     // Prints the path for debugging purposes
-    public void printPath()
+    public void PrintPath()
     {
         for (int i = 0; i < path.Count; i++)
         {
@@ -34,7 +40,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Moves the given labor type to the specified priority level
-    public void moveLaborTypeToPriorityLevel(LaborType laborType, int priorityLevel)
+    public void MoveLaborTypeToPriorityLevel(LaborType laborType, int priorityLevel)
     {
         for (int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++)
         {
@@ -104,7 +110,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Coroutine to complete the current labor order
-    private IEnumerator completeCurrentLaborOrder()
+    private IEnumerator CompleteCurrentLaborOrder()
     {
         TileBase foundTile = GetLaborOrderTileFromTilemap();
         TileBase currentTile = GetPawnTileFromTilemap();
@@ -112,14 +118,14 @@ public class Pawn_VM : MonoBehaviour
         if (foundTile == null)
         {
             Debug.LogError("foundTile is null; adding pawn back to labor order manager; breaking out of coroutine");
-            LaborOrderManager_VM.addPawn(this);
+            LaborOrderManager_VM.AddPawn(this);
             yield break;
         }
 
         if (currentTile == null)
         {
             Debug.LogError("currentTile is null; adding pawn back to labor order manager; breaking out of coroutine");
-            LaborOrderManager_VM.addPawn(this);
+            LaborOrderManager_VM.AddPawn(this);
             yield break;
         }
 
@@ -131,13 +137,13 @@ public class Pawn_VM : MonoBehaviour
 
         SetPath(PathfindingManager.GetPath(x, y));
 
-        yield return StartCoroutine(takePath());
+        yield return StartCoroutine(TakePath());
 
-        yield return StartCoroutine(currentLaborOrder.execute(this));
+        yield return StartCoroutine(currentLaborOrder.Execute(this));
 
         Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.GetOrderNumber(),-5} TTC: {currentLaborOrder.GetTimeToComplete(),-10:F2} {"Order Type: " + currentLaborOrder.GetLaborType(),-50} {tarGet.returnTileInformation(),-80}");
 
-        LaborOrderManager_VM.addPawn(this);
+        LaborOrderManager_VM.AddPawn(this);
     }
 
     // Updates the pawn's position based on the path
@@ -158,7 +164,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Coroutine to move the pawn along the path
-    private IEnumerator takePath()
+    private IEnumerator TakePath()
     {
         int pathIndex = 0;
 
@@ -181,8 +187,8 @@ public class Pawn_VM : MonoBehaviour
         }
     }
 
-    // Initialization function
-    void Start()
+    // Initialization function for the labor type priority list
+    public void InitializeLaborTypePriority()
     {
         LaborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
 
@@ -196,6 +202,14 @@ public class Pawn_VM : MonoBehaviour
             }
             LaborTypePriority[randomPriorityLevel].Add(laborType);
         }
+    }
+
+
+    // Initialization function
+    void Start()
+    {
+        // Initialize the labor type priority list
+        InitializeLaborTypePriority();
 
         // Set initial position to the center of the cell at the origin
         transform.position = GridManager.grid.GetCellCenterWorld(Vector3Int.zero);
@@ -214,7 +228,7 @@ public class Pawn_VM : MonoBehaviour
     {
         if (isAssigned)
         {
-            StartCoroutine(completeCurrentLaborOrder());
+            StartCoroutine(CompleteCurrentLaborOrder());
             isAssigned = false;
         }
         else
