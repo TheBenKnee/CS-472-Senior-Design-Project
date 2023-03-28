@@ -33,7 +33,7 @@ public class GridManagerTests
     public void GetTile_ReturnsTileAtPosition()
     {
         gridManager.InitializeGrid();
-        gridManager.SetTileMap();
+        gridManager.GenerateTileMap();
 
         Vector3Int position = new Vector3Int(5, 5, 0);
         BaseTile_VM tile = GridManager.GetTile(position);
@@ -63,7 +63,7 @@ public class GridManagerTests
     public void SetTileMap_GeneratesCorrectNumberOfTiles()
     {
         gridManager.InitializeGrid();
-        gridManager.SetTileMap();
+        gridManager.GenerateTileMap();
 
         int tileCount = 0;
 

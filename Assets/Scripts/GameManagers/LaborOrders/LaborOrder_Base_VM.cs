@@ -14,8 +14,8 @@ public class LaborOrder_Base_VM
     protected int orderNumber;                        // order number of the labor order
 
     // constants used for random constructor
-    private const float MIN_TTC = 0.5f;               // minimum time to complete
-    private const float MAX_TTC = 1.0f;               // maximum time to complete
+    public const float MIN_TTC = 0.5f;               // minimum time to complete
+    public const float MAX_TTC = 1.0f;               // maximum time to complete
 
     // constructor
     public LaborOrder_Base_VM(LaborType laborType, float timeToComplete)
@@ -34,13 +34,20 @@ public class LaborOrder_Base_VM
 
         // choose a random location within the grid that does not have a tile with collision Set to true
         location = new Vector3Int(UnityEngine.Random.Range(GridManager.MIN_HORIZONTAL, GridManager.MAX_HORIZONTAL), UnityEngine.Random.Range(GridManager.MIN_VERTICAL, GridManager.MAX_VERTICAL), 0);
-        while (GridManager.GetTile(location).GetCollision() == true)
-        {
-            location = new Vector3Int(UnityEngine.Random.Range(GridManager.MIN_HORIZONTAL, GridManager.MAX_HORIZONTAL), UnityEngine.Random.Range(GridManager.MIN_VERTICAL, GridManager.MAX_VERTICAL), 0);
-        }
 
-        // Set the order number and add the labor order to the LaborOrderManager_VM
-        orderNumber = LaborOrderManager_VM.GetNumOfLaborOrders();
+        BaseTile_VM tile = GridManager.GetTile(location);
+        if (tile == null)
+        {
+            Debug.LogError("Tile is null.");
+        }else{
+            while (GridManager.GetTile(location).GetCollision() == true)
+            {
+                location = new Vector3Int(UnityEngine.Random.Range(GridManager.MIN_HORIZONTAL, GridManager.MAX_HORIZONTAL), UnityEngine.Random.Range(GridManager.MIN_VERTICAL, GridManager.MAX_VERTICAL), 0);
+            }
+
+            // Set the order number and add the labor order to the LaborOrderManager_VM
+            orderNumber = LaborOrderManager_VM.GetNumOfLaborOrders();
+        }
     }
 
     // default constructor

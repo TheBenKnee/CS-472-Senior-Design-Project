@@ -22,8 +22,14 @@ public class GridManager : MonoBehaviour
         return (BaseTile_VM)tileMap.GetTile(position);
     }
 
+    // Method to set the tileMap
+    public void SetTileMap(Tilemap tMap)
+    {
+        tileMap = tMap;
+    }
+
     // Method to create and Set a random tile for each position in the grid
-    public void SetTileMap()
+    public void GenerateTileMap()
     {
         for (int x = MIN_HORIZONTAL; x < MAX_HORIZONTAL; x++)
         {
@@ -70,7 +76,7 @@ public class GridManager : MonoBehaviour
         tileMap = transform.Find("Grid").GetComponent<Tilemap>();
 
         // Generate the grid with random tiles
-        SetTileMap();
+        GenerateTileMap();
     }
 
     // Awake method to initialize the grid and tilemap components, and Set up the grid with random tiles
