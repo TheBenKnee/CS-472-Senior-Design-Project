@@ -80,7 +80,6 @@ public class Pawn_VM_Tests
         testPawn_VM.SetPath(testPath);
 
         // Assert
-        testPawn_VM.PrintPath();
         Assert.AreEqual(testPath, testPawn_VM.GetPath());
     }
 }

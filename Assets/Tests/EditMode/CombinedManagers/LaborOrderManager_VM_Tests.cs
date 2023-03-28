@@ -10,19 +10,21 @@ using UnityEditor;
 public class LaborOrderManager_VM_Tests
 {
     private LaborOrderManager_VM laborOrderManager;
+    private GameObject laborOrderManagerGO;
 
     [SetUp]
     public void SetUp()
     {
-        GameObject laborOrderManagerPrefab = Resources.Load<GameObject>("LaborOrderManager_VM");
-        GameObject laborOrderManagerInstance = UnityEngine.Object.Instantiate(laborOrderManagerPrefab);
-        laborOrderManager = laborOrderManagerInstance.GetComponent<LaborOrderManager_VM>();
+        // create new GO for adding the LaborOrderManager_VM component
+        laborOrderManagerGO = new GameObject();
+        laborOrderManagerGO.AddComponent<LaborOrderManager_VM>();
+        laborOrderManager = laborOrderManagerGO.GetComponent<LaborOrderManager_VM>();
     }
 
     [TearDown]
     public void TearDown()
     {
-        UnityEngine.Object.DestroyImmediate(laborOrderManager.gameObject);
+        UnityEngine.Object.DestroyImmediate(laborOrderManagerGO);
     }
 
     [Test]
