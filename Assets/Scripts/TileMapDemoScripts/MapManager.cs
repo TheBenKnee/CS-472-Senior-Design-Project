@@ -46,6 +46,7 @@ public class MapManager : MonoBehaviour
             BaseTile baseTile = (BaseTile)clickedTile;
             baseTile.debugPrintInformation();
         }
+        player.updateLocation(10.0f * Time.deltaTime);
     }
 
 

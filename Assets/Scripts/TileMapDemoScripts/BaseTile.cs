@@ -16,32 +16,14 @@ public class BaseTile : Tile
     protected bool isCollision;
     public BaseTile parent;
 
-    //A* Pathfinding Info
-    public List<BaseTile> neighbors = new List<BaseTile>();
-    public int fCost, gCost, hCost = 0;
-
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
         base.GetTileData(position, tilemap, ref tileData);
-
-        x = 0; y = 0;
-
-    public override void RefreshTile(Vector3Int position, ITilemap tilemap)
-    {
-        base.RefreshTile(position, tilemap);
-    }
-
-    private void InitializePathfindingVariables()
-    {
-        distance = -1;
-        visited = false;
-        parent = null;
     }
 
     public override void RefreshTile(Vector3Int position, ITilemap tilemap)
     {
         base.RefreshTile(position, tilemap);
-        Debug.Log("X: " + x + " Y: " + y + " Collision: " + isCollision);
     }
 
     private void InitializePathfindingVariables()
@@ -55,7 +37,6 @@ public class BaseTile : Tile
     {
         this.x = x; this.y = y;
         this.tileType = tileType;
-        this.x = x; this.y = y;
 
         isCollision = collision;
 
