@@ -17,17 +17,28 @@ public class CameraManager
     public void UpdateCamera()
     {
         if (Input.GetKey(KeyCode.W)) {
-            Vector3 target = new Vector3(mainCamera.transform.position.x, CAMERA_BOUNDS, CAMERA_Z_POSITION);
-            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, target, SPEED * Time.deltaTime);
-	    } else if (Input.GetKey(KeyCode.D)) {
-            Vector3 target = new Vector3(CAMERA_BOUNDS, mainCamera.transform.position.y, CAMERA_Z_POSITION);
-            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, target, SPEED * Time.deltaTime);
-	    } else if (Input.GetKey(KeyCode.S)) {
-            Vector3 target = new Vector3(mainCamera.transform.position.x, CAMERA_BOUNDS * -1, CAMERA_Z_POSITION);
-            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, target, SPEED * Time.deltaTime);
-	    } else if (Input.GetKey(KeyCode.A)) {
-            Vector3 target = new Vector3(CAMERA_BOUNDS * -1, mainCamera.transform.position.y, CAMERA_Z_POSITION);
-            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, target, SPEED * Time.deltaTime);
+            Vector3 currentPosition = mainCamera.transform.position;
+            Vector3 target = new Vector3(currentPosition.x, CAMERA_BOUNDS, CAMERA_Z_POSITION);
+            float movementSpeed = SPEED * Time.deltaTime;
+            mainCamera.transform.position = Vector3.MoveTowards(currentPosition, target, movementSpeed);
+	    }
+	    if (Input.GetKey(KeyCode.D)) {
+            Vector3 currentPosition = mainCamera.transform.position;
+            Vector3 target = new Vector3(CAMERA_BOUNDS, currentPosition.y, CAMERA_Z_POSITION);
+            float movementSpeed = SPEED * Time.deltaTime;
+            mainCamera.transform.position = Vector3.MoveTowards(currentPosition, target, movementSpeed);
+	    }
+	    if (Input.GetKey(KeyCode.S)) {
+            Vector3 currentPosition = mainCamera.transform.position;
+            Vector3 target = new Vector3(currentPosition.x, CAMERA_BOUNDS * -1, CAMERA_Z_POSITION);
+            float movementSpeed = SPEED * Time.deltaTime;
+            mainCamera.transform.position = Vector3.MoveTowards(currentPosition, target, movementSpeed);
+	    } 
+	    if (Input.GetKey(KeyCode.A)) {
+            Vector3 currentPosition = mainCamera.transform.position;
+            Vector3 target = new Vector3(CAMERA_BOUNDS * -1, currentPosition.y, CAMERA_Z_POSITION);
+            float movementSpeed = SPEED * Time.deltaTime;
+            mainCamera.transform.position = Vector3.MoveTowards(currentPosition, target, movementSpeed);
 	    }
     }
 }
