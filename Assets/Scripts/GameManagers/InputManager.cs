@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public UIManager uiManager;
-
     // Check for user input
     public static void CheckForInput()
     {
@@ -28,7 +26,7 @@ public class InputManager : MonoBehaviour
 
         if(Input.GetKey("delete"))
         {
-            uiManager.SelectUIMode(1);
+            UIManager.SelectUIMode(1);
         }
     }
 }
