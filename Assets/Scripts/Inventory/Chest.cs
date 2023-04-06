@@ -41,7 +41,7 @@ public class Chest : PlacedObject
     /// <para>Returns the current total quantity of the specified item</para>
     /// <para>Returns -1 if an error has occured</para>
     /// </summary>
-    public void ItemAddedToChest(Item item)
+    public int ItemAddedToChest(Item item)
     {
         bool containsItem = false;
         int quantity = -1;
@@ -90,7 +90,8 @@ public class Chest : PlacedObject
 
                 if (i.Quantity == 0)
                 {
-                    int response = globalStorage.DeleteItem(itemName, this);
+                    contents.Remove(i);
+                    int response = globalStorage.DeleteItem(i, this);
                     if (response == -1)
                     {
                         return -1;
@@ -124,7 +125,7 @@ public class Chest : PlacedObject
                     remainingQuantity = i.Quantity;
                     if (remainingQuantity == 0)
                     {
-                        int response = globalStorage.DeleteItem(item.Name, this);
+                        int response = globalStorage.DeleteItem(item, this);
                         if (response == -1)
                         {
                             return -1;
@@ -156,7 +157,7 @@ public class Chest : PlacedObject
             if (i.Name.Equals(item.Name))
             {
                 remainingQuantity = i.Quantity;
-                contents.RemoveAt(i);
+                contents.Remove(i);
                 break;
             }
         }
