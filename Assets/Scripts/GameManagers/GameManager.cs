@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private const int NUM_OF_PAWNS_TO_SPAWN = 100;
-    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 1000;
+    private const int NUM_OF_PAWNS_TO_SPAWN = 10;
+    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 100;
 
     void Awake()
     {
@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
         LaborOrderManager_VM.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
 
         // initialize the labor order ui
-        //LaborOrderPanelManager.InitializeLaborOrderPanel();
-        //LaborOrderPanelManager.AddButtons();
+        LaborOrderPanelManager.InitializeLaborOrderPanel();
+
     }
 
     void Start()
