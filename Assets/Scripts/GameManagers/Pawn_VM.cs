@@ -244,7 +244,16 @@ public class Pawn_VM : BaseNPC
         // Get the level the pawn is on
         int currentLevel = currentPosition.x / GridManager.LEVEL_WIDTH;
 
-        while (currentPosition != targetPosition)
+        // while the current position is not the target position or any adjacent tile to the target position
+        while ( currentPosition != targetPosition &&
+                currentPosition != targetPosition + Vector3Int.up &&
+                currentPosition != targetPosition + Vector3Int.down &&
+                currentPosition != targetPosition + Vector3Int.left &&
+                currentPosition != targetPosition + Vector3Int.right &&
+                currentPosition != targetPosition + Vector3Int.up + Vector3Int.left &&
+                currentPosition != targetPosition + Vector3Int.up + Vector3Int.right &&
+                currentPosition != targetPosition + Vector3Int.down + Vector3Int.left &&
+                currentPosition != targetPosition + Vector3Int.down + Vector3Int.right)
         {
             // If target location is on a different level, set path to stairs
             if (currentLevel != targetLevel)
@@ -287,18 +296,18 @@ public class Pawn_VM : BaseNPC
                 // Set path to stairs at current level
                 else
                 {
-                    path = PathfindingManager.GetPath(currentPosition, Vector3Int.FloorToInt(stairs.position), currentLevel);
+                    path = PathfindingManager.GetPath(currentPosition, Vector3Int.FloorToInt(stairs.position), currentLevel, true);
 		        }
             }
             // Target level is the same as current level
             else
             {
-                path = PathfindingManager.GetPath(currentPosition, targetPosition, currentLevel);
+                path = PathfindingManager.GetPath(currentPosition, targetPosition, currentLevel, false);
 	        }
 
-            Debug.Log("Starting path");
+            //Debug.Log("Starting path");
             yield return StartCoroutine(TakePath());
-            Debug.Log("Completed path");
+            //Debug.Log("Completed path");
             currentPosition = Vector3Int.FloorToInt(transform.position);
         }
 

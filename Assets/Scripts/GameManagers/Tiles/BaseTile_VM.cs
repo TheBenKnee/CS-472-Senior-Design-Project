@@ -28,6 +28,20 @@ public class BaseTile_VM : Tile
         return (int)position.y;
     }
 
+    // isAdjacent method to check if the tile is adjacent to another tile
+    public bool isAdjacent(BaseTile_VM tile)
+    {
+        // check if the tile is adjacent to the current tile
+        if (Mathf.Abs(tile.GetXPosition() - GetXPosition()) <= 1 && Mathf.Abs(tile.GetYPosition() - GetYPosition()) <= 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     // method to Set the properties of the tile
     public virtual void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent)
     {
