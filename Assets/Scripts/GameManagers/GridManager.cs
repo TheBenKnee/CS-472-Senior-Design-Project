@@ -154,7 +154,7 @@ public class GridManager : MonoBehaviour
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
                 GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
-                tile.SetTileInformation(tile.type, false, tree, tile.resourceCount, tile.position);
+                tile.SetTileInformation(tile.type, true, tree, tile.resourceCount, tile.position);
             }
         }
     }
@@ -169,7 +169,7 @@ public class GridManager : MonoBehaviour
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
                 GameObject bush = GlobalInstance.Instance.entityDictionary.InstantiateEntity("bush", "", tile.position);
-                tile.SetTileInformation(tile.type, false, bush, tile.resourceCount, tile.position);
+                tile.SetTileInformation(tile.type, true, bush, tile.resourceCount, tile.position);
             }
         }
     }

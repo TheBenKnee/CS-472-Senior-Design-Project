@@ -165,7 +165,6 @@ public class Pawn_VM : BaseNPC
         anim.SetAnimParameter("walking", false); // Not moving
     }
 
-
     // Method to move a given laborType to the priority level above the current one
     public void MoveLaborTypeUpPriorityLevel(LaborType laborType)
     {
@@ -335,6 +334,7 @@ public class Pawn_VM : BaseNPC
             {
                 PawnList[i].hunger = 0;
                 PawnList[i].Die("has starved to death.");
+
             }
             else if (PawnList[i].hunger < PawnHunger.HUNGER_RESPONSE_THRESHOLD)
             {
@@ -355,6 +355,9 @@ public class Pawn_VM : BaseNPC
     public override void Die() { Die("has died."); }
     public void Die(string cause)
     {
+        anim.SetAnimParameter("dead", true);
+        path = null;
+        currentLaborOrder = null;
         PawnList.Remove(this);
         LaborOrderManager_VM.RemoveSpecificPawn(this);
         CancelCurrentLaborOrder();
