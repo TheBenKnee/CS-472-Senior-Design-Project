@@ -16,24 +16,25 @@ public class Pawn_VM : MonoBehaviour
     private float pawnSpeed;                                                // Speed of the pawn movement
     private Vector3Int position;                                            // Current position of the pawn in the grid
     private string pawnName;                                                // Name of the pawn
+    private AnimatorController anim;
 
-    // pawn constructor
-    public Pawn_VM()
-    {
-        // Initialize the priority list for different types of labor
-        laborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
-        for (int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++)
-        {
-            laborTypePriority[i] = new List<LaborType>();
-        }
-
-        // Initialize the path list
-        path = new List<Vector3>();
-
-        // Initialize the pawn name
-        pawnName = "Pawn " + pawnCount;
-        pawnCount++;
-    }
+    //// pawn constructor
+    //public Pawn_VM()
+    //{
+    //    // Initialize the priority list for different types of labor
+    //    laborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
+    //    for (int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++)
+    //    {
+    //        laborTypePriority[i] = new List<LaborType>();
+    //    }
+    //
+    //    // Initialize the path list
+    //    path = new List<Vector3>();
+    //
+    //    // Initialize the pawn name
+    //    pawnName = "Pawn " + pawnCount;
+    //    pawnCount++;
+    //}
 
     // Method to return the number of priority levels
     public int GetPriorityLevelsCount()
@@ -95,12 +96,24 @@ public class Pawn_VM : MonoBehaviour
     // Coroutine to move the pawn along the path
     protected IEnumerator TakePath()
     {
+        anim.SetAnimParameter("walking", true);
+
         int pathIndex = 0;
 
         while (pathIndex < path.Count)
         {
             Vector3Int cellPosition = GridManager.grid.WorldToCell(path[pathIndex]);
             Vector3 centeredWorldPosition = GridManager.grid.GetCellCenterWorld(cellPosition);
+
+            // Determine if the pawn is moving left or right
+            if (centeredWorldPosition.x > transform.position.x)
+            {
+                anim.SetAnimParameter("xMovement", Vector3.right.x); // Moving right
+            }
+            else if (centeredWorldPosition.x < transform.position.x)
+            {
+                anim.SetAnimParameter("xMovement", Vector3.left.x); // Moving left
+            }
 
             transform.position = Vector3.MoveTowards(transform.position, centeredWorldPosition, pawnSpeed * Time.deltaTime);
 
@@ -113,7 +126,10 @@ public class Pawn_VM : MonoBehaviour
                 yield return null;
             }
         }
+
+        anim.SetAnimParameter("walking", false); // Not moving
     }
+
 
     // Method to move a given laborType to the priority level above the current one
     public void MoveLaborTypeUpPriorityLevel(LaborType laborType)
@@ -245,7 +261,9 @@ public class Pawn_VM : MonoBehaviour
                 path = PathfindingManager.GetPath(currentPosition, targetPosition, currentLevel);
 	        }
 
+            Debug.Log("Starting path");
             yield return StartCoroutine(TakePath());
+            Debug.Log("Completed path");
             currentPosition = Vector3Int.FloorToInt(transform.position);
         }
 
@@ -265,6 +283,9 @@ public class Pawn_VM : MonoBehaviour
     // Initialization function for the pawn
     void Awake()
     {
+        // animator
+        anim = GetComponent<AnimatorController>();
+        
         // Initialize the labor type priority list
         laborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
 

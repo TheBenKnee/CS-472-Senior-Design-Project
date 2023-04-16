@@ -22,6 +22,12 @@ public class LaborOrderManager_VM : MonoBehaviour
     // Method to Get the total number of labor tasks in the queue
     public static int GetLaborOrderCount()
     {
+        // return if laborQueues is null
+        if (laborQueues == null)
+        {
+            return 0;
+        }
+
         int total = 0;
         for (int i = 0; i < GetLaborTypesCount(); i++)
         {

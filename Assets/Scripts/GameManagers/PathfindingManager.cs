@@ -5,12 +5,41 @@ using UnityEngine;
 // PathfindingManager class to compute paths
 public class PathfindingManager : MonoBehaviour
 {
+
+    // method that returns the location of an adjacent tile of a given tile that is not a collision
+    public static Vector3Int GetAdjacentTile(Vector3Int tile)
+    {
+        Vector3Int adjacentTile = new Vector3Int();
+        List<Vector3Int> adjacentTiles = new List<Vector3Int>();
+        adjacentTiles.Add(new Vector3Int(tile.x + 1, tile.y, tile.z));
+        adjacentTiles.Add(new Vector3Int(tile.x - 1, tile.y, tile.z));
+        adjacentTiles.Add(new Vector3Int(tile.x, tile.y + 1, tile.z));
+        adjacentTiles.Add(new Vector3Int(tile.x, tile.y - 1, tile.z));
+
+        foreach (Vector3Int t in adjacentTiles)
+        {
+            if (!GridManager.GetTile(t).isCollision)
+            {
+                adjacentTile = t;
+                break;
+            }
+        }
+
+        return adjacentTile;
+    }
+
     public static List<Vector3> GetPath(Vector3Int start, Vector3Int target, int level)
     {
         GridManager.ResetGrid(level);
         PriorityQueue<BaseTile_VM> unvisited = new PriorityQueue<BaseTile_VM>();
         BaseTile_VM startTile = GridManager.GetTile(start);
-        BaseTile_VM targetTile = GridManager.GetTile(target);
+
+        // NEW: find an adjacent tile to the target tile that is not a collision
+        Vector3Int adjacentTile = GetAdjacentTile(target);
+        BaseTile_VM targetTile = GridManager.GetTile(adjacentTile);
+        //BaseTile_VM targetTile = GridManager.GetTile(target);
+        
+
         startTile.distance = 0;
         unvisited.Enqueue(startTile, 0);
 

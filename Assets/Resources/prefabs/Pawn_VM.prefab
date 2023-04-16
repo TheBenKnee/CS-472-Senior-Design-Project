@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1110198859314352595}
   - component: {fileID: 7419830210777840979}
   - component: {fileID: 1110198859314352597}
+  - component: {fileID: -6212351786046154490}
+  - component: {fileID: -8397261251115020685}
   m_Layer: 0
   m_Name: Pawn_VM
   m_TagString: Untagged
@@ -97,3 +99,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &-6212351786046154490
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110198859314352592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cfbd5008afdf72440a4ebaacd1ae1062, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &-8397261251115020685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110198859314352592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: -6212351786046154490}
