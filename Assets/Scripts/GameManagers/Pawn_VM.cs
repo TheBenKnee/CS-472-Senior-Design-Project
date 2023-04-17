@@ -17,12 +17,14 @@ public class Pawn_VM : BaseNPC
     private Vector3Int position;                                            // Current position of the pawn in the grid
     private string pawnName;                                                // Name of the pawn
     private Coroutine currentExecution;                                     // holds a reference to labor order execute() coroutine
+    private Coroutine currentPathExecution;                                     // holds a reference to labor order execute() coroutine
     private AnimatorController anim;
 
     public static List<Pawn_VM> PawnList = new List<Pawn_VM>();             // a list of all living pawns
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
     [SerializeField] public int hunger = 100;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
+    bool isDead = false;
 
     // pawn constructor
     public Pawn_VM()
@@ -305,7 +307,8 @@ public class Pawn_VM : BaseNPC
 	        }
 
             //Debug.Log("Starting path");
-            yield return StartCoroutine(TakePath());
+            currentPathExecution = StartCoroutine(TakePath());
+            yield return currentPathExecution;
             //Debug.Log("Completed path");
             currentPosition = Vector3Int.FloorToInt(transform.position);
         }
@@ -349,6 +352,8 @@ public class Pawn_VM : BaseNPC
         path.Clear();
         if (currentExecution != null)
             StopCoroutine(currentExecution);
+        if (currentPathExecution != null)
+            StopCoroutine(currentPathExecution);
     }
 
     // kills the pawn. Cancels labor order and removes them from appropriate lists.
@@ -363,7 +368,7 @@ public class Pawn_VM : BaseNPC
         refuseLaborOrders = true;
         Debug.Log(pawnName + " " + cause);
         //base.Die();
-        GlobalInstance.Instance.entityDictionary.DestroySaveableObject(this);
+        //GlobalInstance.Instance.entityDictionary.DestroySaveableObject(this);
         // maybe check if PawnList is empty to initiate the Game Lose here
     }
 
