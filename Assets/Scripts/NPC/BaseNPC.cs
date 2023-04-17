@@ -8,11 +8,11 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class BaseNPC : SaveableEntity
 {
-    [SerializeField] private float damagedAnimationDuration = 1f;
-    [SerializeField] private float deathAnimationDuration = 1f;
-    [SerializeField] private float immuneFrameDuration = 2f;
-    [SerializeField] private float timeBetweenFlashes = 0.5f;
-    [SerializeField] private Color flashColor;
+    private float damagedAnimationDuration = 1f;
+    private float deathAnimationDuration = 1f;
+    private float immuneFrameDuration = 2f;
+    private float timeBetweenFlashes = 0.5f;
+    private Color flashColor;
     private Color originalColor;
     public NPCStats stats = new NPCStats();
     StateMachine myState;

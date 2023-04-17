@@ -240,7 +240,6 @@ public class LaborOrderManager_VM : MonoBehaviour
         return pawn;
     }
 	
-	
 	// Finds all objects that can be associated with a labor order and adds them to the manager
     //  For testing purposes
     public static void PopulateObjectLaborOrders()
@@ -251,7 +250,7 @@ public class LaborOrderManager_VM : MonoBehaviour
             if (obj.name == "Tree(Clone)")
             {
                 LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Woodcut_VM(obj));
-            } else if(obj.name == "Bush(Clone)")
+            } else if(obj.name == "Bush(Clone)" && obj.GetComponent<Bush>().berryCount > 0)
             {
                 LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj,false));
             }

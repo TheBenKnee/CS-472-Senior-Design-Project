@@ -21,7 +21,7 @@ public class Pawn_VM : BaseNPC
 
     public static List<Pawn_VM> PawnList = new List<Pawn_VM>();             // a list of all living pawns
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
-    public int hunger = 100;                                                // Hunger level of the pawn. Starves at 0
+    [SerializeField] public int hunger = 100;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
 
     // pawn constructor
@@ -91,7 +91,7 @@ public class Pawn_VM : BaseNPC
         TileBase tile = GridManager.tileMap.GetTile(GridManager.tileMap.WorldToCell(transform.position));
         if (tile == null)
         {
-            Debug.LogError(pawnName + " found a null tile at current location - GetPawnTileFromTilemap");
+            Debug.LogWarning(pawnName + " found a null tile at current location - GetPawnTileFromTilemap");
             return null;
         }
         return tile;
@@ -103,7 +103,7 @@ public class Pawn_VM : BaseNPC
         TileBase tile = GridManager.tileMap.GetTile(currentLaborOrder.location);
         if (tile == null)
         {
-            Debug.LogError(pawnName + " found a null tile at current location - GetLaborOrderTileFromTilemap");
+            Debug.LogWarning(pawnName + " found a null tile at current location - GetLaborOrderTileFromTilemap");
             return null;
         }
         return tile;
@@ -174,7 +174,7 @@ public class Pawn_VM : BaseNPC
             {
                 if (i == 0)
                 {
-                    Debug.LogError("Cannot move labor type up priority level; already at the highest priority level");
+                    Debug.LogWarning("Cannot move labor type up priority level; already at the highest priority level");
                     return;
                 }
                 else
@@ -197,7 +197,7 @@ public class Pawn_VM : BaseNPC
             {
                 if (i == NUM_OF_PRIORITY_LEVELS - 1)
                 {
-                    Debug.LogError("Cannot move labor type down priority level; already at the lowest priority level");
+                    Debug.LogWarning("Cannot move labor type down priority level; already at the lowest priority level");
                     return;
                 }
                 else
@@ -220,14 +220,14 @@ public class Pawn_VM : BaseNPC
 
         if (foundTile == null)
         {
-            Debug.LogError("foundTile is null; adding pawn back to labor order manager; breaking out of coroutine");
+            Debug.LogWarning("foundTile is null; adding pawn back to labor order manager; breaking out of coroutine");
             LaborOrderManager_VM.AddAvailablePawn(this);
             yield break;
         }
 
         if (currentTile == null)
         {
-            Debug.LogError("currentTile is null; adding pawn back to labor order manager; breaking out of coroutine");
+            Debug.LogWarning("currentTile is null; adding pawn back to labor order manager; breaking out of coroutine");
             LaborOrderManager_VM.AddAvailablePawn(this);
             yield break;
         }
@@ -266,7 +266,7 @@ public class Pawn_VM : BaseNPC
                     stairs = GridManager.mapLevels[currentLevel].getDescendingStairs_VM(currentPosition);
                     if(stairs == null)
                     {
-                        Debug.LogError("descending stairs tile is null at CompleteLaborOrder()");
+                        Debug.LogWarning("descending stairs tile is null at CompleteLaborOrder()");
                         break;
 		            }
                     levelChangeStairsPosition = stairs.getLowerLevelStairs().position;
@@ -277,7 +277,7 @@ public class Pawn_VM : BaseNPC
                     stairs = GridManager.mapLevels[currentLevel].getAscendingStairs_VM(currentPosition);
                     if(stairs == null)
                     {
-                        Debug.LogError("ascending stairs tile is null at CompleteLaborOrder()");
+                        Debug.LogWarning("ascending stairs tile is null at CompleteLaborOrder()");
                         break;
 		            }
                     levelChangeStairsPosition = stairs.getUpperLevelStairs().position;
@@ -355,9 +355,8 @@ public class Pawn_VM : BaseNPC
     public override void Die() { Die("has died."); }
     public void Die(string cause)
     {
+        CancelCurrentLaborOrder();
         anim.SetAnimParameter("dead", true);
-        path = null;
-        currentLaborOrder = null;
         PawnList.Remove(this);
         LaborOrderManager_VM.RemoveSpecificPawn(this);
         CancelCurrentLaborOrder();

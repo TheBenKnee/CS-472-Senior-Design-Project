@@ -159,6 +159,24 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    // Spawn a single tree at some random vacant grass tile
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithTree()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        int random = Random.Range(0, allTiles.Length);
+        for (int i = 0; i < allTiles.Length; i++)
+        {
+            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
+            {
+                GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
+                tile.SetTileInformation(tile.type, true, tree, tile.resourceCount, tile.position);
+                break;
+            }
+        }
+    }
+
     // Spawns bushes on random vacant grass tiles
     // requires GlobalInstance2 (TMPCombined) in scene
     public static void PopulateWithBushes()

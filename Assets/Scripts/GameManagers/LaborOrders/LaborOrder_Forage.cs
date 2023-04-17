@@ -15,7 +15,7 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
     private static float BASE_TTC = 1.5f;
     private GameObject targetObject;
     private bool storeInChest;              // true will follow up with a labor order to store the items in a chest, false keeps in inventory. // todo
-    private readonly int BerryFoodValue = 1;
+    private readonly int BerryFoodValue = 10;
     private ObjectType type;
 
     // constructor

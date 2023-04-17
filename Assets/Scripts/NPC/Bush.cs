@@ -8,7 +8,7 @@ public class Bush : SaveableEntity
     public int berryCount = 0;
 
     private const int MAX_BERRIES = 100;
-    private const int FULL_SPRITE_THRESHOLD = 30;
+    private const int FULL_SPRITE_THRESHOLD = 1;
     
     private SpriteRenderer spriteRenderer;
     public Sprite bush_full;

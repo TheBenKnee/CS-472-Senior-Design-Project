@@ -29,9 +29,9 @@ public class GameManager : MonoBehaviour
         {
             NUM_OF_PAWNS_TO_SPAWN = 2;
             NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
-            GridManager.PopulateWithTrees();
-            GridManager.PopulateWithBushes();
-            GridManager.PopulateWithWheat();
+            //GridManager.PopulateWithTrees();
+            //GridManager.PopulateWithBushes();
+            //GridManager.PopulateWithWheat();
         }
 
         // initialize the labor order manager
