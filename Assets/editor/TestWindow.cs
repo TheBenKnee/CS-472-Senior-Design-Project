@@ -2,12 +2,12 @@
 using UnityEditor;
 using UnityEngine;
 
-public class LaborOrderManagerWindow : EditorWindow
+public class TestWindow : EditorWindow
 {
-    [MenuItem("Window/Grid Manager")]
+    [MenuItem("Window/Test Functions")]
     public static void ShowWindow()
     {
-        GetWindow<LaborOrderManagerWindow>("Grid Manager");
+        GetWindow<TestWindow>("Test Functions");
     }
 
     private void OnGUI()
@@ -31,5 +31,21 @@ public class LaborOrderManagerWindow : EditorWindow
         {
             GridManager.PopulateWithBushes();
         }
+
+        if (GUILayout.Button("Generate Place Order (ErrorObject)"))
+        {
+            GameObject testObj = Resources.Load("prefabs/ErrorObject") as GameObject;
+            LaborOrderManager_VM.AddPlaceLaborOrder(testObj);
+        }
+
+        if (GUILayout.Button("Clear Labor Orders"))
+        {
+            LaborOrderManager_VM.ClearLaborOrders();
+        }
+
+        if (GUILayout.Button("Spawn Chest"))
+        {
+            GridManager.PopulateWithChest();
+        }      
     }
 }

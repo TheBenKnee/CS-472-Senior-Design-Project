@@ -22,9 +22,9 @@ public class Pawn_VM : BaseNPC
 
     public static List<Pawn_VM> PawnList = new List<Pawn_VM>();             // a list of all living pawns
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
-    [SerializeField] public int hunger = 100;                               // Hunger level of the pawn. Starves at 0
+    [SerializeField] public int hunger = 10000;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
-    bool isDead = false;
+    //bool isDead = false;
 
     // pawn constructor
     public Pawn_VM()

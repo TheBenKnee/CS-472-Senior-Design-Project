@@ -8,9 +8,10 @@ public class CameraManager
 {
     private static readonly Camera mainCamera = Camera.main;
     private static readonly int CAMERA_Z_POSITION = 0;
-    private static float SPEED = 30.0f;
+    private static float SPEED = 20.0f;
     private static readonly float DEFAULT_ORTHOGRAPHIC_SIZE = 11.0f;
     private static readonly float ZOOM_IN_LIMIT = 7.0f;
+    private static readonly float ZOOM_SPEED = 0.5f;
     private static int currentLevel;
 
     public static void InitializeCamera()
@@ -158,7 +159,7 @@ public class CameraManager
     {
         currentLevel = getCurrentLevel();
         float delta = Input.mouseScrollDelta.y;
-        float newHeight = mainCamera.orthographicSize + (delta * 0.1f);
+        float newHeight = mainCamera.orthographicSize + (delta * ZOOM_SPEED); // NEW
         float newWidth = newHeight * mainCamera.aspect;
 
         float cameraX = mainCamera.transform.position.x;

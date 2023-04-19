@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
     // Constants for the size of a level
     public static List<Level> mapLevels;
     public static readonly int LEVEL_WIDTH = 100;
-    public static readonly int LEVEL_HEIGHT = 100;
+    public static readonly int LEVEL_HEIGHT = 50;
 
 
     // Method to reset grid values for pathfinding
@@ -154,6 +154,8 @@ public class GridManager : MonoBehaviour
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
                 GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
+                // move the game object to be a child of the GameManager > Objects
+                tree.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, tree, tile.resourceCount, tile.position);
             }
         }
@@ -171,7 +173,29 @@ public class GridManager : MonoBehaviour
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
             {
                 GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
+                // move the game object to be a child of the GameManager > Objects
+                tree.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, tree, tile.resourceCount, tile.position);
+                break;
+            }
+        }
+    }
+
+    // Spawn a single chest at some random vacant grass tile
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithChest()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        int random = Random.Range(0, allTiles.Length);
+        for (int i = 0; i < allTiles.Length; i++)
+        {
+            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
+            {
+                GameObject chest = GlobalInstance.Instance.entityDictionary.InstantiateEntity("chest", "", tile.position);
+                // move the game object to be a child of the GameManager > Objects
+                chest.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, true, chest, tile.resourceCount, tile.position);
                 break;
             }
         }
@@ -187,6 +211,8 @@ public class GridManager : MonoBehaviour
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
                 GameObject bush = GlobalInstance.Instance.entityDictionary.InstantiateEntity("bush", "", tile.position);
+                // move the game object to be a child of the GameManager > Objects
+                bush.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, bush, tile.resourceCount, tile.position);
             }
         }
@@ -203,6 +229,8 @@ public class GridManager : MonoBehaviour
             if (tile != null && tile.type == TileType.SAND && tile.resource == null && Random.Range(0, 10) == 0)
             {
                 GameObject wheat = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wheat", "", tile.position);
+                // move the game object to be a child of the GameManager > Objects
+                wheat.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, false, wheat, tile.resourceCount, tile.position);
             }
         }

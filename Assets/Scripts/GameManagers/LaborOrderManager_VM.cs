@@ -19,6 +19,22 @@ public class LaborOrderManager_VM : MonoBehaviour
     private const int NUM_OF_PAWNS_TO_SPAWN = 1000;
     private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 10000;
 
+    // Method to remove all labor orders from the queue
+    public static void ClearLaborOrders()
+    {
+        // return if laborQueues is null
+        if (laborQueues == null)
+        {
+            return;
+        }
+
+        // clear all labor orders
+        for (int i = 0; i < GetLaborTypesCount(); i++)
+        {
+            laborQueues[i].Clear();
+        }
+    }
+
     // Method to Get the total number of labor tasks in the queue
     public static int GetLaborOrderCount()
     {
@@ -35,6 +51,16 @@ public class LaborOrderManager_VM : MonoBehaviour
         }
         return total;
     }
+
+    // Method to add a place labor order to the queue
+    public static void AddPlaceLaborOrder(GameObject itemToPlace)
+    {
+        // create a new place labor order
+        LaborOrder_Place placeOrder = new LaborOrder_Place(itemToPlace);
+        // add the labor order to the queue
+        laborQueues[(int)LaborType.Place].Enqueue(placeOrder);
+    }
+    
 
     // Method to Get the total number of labor types
     public static int GetLaborTypesCount()
@@ -253,6 +279,9 @@ public class LaborOrderManager_VM : MonoBehaviour
             } else if(obj.name == "Bush(Clone)" && obj.GetComponent<Bush>().berryCount > 0)
             {
                 LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj,false));
+            } else if(obj.name == "Wood(Clone)")
+            {
+                //LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather());
             }
         }
     }

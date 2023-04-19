@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private int NUM_OF_PAWNS_TO_SPAWN = 20;
-    private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 100;
-    private const int NUM_OF_LEVELS = 4;
+    //private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 10;
+    private const int NUM_OF_LEVELS = 10;
 
     void Awake()
     {
@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
 		// Add objects to the map if GlobalInstance2 (TMPCombined) exists
         if (GameObject.Find("GlobalReference") != null)
         {
-            NUM_OF_PAWNS_TO_SPAWN = 2;
-            NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
+            //NUM_OF_PAWNS_TO_SPAWN = 2;
+            //NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
             GridManager.PopulateWithTrees();
             GridManager.PopulateWithBushes();
             GridManager.PopulateWithWheat();
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         LaborOrderManager_VM.FillWithRandomPawns(NUM_OF_PAWNS_TO_SPAWN);
 
         // fill the labor order manager with random labor orders
-        LaborOrderManager_VM.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
+        //LaborOrderManager_VM.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
 
         // initialize the labor order ui
         // LaborOrderPanelManager.InitializeLaborOrderPanel();
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 		// create labor orders for objects if GlobalInstance2 (TMPCombined) exists
         if (GameObject.Find("GlobalReference") != null)
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrders();
+            //LaborOrderManager_VM.PopulateObjectLaborOrders();
         }
     }
 
