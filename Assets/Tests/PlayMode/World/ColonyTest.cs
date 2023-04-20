@@ -13,7 +13,7 @@ namespace Tests
 		[OneTimeSetUp]
 		public void LoadScene()
 		{
-			SceneManager.LoadScene("NPCDamageTesting");
+			SceneManager.LoadScene("ColonyInfoTest");
 		}
 
 		[UnityTest]
