@@ -46,6 +46,11 @@ public class TestWindow : EditorWindow
         if (GUILayout.Button("Spawn Chest"))
         {
             GridManager.PopulateWithChest();
-        }      
+        }
+
+        if (GUILayout.Button("Generate Destroy Order (ErrorObject)"))
+        {
+            LaborOrderManager_VM.AddDestroyLaborOrder();
+        }
     }
 }
