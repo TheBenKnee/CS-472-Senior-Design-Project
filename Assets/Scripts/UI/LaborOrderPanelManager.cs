@@ -8,23 +8,25 @@ public class LaborOrderPanelManager : MonoBehaviour
 {
 
     // Containers for pawns and buttons
-    public static GameObject buttonContainer;
-    public static GameObject pawnContainer;
-    public static GameObject pawnNameContainer;
-    public static GameObject LaborNameContainer;
+    public  GameObject buttonContainer;
+    public  GameObject pawnContainer;
+    public  GameObject pawnNameContainer;
+    public  GameObject LaborNameContainer;
 
     // Prefabs for display.
-    public static GameObject button_prefab;
-    public static GameObject pawnText_prefab;
-    public static GameObject LaborText_prefab;
+    public  GameObject button_prefab;
+    public  GameObject pawnText_prefab;
+    public  GameObject LaborText_prefab;
 
     // For formatting panel.
     public static GameObject content;
+    private static float spacing;
 
     // Panel text objects.
-    public static GameObject[] laborTypeNames;
+    public  GameObject[] laborTypeNames;
     
-    public static void InitializeLaborOrderPanel()
+    [ContextMenu("TestInit")]
+    public  void InitializeLaborOrderPanel()
     {
 
         buttonContainer = GameObject.Find("Buttons");
@@ -70,7 +72,7 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
     // Add buttons for the addition of a pawn.
-    public static void AddPawnButtons(GameObject pawn)
+    public  void AddPawnButtons(GameObject pawn)
     {
         
         // Add pawn text.
@@ -91,19 +93,18 @@ public class LaborOrderPanelManager : MonoBehaviour
 
             buttonComponent.pawn = pawnComponent;
             buttonComponent.labor = LaborOrderManager_VM.GetLaborType(LaborOrderManager_VM.GetLaborTypeName(i));
-            buttonComponent.textObj = GameObject.Find(newButton.name + "/Text");
             buttonComponent.InitializePawnButton();
 
         }
 
         // Resize content.
         var rectTransform = content.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + 40);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + spacing);
 
     }
 
     // Remove buttons for the removal of a pawn.
-    public static void RemovePawnButtons(GameObject pawn)
+    public  void RemovePawnButtons(GameObject pawn)
     {
         // Remove pawn name.
         Pawn_VM pawnComponent = pawn.GetComponent<Pawn_VM>();
@@ -119,12 +120,12 @@ public class LaborOrderPanelManager : MonoBehaviour
 
         // Resize content.
         var rectTransform = content.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y - 40);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y - spacing);
 
     }
 
     // Make adjustments for layout.
-    public static void AdjustGridLayout()
+    public  void AdjustGridLayout()
     {
 
         // Adjust button layout.
@@ -144,6 +145,8 @@ public class LaborOrderPanelManager : MonoBehaviour
 
         var rectTransform = content.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, 0);
+
+        spacing = pawnNameGrid.spacing.y + pawnNameGrid.cellSize.y;
 
     }
 
