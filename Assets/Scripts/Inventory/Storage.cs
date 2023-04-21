@@ -5,11 +5,11 @@ using System.Collections.Generic;
 public class Storage : MonoBehaviour
 {
     public List<Item> storageList;
-    public List<Pawn> workersList;
+    public List<Pawn_VM> workersList;
 
     public List<Item> filter;
 
-    public LaborOrder zoneAssignedOrder;
+    public LaborOrder_Base_VM zoneAssignedOrder;
 
     /*
         Basic Constructor
@@ -17,7 +17,7 @@ public class Storage : MonoBehaviour
     public Storage()
     {
         storageList = new List<Item>();
-        workersList = new List<Pawn>();
+        workersList = new List<Pawn_VM>();
         filter = new List<Item>();
         zoneAssignedOrder = null;
     }
@@ -27,14 +27,14 @@ public class Storage : MonoBehaviour
         Returns -1 if unsuccessful.
         Returns new size of worker list if successful.
     */
-    public virtual int addWorker(Pawn pawn)
+    public virtual int addWorker(Pawn_VM pawn)
     {
         if (workersList.Contains(pawn))
         {
             return -1;
         }
         
-        pawn.setCurrentLaborOrder(zoneAssignedOrder);
+        pawn.SetCurrentLaborOrder(zoneAssignedOrder);
         workersList.Add(pawn);
 
         return workersList.Count;
@@ -45,14 +45,14 @@ public class Storage : MonoBehaviour
         Returns -1 if unsuccessful.
         Returns new size of worker list if successful.
     */
-    public virtual int removeWorker(Pawn pawn)
+    public virtual int removeWorker(Pawn_VM pawn)
     {
         int pawnIndex = -1;
 
         for (int i = 0; i < workersList.Count; ++i)
         {
             var p = workersList[i];
-            if (p.getPawnName().ToLower().Equals(pawn.getPawnName().ToLower()))
+            if (p.GetPawnName().ToLower().Equals(pawn.GetPawnName().ToLower()))
             {
                 pawnIndex = i;
                 break;
@@ -71,7 +71,7 @@ public class Storage : MonoBehaviour
     /*
         Changes the current zone assigned order to the order passed in
     */
-    public virtual void changeZoneTask(LaborOrder order)
+    public virtual void changeZoneTask(LaborOrder_Base_VM order)
     {
         zoneAssignedOrder = order;
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Chest : MonoBehaviour
+public class Chest : PlacedObject
 {
     public List<Item> contents = new List<Item>();
 
@@ -25,6 +25,14 @@ public class Chest : MonoBehaviour
         globalStorage = gs;
         globalStorage.inventories.Add(this);
         coordinate = coord;
+    }
+
+    /// "Override" for whenever a new chest is placed
+    public void PlaceObject(BaseTile location, GlobalStorage gs)
+    {
+        homeTile = location;
+        globalStorage = gs;
+        globalStorage.inventories.Add(this);
     }
 
     /// <summary>

@@ -94,11 +94,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 241000566000305997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdb75a2a81a60004cbfaa05f5b16cc82, type: 3}
+  m_Script: {fileID: 11500000, guid: a766f500c9a4f6c409abdd82663838cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
   currentLocation: {fileID: 0}
-  berryCount: 0
-  bush_full: {fileID: 21300000, guid: 9a90c36a273a74240b948a48b8a1296f, type: 3}
-  bush_empty: {fileID: 21300000, guid: fa58ec3e07b10a84882f4b967a12fab1, type: 3}

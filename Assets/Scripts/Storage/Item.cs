@@ -1,14 +1,5 @@
 [System.Serializable]
 
-public enum Rarity
-{
-    Common,
-    Uncommon,
-    Rare,
-    Unique,
-    Legendary
-}
-
 public class Item
 {
     public string Name = "";
