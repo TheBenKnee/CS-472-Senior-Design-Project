@@ -1,8 +1,8 @@
-Base
- + Woodcutting
-Mining
- + Foraging
-Gathering
-Crafting
-Placing
-Deconstruct
+[X] Base
+[X] Woodcutting
+[ ] Mining
+[X] Foraging
+[ ] Gathering
+[ ] Crafting
+[ ] Placing
+[ ] Deconstruct
