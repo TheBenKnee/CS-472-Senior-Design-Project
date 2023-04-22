@@ -64,43 +64,52 @@ public class GridManager : MonoBehaviour
         // Add new level to map levels list
         mapLevels.Add(new Level(mapLevels.Count, xMin, xMax, yMin, yMax));
 
-        float sandRadius = Mathf.Min(xMax, yMax) * 0.4f;
-        float grassRadius = sandRadius * 0.8f;
-        float jaggednessScale = 0.1f;
-        Vector2 center = new Vector2(xMax / 2f, yMax / 2f);
-
         // Set tiles for level
         for (int x = xMin; x < xMax; x++)
         {
             for (int y = yMin; y < yMax; y++)
             {
                 Vector3Int position = new Vector3Int(x, y, 0);
-                Vector2 currentPos = new Vector2(x, y);
 
-                float distanceFromCenter = Vector2.Distance(currentPos, center);
-                float noiseValue = Mathf.PerlinNoise(x * jaggednessScale, y * jaggednessScale);
+                if (mapLevels.Count == 1) // Top layer
+                {
+                    Vector2 currentPos = new Vector2(x, y);
+                    float sandRadius = Mathf.Min(xMax, yMax) * 0.4f;
+                    float grassRadius = sandRadius * 0.8f;
+                    float jaggednessScale = 0.1f;
+                    Vector2 center = new Vector2(xMax / 2f, yMax / 2f);
 
-                // Water tiles on the outer perimeter
-                if (distanceFromCenter >= sandRadius + (sandRadius * 0.5f * noiseValue))
-                {
-                    WaterTile_VM newWaterTile_VM = ScriptableObject.CreateInstance<WaterTile_VM>();
-                    tileMap.SetTile(position, newWaterTile_VM);
-                    newWaterTile_VM.SetTileData(TileType.WATER, false, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null);
+                    float distanceFromCenter = Vector2.Distance(currentPos, center);
+                    float noiseValue = Mathf.PerlinNoise(x * jaggednessScale, y * jaggednessScale);
+
+                    // Water tiles on the outer perimeter
+                    if (distanceFromCenter >= sandRadius + (sandRadius * 0.5f * noiseValue))
+                    {
+                        WaterTile_VM newWaterTile_VM = ScriptableObject.CreateInstance<WaterTile_VM>();
+                        tileMap.SetTile(position, newWaterTile_VM);
+                        newWaterTile_VM.SetTileData(TileType.WATER, false, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null);
+                    }
+                    // Sand tiles in jagged circular portion
+                    else if (distanceFromCenter < sandRadius + (sandRadius * 0.5f * noiseValue) &&
+                            distanceFromCenter >= grassRadius + (grassRadius * 0.5f * noiseValue))
+                    {
+                        SandTile_VM newSandTile_VM = ScriptableObject.CreateInstance<SandTile_VM>();
+                        tileMap.SetTile(position, newSandTile_VM);
+                        newSandTile_VM.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
+                    }
+                    // Grass tiles in smaller jagged circular portion
+                    else
+                    {
+                        GrassTile_VM newGrassTile_VM = ScriptableObject.CreateInstance<GrassTile_VM>();
+                        tileMap.SetTile(position, newGrassTile_VM);
+                        newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
+                    }
                 }
-                // Sand tiles in jagged circular portion
-                else if (distanceFromCenter < sandRadius + (sandRadius * 0.5f * noiseValue) &&
-                        distanceFromCenter >= grassRadius + (grassRadius * 0.5f * noiseValue))
+                else // All layers below the top layer
                 {
-                    SandTile_VM newSandTile_VM = ScriptableObject.CreateInstance<SandTile_VM>();
-                    tileMap.SetTile(position, newSandTile_VM);
-                    newSandTile_VM.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
-                }
-                // Grass tiles in smaller jagged circular portion
-                else
-                {
-                    GrassTile_VM newGrassTile_VM = ScriptableObject.CreateInstance<GrassTile_VM>();
-                    tileMap.SetTile(position, newGrassTile_VM);
-                    newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
+                    StoneTile_VM newStoneTile_VM = ScriptableObject.CreateInstance<StoneTile_VM>();
+                    tileMap.SetTile(position, newStoneTile_VM);
+                                    newStoneTile_VM.SetTileData(TileType.STONE, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
                 }
             }
         }
@@ -108,8 +117,6 @@ public class GridManager : MonoBehaviour
         // Add stairs to upper and lower levels
         if (mapLevels.Count > 1)
         {
-            Vector3Int stairsPosition;
-            TileType tileType;
             int randomX = UnityEngine.Random.Range(xMin, xMax);
             int randomY = UnityEngine.Random.Range(yMin, yMax);
 
@@ -132,6 +139,8 @@ public class GridManager : MonoBehaviour
             lowerLevelStairs.setUpperLevelStairs(upperLevelStairs);
         }
     }
+
+
 
 
     // Method to initialize the GridManager
