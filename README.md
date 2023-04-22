@@ -3,6 +3,11 @@ Woodcut
  + Remove the tree. 
  + Spawn wood.
 
+Mine
+ + Go to location of a rock.
+ + Remove the rock.
+ + Spawn resource.
+
 Forage
  + Go to location of a plant.
  + Remove the plant.
@@ -16,11 +21,6 @@ Forage
 [ ] Craft
 [ ] Place
 [ ] Deconstruct
-
-Mine
- + Go to location of a rock.
- + Remove the rock.
- + Spawn resource.
 
 Gather
  + Go to location of an item.
