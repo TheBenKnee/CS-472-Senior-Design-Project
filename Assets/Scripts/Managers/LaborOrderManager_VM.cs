@@ -246,7 +246,7 @@ public class LaborOrderManager_VM : MonoBehaviour
             }
             else
             {
-                GameObject pawn_prefab = Resources.Load("prefabs/Pawn_VM") as GameObject;
+                GameObject pawn_prefab = Resources.Load("prefabs/npc/Pawn_VM") as GameObject;
                 AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());
             }
         }
@@ -285,6 +285,14 @@ public class LaborOrderManager_VM : MonoBehaviour
     public static void PopulateObjectLaborOrders()
     {
         GameObject[] objects = FindObjectsOfType<GameObject>();
+        
+        // Check if the objects array is null
+        if (objects == null)
+        {
+            Debug.LogError("No GameObjects found in the scene.");
+            return;
+        }
+
         foreach (GameObject obj in objects)
         {
             if (obj.name == "Tree(Clone)")
@@ -301,4 +309,5 @@ public class LaborOrderManager_VM : MonoBehaviour
             }
         }
     }
+
 }

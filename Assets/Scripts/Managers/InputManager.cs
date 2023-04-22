@@ -5,10 +5,10 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
 
-    [SerializeField] private ActionUIManager myActionManager;
+    [SerializeField] private static ActionUIManager myActionManager;
 
     // Check for user input
-    public void CheckForInput()
+    public static void CheckForInput()
     {
         // Update camera
         CameraManager.UpdateCamera();

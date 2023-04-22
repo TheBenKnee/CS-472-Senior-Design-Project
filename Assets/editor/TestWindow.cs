@@ -34,7 +34,7 @@ public class TestWindow : EditorWindow
 
         if (GUILayout.Button("Generate Place Order (ErrorObject)"))
         {
-            GameObject testObj = Resources.Load("prefabs/ErrorObject") as GameObject;
+            GameObject testObj = Resources.Load("prefabs/items/ErrorObject") as GameObject;
             LaborOrderManager_VM.AddPlaceLaborOrder(testObj);
         }
 

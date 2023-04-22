@@ -10,7 +10,7 @@ public class StairsTile_VM : BaseTile_VM
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
-        tileData.sprite = Resources.Load<Sprite>("stairs");
+        tileData.sprite = Resources.Load<Sprite>("sprites/tiles/stairs");
     }
 
     public override void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent)

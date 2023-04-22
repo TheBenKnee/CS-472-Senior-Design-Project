@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     //private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 10;
     private const int NUM_OF_LEVELS = 1;
 
-    [SerializeField] private InputManager inputManager;
-    [SerializeField] private LaborOrderPanelManager laborOrderPanelManager;
+    //[SerializeField] private InputManager inputManager;
+    //[SerializeField] private LaborOrderPanelManager laborOrderPanelManager;
 
     void Awake()
     {
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         //LaborOrderManager_VM.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
 
         // initialize the labor order ui
-        laborOrderPanelManager.InitializeLaborOrderPanel();
+        //laborOrderPanelManager.InitializeLaborOrderPanel();
 
     }
 
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        inputManager.CheckForInput();
+        InputManager.CheckForInput();
         // if there are available pawns and labor orders, assign pawns to labor orders
         if (LaborOrderManager_VM.GetAvailablePawnCount() > 0 && LaborOrderManager_VM.GetLaborOrderCount() > 0)
         {
