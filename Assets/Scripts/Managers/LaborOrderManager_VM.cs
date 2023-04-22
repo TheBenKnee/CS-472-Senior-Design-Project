@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 
 // Enum to represent different types of labor tasks
-public enum LaborType { Woodcut, Forage, Gather, Craft, Place, Destroy, Basic };
+public enum LaborType { Woodcut, Mine, Forage, Gather, Craft, Place, Deconstruct, Basic };
 
 // LaborOrderManager_VM class to manage and assign labor tasks for pawns
 public class LaborOrderManager_VM : MonoBehaviour
@@ -71,9 +71,9 @@ public class LaborOrderManager_VM : MonoBehaviour
     public static void AddDestroyLaborOrder()
     {
         // create a new destroy labor order
-        LaborOrder_Destroy destroyOrder = new LaborOrder_Destroy();
+        LaborOrder_Deconstruct deconstructOrder = new LaborOrder_Deconstruct();
         // add the labor order to the queue
-        laborQueues[(int)LaborType.Destroy].Enqueue(destroyOrder);
+        laborQueues[(int)LaborType.Deconstruct].Enqueue(deconstructOrder);
     }
 
     // Method to Get the total number of labor types
@@ -91,12 +91,24 @@ public class LaborOrderManager_VM : MonoBehaviour
     // Method to return the number of available pawns
     public static int GetWorkingPawnCount()
     {
+        // null check
+        if (assignedPawns == null)
+        {
+            return 0;
+        }
+
         return assignedPawns.Count;
     }
 
     // Method to return the number of available pawns
     public static int GetAvailablePawnCount()
     {
+        // null check
+        if (availablePawns == null)
+        {
+            return 0;
+        }
+        
         return availablePawns.Count;
     }
 
@@ -238,19 +250,18 @@ public class LaborOrderManager_VM : MonoBehaviour
         availablePawns.Clear();
         for (int i = 0; i < count; i++)
         {
-            if (GameObject.Find("GlobalInstance2") != null)
-            {
-                GameObject pawn_prefab = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn_vm");
-                pawn_prefab.transform.SetParent(GameObject.Find("Pawns").transform);
-                AddAvailablePawn(pawn_prefab.GetComponent<Pawn_VM>());
-            }
-            else
-            {
-                GameObject pawn_prefab = Resources.Load("prefabs/npc/Pawn_VM") as GameObject;
-                AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());
-            }
+            GameObject pawn_prefab = Resources.Load<GameObject>("prefabs/npc/Pawn_VM");
+            Debug.Log(GridManager.LEVEL_WIDTH / 2 + " " + GridManager.LEVEL_HEIGHT / 2);
+
+            // Instantiate the pawn and store the reference in a variable
+            GameObject pawn_instance = UnityEngine.Object.Instantiate(pawn_prefab, new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0), Quaternion.identity);
+
+            // Set the parent of the instantiated pawn, not the prefab itself
+            pawn_instance.transform.SetParent(GameObject.Find("Pawns").transform);
+            AddAvailablePawn(pawn_instance.GetComponent<Pawn_VM>());
         }
     }
+
 
     // Method to fill the labor order queues with random labor tasks
     public static void FillWithRandomLaborOrders(int count)
@@ -308,6 +319,12 @@ public class LaborOrderManager_VM : MonoBehaviour
                 //LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather());
             }
         }
+    }
+
+    private void Awake()
+    {
+        availablePawns = new Queue<Pawn_VM>();
+        assignedPawns = new Queue<Pawn_VM>();
     }
 
 }

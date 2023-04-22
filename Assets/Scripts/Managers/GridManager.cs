@@ -64,46 +64,43 @@ public class GridManager : MonoBehaviour
         // Add new level to map levels list
         mapLevels.Add(new Level(mapLevels.Count, xMin, xMax, yMin, yMax));
 
+        float sandRadius = Mathf.Min(xMax, yMax) * 0.4f;
+        float grassRadius = sandRadius * 0.8f;
+        float jaggednessScale = 0.1f;
+        Vector2 center = new Vector2(xMax / 2f, yMax / 2f);
+
         // Set tiles for level
         for (int x = xMin; x < xMax; x++)
         {
             for (int y = yMin; y < yMax; y++)
             {
                 Vector3Int position = new Vector3Int(x, y, 0);
+                Vector2 currentPos = new Vector2(x, y);
 
-                // Generate a random tile based on the random value and set its properties
-                int random = Random.Range(1, 5);
-                if (random == 4)
+                float distanceFromCenter = Vector2.Distance(currentPos, center);
+                float noiseValue = Mathf.PerlinNoise(x * jaggednessScale, y * jaggednessScale);
+
+                // Water tiles on the outer perimeter
+                if (distanceFromCenter >= sandRadius + (sandRadius * 0.5f * noiseValue))
                 {
-                    random = Random.Range(3, 5); // Reduce the chance of rock, replace decreased chances with chance to increase water or sand
+                    WaterTile_VM newWaterTile_VM = ScriptableObject.CreateInstance<WaterTile_VM>();
+                    tileMap.SetTile(position, newWaterTile_VM);
+                    newWaterTile_VM.SetTileData(TileType.WATER, false, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null);
                 }
-                switch (random)
+                // Sand tiles in jagged circular portion
+                else if (distanceFromCenter < sandRadius + (sandRadius * 0.5f * noiseValue) &&
+                        distanceFromCenter >= grassRadius + (grassRadius * 0.5f * noiseValue))
                 {
-                    case 0:
-                        BaseTile_VM newBaseTile_VM = ScriptableObject.CreateInstance<BaseTile_VM>();
-                        tileMap.SetTile(position, newBaseTile_VM);
-                        newBaseTile_VM.SetTileData(TileType.GENERIC, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
-                        break;
-                    case 1:
-                        GrassTile_VM newGrassTile_VM = ScriptableObject.CreateInstance<GrassTile_VM>();
-                        tileMap.SetTile(position, newGrassTile_VM);
-                        newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
-                        break;
-                    case 2:
-                        WaterTile_VM newWaterTile_VM = ScriptableObject.CreateInstance<WaterTile_VM>();
-                        tileMap.SetTile(position, newWaterTile_VM);
-                        newWaterTile_VM.SetTileData(TileType.WATER, false, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null);
-                        break;
-                    case 3:
-                        SandTile_VM newSandTile_VM = ScriptableObject.CreateInstance<SandTile_VM>();
-                        tileMap.SetTile(position, newSandTile_VM);
-                        newSandTile_VM.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
-                        break;
-                    case 4:
-                        RockTile_VM newRockTile_VM = ScriptableObject.CreateInstance<RockTile_VM>();
-                        tileMap.SetTile(position, newRockTile_VM);
-                        newRockTile_VM.SetTileData(TileType.ROCK, true, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
-                        break;
+                    SandTile_VM newSandTile_VM = ScriptableObject.CreateInstance<SandTile_VM>();
+                    tileMap.SetTile(position, newSandTile_VM);
+                    newSandTile_VM.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
+                }
+                // Grass tiles in smaller jagged circular portion
+                else
+                {
+                    GrassTile_VM newGrassTile_VM = ScriptableObject.CreateInstance<GrassTile_VM>();
+                    tileMap.SetTile(position, newGrassTile_VM);
+                    newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
                 }
             }
         }
@@ -111,11 +108,13 @@ public class GridManager : MonoBehaviour
         // Add stairs to upper and lower levels
         if (mapLevels.Count > 1)
         {
+            Vector3Int stairsPosition;
+            TileType tileType;
             int randomX = UnityEngine.Random.Range(xMin, xMax);
             int randomY = UnityEngine.Random.Range(yMin, yMax);
 
             // Set stairs in random location in upper level
-            Vector3Int upperLevelStairsPosition = new Vector3Int(randomX - LEVEL_WIDTH, randomY, 0);
+            Vector3Int upperLevelStairsPosition = new Vector3Int(randomX - LEVEL_WIDTH * (mapLevels.Count - 1), randomY, 0);
             StairsTile_VM upperLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
             tileMap.SetTile(upperLevelStairsPosition, upperLevelStairs);
             upperLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(upperLevelStairsPosition), -9, false, null);
@@ -133,6 +132,7 @@ public class GridManager : MonoBehaviour
             lowerLevelStairs.setUpperLevelStairs(upperLevelStairs);
         }
     }
+
 
     // Method to initialize the GridManager
     public static void InitializeGridManager()
@@ -152,10 +152,10 @@ public class GridManager : MonoBehaviour
         {
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
-                GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
-                // move the game object to be a child of the GameManager > Objects
-                tree.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
-                tile.SetTileInformation(tile.type, true, tree, tile.resourceCount, tile.position);
+                GameObject treePrefab = Resources.Load<GameObject>("prefabs/items/Tree");
+                GameObject treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
+                treeInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, true, treeInstance, tile.resourceCount, tile.position);
             }
         }
     }
@@ -171,17 +171,15 @@ public class GridManager : MonoBehaviour
             BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
             {
-                GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
-                // move the game object to be a child of the GameManager > Objects
-                tree.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
-                tile.SetTileInformation(tile.type, true, tree, tile.resourceCount, tile.position);
+                GameObject treePrefab = Resources.Load<GameObject>("prefabs/items/Tree");
+                GameObject treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
+                treeInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, true, treeInstance, tile.resourceCount, tile.position);
                 break;
             }
         }
     }
-
-    // Spawn a single chest at some random vacant grass tile
-    // requires GlobalInstance2 (TMPCombined) in scene
+    
     public static void PopulateWithChest()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
@@ -191,17 +189,15 @@ public class GridManager : MonoBehaviour
             BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
             {
-                GameObject chest = GlobalInstance.Instance.entityDictionary.InstantiateEntity("chest", "", tile.position);
-                // move the game object to be a child of the GameManager > Objects
-                chest.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
-                tile.SetTileInformation(tile.type, true, chest, tile.resourceCount, tile.position);
+                GameObject chestPrefab = Resources.Load<GameObject>("prefabs/items/Chest");
+                GameObject chestInstance = UnityEngine.Object.Instantiate(chestPrefab, tile.position, Quaternion.identity);
+                chestInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, true, chestInstance, tile.resourceCount, tile.position);
                 break;
             }
         }
     }
 
-    // Spawns bushes on random vacant grass tiles
-    // requires GlobalInstance2 (TMPCombined) in scene
     public static void PopulateWithBushes()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
@@ -209,17 +205,14 @@ public class GridManager : MonoBehaviour
         {
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
-                GameObject bush = GlobalInstance.Instance.entityDictionary.InstantiateEntity("bush", "", tile.position);
-                // move the game object to be a child of the GameManager > Objects
-                bush.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
-                tile.SetTileInformation(tile.type, true, bush, tile.resourceCount, tile.position);
+                GameObject bushPrefab = Resources.Load<GameObject>("prefabs/items/Bush");
+                GameObject bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
+                bushInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, true, bushInstance, tile.resourceCount, tile.position);
             }
         }
     }
 
-    // Spawns bushes on random vacant sand tiles
-    // requires GlobalInstance2 (TMPCombined) in scene
-    //      Only intended for testing. Farms will be responsible for creating wheat.
     public static void PopulateWithWheat()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
@@ -227,11 +220,12 @@ public class GridManager : MonoBehaviour
         {
             if (tile != null && tile.type == TileType.SAND && tile.resource == null && Random.Range(0, 10) == 0)
             {
-                GameObject wheat = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wheat", "", tile.position);
-                // move the game object to be a child of the GameManager > Objects
-                wheat.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
-                tile.SetTileInformation(tile.type, false, wheat, tile.resourceCount, tile.position);
+                GameObject wheatPrefab = Resources.Load<GameObject>("prefabs/items/Wheat");
+                GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
+                wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
             }
         }
     }
+
 }

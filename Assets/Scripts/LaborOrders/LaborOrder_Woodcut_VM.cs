@@ -15,7 +15,7 @@ public class LaborOrder_Woodcut_VM : LaborOrder_Base_VM
     {
         laborType = LaborType.Woodcut;
         timeToComplete = BASE_TTC;
-        if (woodLog == null) woodLog = GlobalInstance.Instance.prefabList.prefabDictionary["wood"].prefab;
+        if (woodLog == null) woodLog = Resources.Load<GameObject>("prefabs/items/Wood");
         this.targetTree = targetTree;
         location = Vector3Int.FloorToInt(targetTree.transform.position);
     }
@@ -37,7 +37,7 @@ public class LaborOrder_Woodcut_VM : LaborOrder_Base_VM
 
                 // create wood in tree's place
                 BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(Vector3Int.FloorToInt(treePosition));
-                GameObject woodObject = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wood", "", treePosition);
+                GameObject woodObject = UnityEngine.Object.Instantiate(woodLog, treePosition, Quaternion.identity);
                 woodObject.transform.SetParent(treeParent);
                 tile.SetTileInformation(tile.type, false, woodObject, tile.resourceCount, tile.position);
             }

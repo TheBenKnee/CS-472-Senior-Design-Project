@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [System.Serializable]
-public class LaborOrder_Destroy : LaborOrder_Base_VM
+public class LaborOrder_Deconstruct : LaborOrder_Base_VM
 {
 
     // constructor
-    public LaborOrder_Destroy() : base()
+    public LaborOrder_Deconstruct() : base()
     {
-        laborType = LaborType.Destroy;
+        laborType = LaborType.Deconstruct;
         timeToComplete = 3f;
         orderNumber = LaborOrderManager_VM.GetNumOfLaborOrders();
 

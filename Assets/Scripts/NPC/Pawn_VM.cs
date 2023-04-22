@@ -24,32 +24,6 @@ public class Pawn_VM : MonoBehaviour
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
     [SerializeField] public int hunger = 10000;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
-    //bool isDead = false;
-
-    // pawn constructor
-    public Pawn_VM()
-    {
-        // Initialize the priority list for different types of labor
-        laborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
-        for (int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++)
-        {
-            laborTypePriority[i] = new List<LaborType>();
-        }
-
-        // Initialize the path list
-        path = new List<Vector3>();
-
-        // Initialize the pawn name
-        pawnName = "Pawn " + pawnCount;
-        pawnCount++;
-
-        // add this pawn to the pawn list
-        hunger = 100;
-        if (!PawnList.Contains(this)) PawnList.Add(this);
-
-        // Initialize item dictionary
-        items = new Dictionary<string, Item>();
-    }
 
     // Method to return the number of priority levels
     public int GetPriorityLevelsCount()
@@ -395,7 +369,7 @@ public class Pawn_VM : MonoBehaviour
         }
 
         // Set initial position to the center of the cell at the origin
-        transform.position = GridManager.grid.GetCellCenterWorld(Vector3Int.zero);
+        //transform.position = GridManager.grid.GetCellCenterWorld(Vector3Int.zero);
 
         // set current labor order to null
         currentLaborOrder = null;

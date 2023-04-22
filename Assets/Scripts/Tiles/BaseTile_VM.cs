@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 // enum of the different types of tiles
-public enum TileType { GENERIC, GRASS, ROCK, WATER, SAND, STAIRS }
+public enum TileType { GENERIC, GRASS, ROCK, WATER, SAND, STAIRS, STONE }
 
 public class BaseTile_VM : Tile
 {
@@ -59,7 +59,7 @@ public class BaseTile_VM : Tile
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
         // load a generic sprite if no sprite is found
-        Sprite genericSprite = Resources.Load<Sprite>("tiles/generic");
+        Sprite genericSprite = Resources.Load<Sprite>("sprites/tiles/generic");
         if (genericSprite == null)
         {
             Debug.LogError("Error loading 'generic' sprite.");

@@ -1,4 +1,4 @@
-// LaborOrderManagerWindow.cs
+// TestWindow.cs
 using UnityEditor;
 using UnityEngine;
 
@@ -12,6 +12,13 @@ public class TestWindow : EditorWindow
 
     private void OnGUI()
     {
+        EditorGUILayout.LabelField("Labor Order Info", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Total Labor Orders:", LaborOrderManager_VM.GetLaborOrderCount().ToString());
+        EditorGUILayout.LabelField("Working Pawns:", LaborOrderManager_VM.GetWorkingPawnCount().ToString());
+        EditorGUILayout.LabelField("Available Pawns:", LaborOrderManager_VM.GetAvailablePawnCount().ToString());
+        
+        EditorGUILayout.Space();
+
         if (GUILayout.Button("Populate Object Labor Orders"))
         {
             LaborOrderManager_VM.PopulateObjectLaborOrders();

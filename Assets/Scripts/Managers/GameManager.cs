@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private int NUM_OF_PAWNS_TO_SPAWN = 20;
     //private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 10;
-    private const int NUM_OF_LEVELS = 1;
+    private const int NUM_OF_LEVELS = 10;
 
     //[SerializeField] private InputManager inputManager;
     //[SerializeField] private LaborOrderPanelManager laborOrderPanelManager;
@@ -25,16 +25,6 @@ public class GameManager : MonoBehaviour
         for (int i = 1; i <= NUM_OF_LEVELS; i++)
         {
             GridManager.CreateLevel();
-        }
-
-        // Add objects to the map if GlobalInstance2 (TMPCombined) exists
-        if (GameObject.Find("GlobalReference") != null)
-        {
-            //NUM_OF_PAWNS_TO_SPAWN = 2;
-            //NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
-            GridManager.PopulateWithTrees();
-            GridManager.PopulateWithBushes();
-            GridManager.PopulateWithWheat();
         }
 
         // initialize camera 
