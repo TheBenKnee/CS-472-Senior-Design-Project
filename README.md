@@ -6,7 +6,7 @@ Woodcut
 Plantcut
  + Go to location of a plant.
  + Remove the plant.
- + Spawn the resource.
+ + Spawn the resource. Spawn speeds.
 
 Mine
  + Go to location of a rock.
