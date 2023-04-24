@@ -63,7 +63,5 @@ public class GameClock : MonoBehaviour
         Bush.IncrementAllResources(BERRY_INCREMENT);
         Tree.IncrementAllResources(TREE_INCREMENT);
         Wheat.IncrementAllResources(WHEAT_INCREMENT);
-        LaborOrderManager_VM.ClearLaborOrders();
-        LaborOrderManager_VM.PopulateObjectLaborOrders();
     }
 }

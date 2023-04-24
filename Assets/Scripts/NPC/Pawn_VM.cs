@@ -25,15 +25,47 @@ public class Pawn_VM : MonoBehaviour
     [SerializeField] public int hunger = 10000;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
 
+    private Vector3 _offset;
+    private Color _color;
+    private static List<Color> availableColors;
+    private List<Color> predefinedColors = new List<Color>
+    {
+        Color.red,
+        Color.green,
+        Color.blue,
+        Color.yellow,
+        Color.cyan,
+        Color.magenta,
+        new Color(1f, 0.5f, 0f), // Orange
+        Color.white,
+        Color.gray,
+        Color.black
+    };
+
+    private string ColorToName(Color color)
+    {
+        if (color == Color.red) return "Red";
+        if (color == Color.green) return "Green";
+        if (color == Color.blue) return "Blue";
+        if (color == Color.yellow) return "Yellow";
+        if (color == Color.cyan) return "Cyan";
+        if (color == Color.magenta) return "Magenta";
+        if (color == new Color(1f, 0.5f, 0f)) return "Orange";
+        if (color == Color.white) return "White";
+        if (color == Color.gray) return "Gray";
+        if (color == Color.black) return "Black";
+
+        return "Unknown";
+    }
+
     private void OnDrawGizmos()
     {
         if (path != null)
         {
-            Vector3 offset = new Vector3(0.5f, 0.5f, 0);
-            Gizmos.color = Color.red;
             for (int i = 0; i < path.Count - 1; i++)
             {
-                Gizmos.DrawLine(path[i] + offset, path[i + 1] + offset);
+                Gizmos.color = _color;
+                Gizmos.DrawLine(path[i] + _offset, path[i + 1] + _offset);
             }
         }
     }
@@ -317,8 +349,10 @@ public class Pawn_VM : MonoBehaviour
             Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.orderNumber,-5} TTC: {currentLaborOrder.timeToComplete,-10:F2} {"Order Type: " + currentLaborOrder.laborType,-25} {target.ToString(),-80}");
         }
 
-        LaborOrderManager_VM.AddAvailablePawn(this);
         isAssigned = false;
+        path.Clear();
+        currentLaborOrder = null;
+        LaborOrderManager_VM.AddAvailablePawn(this);
     }
 
 
@@ -369,9 +403,36 @@ public class Pawn_VM : MonoBehaviour
         // maybe check if PawnList is empty to initiate the Game Lose here
     }
 
+    private Vector3 GetRandomOffset()
+    {
+        float xOffset = UnityEngine.Random.Range(0.1f, 0.5f);
+        float yOffset = UnityEngine.Random.Range(0.1f, 0.5f);
+        return new Vector3(xOffset, yOffset, 0);
+    }
+
     // Initialization function for the pawn
     void Awake()
     {
+        _offset = GetRandomOffset();
+
+        if (availableColors == null)
+        {
+            availableColors = new List<Color>(predefinedColors);
+        }
+
+        if (availableColors.Count > 0)
+        {
+            _color = availableColors[0];
+            availableColors.RemoveAt(0);
+        }
+        else
+        {
+            Debug.LogWarning("No more available colors. Assigning the default color.");
+            _color = Color.white;
+        }
+
+        name = ColorToName(_color);
+
         // animator
         anim = GetComponent<AnimatorController>();
 
@@ -405,7 +466,7 @@ public class Pawn_VM : MonoBehaviour
 
         // Set and increment the pawn name
         pawnName = "Pawn" + ++pawnCount;
-        name = pawnName;
+        //name = pawnName;
 
         // Set the pawn speed
         pawnSpeed = 2.0f;

@@ -109,7 +109,7 @@ public class GridManager : MonoBehaviour
                 {
                     StoneTile_VM newStoneTile_VM = ScriptableObject.CreateInstance<StoneTile_VM>();
                     tileMap.SetTile(position, newStoneTile_VM);
-                                    newStoneTile_VM.SetTileData(TileType.STONE, true, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                    newStoneTile_VM.SetTileData(TileType.STONE, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
                 }
             }
         }
@@ -125,7 +125,7 @@ public class GridManager : MonoBehaviour
                 {
                     StoneTile_VM newStoneTile_VM = ScriptableObject.CreateInstance<StoneTile_VM>();
                     tileMap.SetTile(position, newStoneTile_VM);
-                    newStoneTile_VM.SetTileData(TileType.STONE, true, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                    newStoneTile_VM.SetTileData(TileType.STONE, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
                 }
                 else
                 {
