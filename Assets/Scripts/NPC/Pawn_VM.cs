@@ -316,6 +316,7 @@ public class Pawn_VM : MonoBehaviour
                 if (currentPosition == stairsPosition)
                 {
                     transform.position = levelChangeStairsPosition;
+                    currentPosition = Vector3Int.FloorToInt(levelChangeStairsPosition); // Update currentPosition
                     currentLevel = (int)levelChangeStairsPosition.x / GridManager.LEVEL_WIDTH;
                     continue;
                 }

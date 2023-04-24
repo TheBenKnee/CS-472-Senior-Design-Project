@@ -135,22 +135,19 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-
+        
         // Add stairs to upper and lower levels
         if (mapLevels.Count > 1)
         {
-            int randomX = UnityEngine.Random.Range(xMin, xMax);
-            int randomY = UnityEngine.Random.Range(yMin, yMax);
-
-            // Set stairs in random location in upper level
-            Vector3Int upperLevelStairsPosition = new Vector3Int(randomX - LEVEL_WIDTH * (mapLevels.Count - 1), randomY, 0);
+            // Set stairs at center tile in upper level
+            Vector3Int upperLevelStairsPosition = new Vector3Int(xMin + (LEVEL_WIDTH / 2) - LEVEL_WIDTH * (mapLevels.Count - 1), yMin + (LEVEL_HEIGHT / 2), 0);
             StairsTile_VM upperLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
             tileMap.SetTile(upperLevelStairsPosition, upperLevelStairs);
             upperLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(upperLevelStairsPosition), -9, false, null, mapLevels.Count - 1);
             mapLevels[mapLevels.Count - 2].AddDescendingStairs_VM(upperLevelStairs);
 
             // Set stairs in lower level
-            Vector3Int lowerLevelStairsPosition = new Vector3Int(randomX, randomY, 0);
+            Vector3Int lowerLevelStairsPosition = new Vector3Int(xMin + (LEVEL_WIDTH / 2), yMin + (LEVEL_HEIGHT / 2), 0);
             StairsTile_VM lowerLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
             tileMap.SetTile(lowerLevelStairsPosition, lowerLevelStairs);
             lowerLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(lowerLevelStairsPosition), -9, false, null, mapLevels.Count - 1);

@@ -79,17 +79,20 @@ public class PathfindingManager : MonoBehaviour
                         case TileType.GRASS:
                             cost = 1;
                             break;
-                        case TileType.WATER:
+                        case TileType.SAND:
                             cost = 4;
                             break;
-                        case TileType.SAND:
+                        case TileType.STONE:
                             cost = 2;
+                            break;
+                        case TileType.WATER:
+                            cost = 0; // Water is impassable; should not reach
                             break;
                         case TileType.ROCK:
                             cost = 0; // Rock is impassable; should not reach
                             break;
                         default:
-                            cost = 0; // should not reach
+                            cost = 1; // should not reach
                             break;
                     }
 

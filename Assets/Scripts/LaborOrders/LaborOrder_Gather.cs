@@ -23,6 +23,12 @@ public class LaborOrder_Gather : LaborOrder_Base_VM
         BaseTile_VM currentTile = (BaseTile_VM)pawn.GetPawnTileFromTilemap();
 
         GameObject resource = targetTile.resource;
+
+        if(resource == null){
+            Debug.LogWarning("Resource is null. Aborting.");
+            yield break;
+        }
+
         chest.AddItem(resource);
         UnityEngine.Object.Destroy(targetTile.resource);
         targetTile.resource = null;
