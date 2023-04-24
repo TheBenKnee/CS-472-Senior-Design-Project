@@ -16,6 +16,8 @@ public class Bush : Item
 
     void Awake()
     {
+        isPlaceable = true;
+        isDesconstructable = true;
         isForageable = false;
         resourceCount = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();

@@ -46,6 +46,7 @@ public class LaborOrder_Mine : LaborOrder_Base_VM
 
                 // create wheat in tree's place
                 BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(Vector3Int.FloorToInt(treePosition));
+                
                 GameObject resourceObject = UnityEngine.Object.Instantiate(resource, treePosition, Quaternion.identity);
                 resourceObject.transform.SetParent(treeParent);
                 tile.SetTileInformation(tile.type, false, resourceObject, tile.resourceCount, tile.position);

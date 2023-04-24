@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    // list reference to all items
+    public static List<GameObject> items = new List<GameObject>();
+
     public string itemName;
     public BaseTile_VM location;
     public bool isGatherable = false;
@@ -21,11 +24,26 @@ public class Item : MonoBehaviour
     {
         isItemized = true;
         isGatherable = true;
+        isPlaceable = true;
     }
 
     public void Unitemize()
     {
         isItemized = false;
         isGatherable = false;
+        isPlaceable = false;
+    }
+
+    public void Deconstruct()
+    {
+        Itemize();
+    }
+
+    void Awake()
+    {
+        foreach (GameObject item in Resources.LoadAll("prefabs/items", typeof(GameObject)))
+        {
+            items.Add(item.GetComponent<GameObject>());
+        }
     }
 }

@@ -44,12 +44,11 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
 
         if (tile != null)
         {
-            if (tile.resource != null)
+            Item itemComponent = tile.resource.GetComponent<Item>();
+            if (itemComponent != null && itemComponent.isDesconstructable)
             {
-                GameObject resource = tile.resource;
-                tile.SetTileInformation(tile.type, false, null, 0, tile.position);
-                // Remove the game object at that location 
-                UnityEngine.Object.Destroy(resource);
+                tile.SetTileInformation(tile.type, false, tile.resource, tile.resourceCount, tile.position);
+                itemComponent.Deconstruct();
             }
             else
             {
@@ -60,6 +59,7 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
         {
             Debug.LogWarning("No tile found at the specified location.");
         }
+
 
         yield return null;
     }

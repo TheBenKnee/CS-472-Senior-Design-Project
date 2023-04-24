@@ -160,8 +160,6 @@ public class GridManager : MonoBehaviour
     }
 
 
-
-
     // Method to initialize the GridManager
     public static void InitializeGridManager()
     {
@@ -225,6 +223,24 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public static void PopulateWithRock()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        int random = Random.Range(0, allTiles.Length);
+        for (int i = 0; i < allTiles.Length; i++)
+        {
+            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            if (tile != null && tile.type == TileType.STONE && tile.resource == null)
+            {
+                GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
+                GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
+                rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
+                break;
+            }
+        }
+    }
+
     // GetAdjacentTiles
     // Returns a list of all tiles adjacent to the given tile
     public static List<BaseTile_VM> GetAdjacentTiles(BaseTile_VM tile)
@@ -283,7 +299,25 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public static void PopulateWithWheat()
+    public static void PopulateWithBush()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        int random = Random.Range(0, allTiles.Length);
+        for (int i = 0; i < allTiles.Length; i++)
+        {
+            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
+            {
+                GameObject bushPrefab = Resources.Load<GameObject>("prefabs/items/Bush");
+                GameObject bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
+                bushInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, true, bushInstance, tile.resourceCount, tile.position);
+                break;
+            }
+        }
+    }
+
+    public static void PopulateWithWheatPlants()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
         foreach (BaseTile_VM tile in allTiles)
@@ -294,6 +328,24 @@ public class GridManager : MonoBehaviour
                 GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
                 wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    public static void PopulateWithWheatPlant()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        int random = Random.Range(0, allTiles.Length);
+        for (int i = 0; i < allTiles.Length; i++)
+        {
+            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            if (tile != null && tile.type == TileType.SAND && tile.resource == null)
+            {
+                GameObject wheatPrefab = Resources.Load<GameObject>("prefabs/items/Wheat");
+                GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
+                wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
+                break;
             }
         }
     }

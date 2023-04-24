@@ -24,7 +24,7 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
     {
         pawn.path.Clear();
 
-        if (targetBush != null)
+        if (targetBush != null && targetBush.GetComponent<Bush>().isForageable == true && targetBush.GetComponent<Tree>().isItemized == false)
         {
             yield return new WaitForSeconds(timeToComplete);
 

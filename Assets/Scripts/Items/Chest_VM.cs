@@ -78,6 +78,7 @@ public class Chest_VM : Item
     void Awake()
     {
         isGatherable = false;
+        isPlaceable = true;
         // initialize the contents dictionary
         contents = new Dictionary<string, int>();
         // initialize the location

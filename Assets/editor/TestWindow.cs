@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TestWindow : EditorWindow
 {
-    
     [MenuItem("Window/Test Functions")]
     public static void ShowWindow()
     {
@@ -14,41 +13,82 @@ public class TestWindow : EditorWindow
     private void OnGUI()
     {
         EditorGUILayout.LabelField("Labor Order Info", EditorStyles.boldLabel);
-        EditorGUILayout.LabelField("Total Labor Orders:", LaborOrderManager_VM.GetLaborOrderCount().ToString());
-        EditorGUILayout.LabelField("Working Pawns:", LaborOrderManager_VM.GetWorkingPawnCount().ToString());
-        EditorGUILayout.LabelField("Available Pawns:", LaborOrderManager_VM.GetAvailablePawnCount().ToString());
-        
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Total Labor Orders:", GUILayout.Width(130));
+        EditorGUILayout.LabelField(LaborOrderManager_VM.GetLaborOrderCount().ToString());
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Working Pawns:", GUILayout.Width(130));
+        EditorGUILayout.LabelField(LaborOrderManager_VM.GetWorkingPawnCount().ToString());
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Available Pawns:", GUILayout.Width(130));
+        EditorGUILayout.LabelField(LaborOrderManager_VM.GetAvailablePawnCount().ToString());
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+
         EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("Populate Actions", EditorStyles.boldLabel);
 
         if (GUILayout.Button("Populate Object Labor Orders"))
         {
             LaborOrderManager_VM.PopulateObjectLaborOrders();
         }
 
-        if (GUILayout.Button("Populate with Trees"))
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("Populate Multiple Objects", EditorStyles.boldLabel);
+
+        if (GUILayout.Button("Wheat Plants"))
+        {
+            GridManager.PopulateWithWheatPlants();
+        }
+
+        if (GUILayout.Button("Bushes"))
+        {
+            GridManager.PopulateWithBushes();
+        }
+
+        if (GUILayout.Button("Trees"))
         {
             GridManager.PopulateWithTrees();
         }
 
-        if (GUILayout.Button("Populate with Wheat"))
-        {
-            GridManager.PopulateWithWheat();
-        }
-
-        if (GUILayout.Button("Populate with Rocks"))
+        if (GUILayout.Button("Rocks"))
         {
             GridManager.PopulateWithRocks();
         }
 
-        if (GUILayout.Button("Populate with Tree"))
+        EditorGUILayout.LabelField("Populate Object", EditorStyles.boldLabel);
+
+        if (GUILayout.Button("Wheat Plant"))
+        {
+            GridManager.PopulateWithWheatPlant();
+        }
+
+        if (GUILayout.Button("Bush"))
+        {
+            GridManager.PopulateWithBush();
+        }
+
+        if (GUILayout.Button("Tree"))
         {
             GridManager.PopulateWithTree();
         }
 
-        if (GUILayout.Button("Populate with Bushes"))
+        if (GUILayout.Button("Rock"))
         {
-            GridManager.PopulateWithBushes();
+            GridManager.PopulateWithRock();
         }
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("Generate Orders", EditorStyles.boldLabel);
 
         if (GUILayout.Button("Generate Place Order (ErrorObject)"))
         {
@@ -61,14 +101,18 @@ public class TestWindow : EditorWindow
             LaborOrderManager_VM.ClearLaborOrders();
         }
 
+        if (GUILayout.Button("Generate Destroy Order"))
+        {
+            LaborOrderManager_VM.AddDestroyLaborOrder();
+        }
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("Chest Actions", EditorStyles.boldLabel);
+
         if (GUILayout.Button("Spawn Chest"))
         {
             GridManager.PopulateWithChest();
-        }
-
-        if (GUILayout.Button("Generate Destroy Order (ErrorObject)"))
-        {
-            LaborOrderManager_VM.AddDestroyLaborOrder();
         }
 
         if (GUILayout.Button("Add ErrorObject to Random Chest"))
@@ -85,6 +129,5 @@ public class TestWindow : EditorWindow
                 Debug.Log("No chests available.");
             }
         }
-
     }
 }
