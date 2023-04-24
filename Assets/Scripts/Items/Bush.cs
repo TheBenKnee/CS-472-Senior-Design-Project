@@ -2,60 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bush : MonoBehaviour
+public class Bush : Item
 {
-    public static List<Bush> BushList = new List<Bush>();   // List of all existing bushes. Used to increment berryCount on a timer.
-    public int berryCount = 0;
+    // list of plantResources 
+    public static List<Bush> plantResources = new List<Bush>();
 
-    private const int MAX_BERRIES = 100;
-    private const int FULL_SPRITE_THRESHOLD = 1;
-    
-    private SpriteRenderer spriteRenderer;
-    public Sprite bush_full;
-    public Sprite bush_empty;
+    [SerializeField] public int resourceCountRef;
 
-    // Increment the berries of all bushes
-    public static void incrementBerries(int incAmount)
+    public static readonly int FULL_RESOURCE_THRESHOLD = 25;
+    public static readonly int MAX_RESOURCE = 25;
+    public int resourceCount;
+    public SpriteRenderer spriteRenderer;
+
+    void Awake()
     {
-        foreach(Bush b in BushList)
-        {
-            b.berryCount += incAmount;
+        isForageable = false;
+        resourceCount = 0;
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-            if (b.berryCount > MAX_BERRIES)
+        resourceCountRef = resourceCount;
+
+        // Add this plant to the list of plantResources
+        plantResources.Add(this);
+    }
+
+    void OnDestroy()
+    {
+        // Remove this plant from the list of plantResources
+        plantResources.Remove(this);
+    }
+
+    // Static method to increment berries for all plantResources
+    public static void IncrementAllResources(int incAmount)
+    {
+        foreach (Bush plant in plantResources)
+        {
+            // null check spriteRenderer
+            if (plant.spriteRenderer == null)
             {
-                b.berryCount = MAX_BERRIES;
+                Debug.Log("spriteRenderer is null");
+                return;
             }
 
-            if(b.berryCount >= FULL_SPRITE_THRESHOLD)
+            if (plant.resourceCount < MAX_RESOURCE)
             {
-                b.spriteRenderer.sprite = b.bush_full;
+                plant.resourceCount = plant.resourceCount + incAmount;
+
+                if (plant.resourceCount > MAX_RESOURCE)
+                {
+                    plant.resourceCount = MAX_RESOURCE;
+                }
+            }
+
+            if (plant.resourceCount >= FULL_RESOURCE_THRESHOLD)
+            {
+                plant.spriteRenderer.sprite = Resources.Load<Sprite>("sprites/bush_full");
+                plant.isForageable = true;
             }
             else
             {
-                b.spriteRenderer.sprite = b.bush_empty;
+                plant.spriteRenderer.sprite = Resources.Load<Sprite>("sprites/bush_empty");
+                plant.isForageable = false;
             }
+
+            plant.resourceCountRef = plant.resourceCount;
         }
     }
 
-    // Destroys this bush object and removes from the list
-    public void OnDestroy()
-    {
-        BushList.Remove(this);
-        //GlobalInstance.Instance.entityDictionary.DestroySaveableObject(this);
-    }
-
-    // Return the berryCount and set to zero
     public int Harvest()
     {
-        int tmp = berryCount;
-        berryCount = 0;
-        return tmp;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        BushList.Add(this);
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        int temp = resourceCount;
+        resourceCount = 0;
+        if (resourceCount >= FULL_RESOURCE_THRESHOLD)
+        {
+            spriteRenderer.sprite = Resources.Load<Sprite>("sprites/bush_full");
+            isForageable = true;
+        }
+        else
+        {
+            spriteRenderer.sprite = Resources.Load<Sprite>("sprites/bush_empty");
+            isForageable = false;
+        }
+        resourceCountRef = resourceCount;
+        return temp;
     }
 }

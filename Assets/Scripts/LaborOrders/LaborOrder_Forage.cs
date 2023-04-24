@@ -2,92 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * 
- * Forage/Harvest berries or wheat. Wheat must be fully grown to harvest.
- * These could be split into two different order types but they are the same for now
- * 
-*/
-
 public class LaborOrder_Forage : LaborOrder_Base_VM
 {
-    public enum ObjectType { Bush, Wheat };
+    public enum ObjectType { Bush, Tree };
     private static float BASE_TTC = 1.5f;
-    private GameObject targetObject;
-    private bool storeInChest;              // true will follow up with a labor order to store the items in a chest, false keeps in inventory. // todo
-    private readonly int BerryFoodValue = 10;
+    private GameObject targetBush;
     private ObjectType type;
 
     // constructor
-    public LaborOrder_Forage(GameObject targetObject, bool storeInChest = true)
+    public LaborOrder_Forage(GameObject targetBush, ObjectType type)
     {
         laborType = LaborType.Forage;
         timeToComplete = BASE_TTC;
-        this.storeInChest = storeInChest;
-        this.targetObject = targetObject;
-        location = Vector3Int.FloorToInt(targetObject.transform.position);
-
-        // check if bush or wheat
-        if (targetObject.GetComponent<Bush>())
-        {
-            type = ObjectType.Bush;
-        }
-        else if (targetObject.GetComponent<Wheat>())
-        {
-            type = ObjectType.Wheat;
-        }
-        else
-        {
-            Debug.LogWarning("Target object does not contain component Bush or Wheat!");
-        }
+        this.targetBush = targetBush;
+        location = Vector3Int.FloorToInt(targetBush.transform.position);
+        this.type = type;
     }
 
     // override of the execute method to perform the labor order
     public override IEnumerator Execute(Pawn_VM pawn)
     {
-        if (targetObject != null)
+        if (targetBush != null)
         {
-            // forage/harvest
             yield return new WaitForSeconds(timeToComplete);
 
-            if (targetObject != null)
-            {
-                if (type == ObjectType.Bush)             // Forage for berries
+            if(type == ObjectType.Bush){
+                targetBush.GetComponent<Bush>().Harvest();
+
+                // spawn seeds in an adjacent tile that is not collision and does not have a resource
+                List<BaseTile_VM> adjacentTiles = GridManager.GetAdjacentTiles(GridManager.GetTile(location));
+                foreach (BaseTile_VM adjacentTile in adjacentTiles)
                 {
-                    int quantity = targetObject.GetComponent<Bush>().Harvest();
-                    Item berryItem;
-                    // add berries to item dictionary
-                    if (pawn.items.TryGetValue("Berries", out berryItem))
+                    if (!adjacentTile.isCollision && adjacentTile.resource == null)
                     {
-                        berryItem.Quantity += quantity;
-                    }
-                    else
-                    {
-                        berryItem = new Item("Berries", "Berries", true, Rarity.Common, 1, quantity, "", BerryFoodValue);
-                        pawn.items.Add("Berries", berryItem);
+                        GameObject resource = Resources.Load<GameObject>("prefabs/items/berries");
+                        GameObject wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
+                        wheatItem.transform.SetParent(targetBush.transform);
+                        adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
+                        break;
                     }
                 }
-                else if (type == ObjectType.Wheat)      // Harvest Wheat
+
+            }
+
+            if(type == ObjectType.Tree){
+                targetBush.GetComponent<Tree>().Harvest();
+
+                // spawn seeds in an adjacent tile that is not collision and does not have a resource
+                List<BaseTile_VM> adjacentTiles = GridManager.GetAdjacentTiles(GridManager.GetTile(location));
+                foreach (BaseTile_VM adjacentTile in adjacentTiles)
                 {
-                    if (targetObject.GetComponent<Wheat>().Harvest())
+                    if (!adjacentTile.isCollision && adjacentTile.resource == null)
                     {
-                        Item wheatItem;
-                        if (pawn.items.TryGetValue("Wheat", out wheatItem))
-                        {
-                            wheatItem.Quantity += 1;
-                        }
-                        else
-                        {
-                            wheatItem = new Item("Wheat", "Wheat", false, Rarity.Common, 1, 1, "");
-                            pawn.items.Add("Wheat", wheatItem);
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("Wheat is not ready to be harvested!");
+                        GameObject resource = Resources.Load<GameObject>("prefabs/items/Wood");
+                        GameObject wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
+                        wheatItem.transform.SetParent(targetBush.transform);
+                        adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
+                        break;
                     }
                 }
             }
+
         }
         yield break;
     }

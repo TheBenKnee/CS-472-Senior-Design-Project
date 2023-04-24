@@ -87,7 +87,7 @@ public class GridManager : MonoBehaviour
                     {
                         WaterTile_VM newWaterTile_VM = ScriptableObject.CreateInstance<WaterTile_VM>();
                         tileMap.SetTile(position, newWaterTile_VM);
-                        newWaterTile_VM.SetTileData(TileType.WATER, false, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null);
+                        newWaterTile_VM.SetTileData(TileType.WATER, true, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null, mapLevels.Count - 1);
                     }
                     // Sand tiles in jagged circular portion
                     else if (distanceFromCenter < sandRadius + (sandRadius * 0.5f * noiseValue) &&
@@ -95,21 +95,43 @@ public class GridManager : MonoBehaviour
                     {
                         SandTile_VM newSandTile_VM = ScriptableObject.CreateInstance<SandTile_VM>();
                         tileMap.SetTile(position, newSandTile_VM);
-                        newSandTile_VM.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
+                        newSandTile_VM.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
                     }
                     // Grass tiles in smaller jagged circular portion
                     else
                     {
                         GrassTile_VM newGrassTile_VM = ScriptableObject.CreateInstance<GrassTile_VM>();
                         tileMap.SetTile(position, newGrassTile_VM);
-                        newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
+                        newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
                     }
                 }
                 else // All layers below the top layer
                 {
                     StoneTile_VM newStoneTile_VM = ScriptableObject.CreateInstance<StoneTile_VM>();
                     tileMap.SetTile(position, newStoneTile_VM);
-                                    newStoneTile_VM.SetTileData(TileType.STONE, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null);
+                                    newStoneTile_VM.SetTileData(TileType.STONE, true, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                }
+            }
+        }
+
+        // make a 10x10 hollow square in the center of the level with stone tiles (all the center tiles should be grass tiles)
+        for (int x = xMin + (LEVEL_WIDTH / 2) - 5; x < xMin + (LEVEL_WIDTH / 2) + 5; x++)
+        {
+            for (int y = yMin + (LEVEL_HEIGHT / 2) - 5; y < yMin + (LEVEL_HEIGHT / 2) + 5; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                if (x == xMin + (LEVEL_WIDTH / 2) - 5 || x == xMin + (LEVEL_WIDTH / 2) + 4 ||
+                    y == yMin + (LEVEL_HEIGHT / 2) - 5 || y == yMin + (LEVEL_HEIGHT / 2) + 4)
+                {
+                    StoneTile_VM newStoneTile_VM = ScriptableObject.CreateInstance<StoneTile_VM>();
+                    tileMap.SetTile(position, newStoneTile_VM);
+                    newStoneTile_VM.SetTileData(TileType.STONE, true, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                }
+                else
+                {
+                    GrassTile_VM newGrassTile_VM = ScriptableObject.CreateInstance<GrassTile_VM>();
+                    tileMap.SetTile(position, newGrassTile_VM);
+                    newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
                 }
             }
         }
@@ -124,14 +146,14 @@ public class GridManager : MonoBehaviour
             Vector3Int upperLevelStairsPosition = new Vector3Int(randomX - LEVEL_WIDTH * (mapLevels.Count - 1), randomY, 0);
             StairsTile_VM upperLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
             tileMap.SetTile(upperLevelStairsPosition, upperLevelStairs);
-            upperLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(upperLevelStairsPosition), -9, false, null);
+            upperLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(upperLevelStairsPosition), -9, false, null, mapLevels.Count - 1);
             mapLevels[mapLevels.Count - 2].AddDescendingStairs_VM(upperLevelStairs);
 
             // Set stairs in lower level
             Vector3Int lowerLevelStairsPosition = new Vector3Int(randomX, randomY, 0);
             StairsTile_VM lowerLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
             tileMap.SetTile(lowerLevelStairsPosition, lowerLevelStairs);
-            lowerLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(lowerLevelStairsPosition), -9, false, null);
+            lowerLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(lowerLevelStairsPosition), -9, false, null, mapLevels.Count - 1);
             mapLevels[mapLevels.Count - 1].AddAscendingStairs_VM(lowerLevelStairs);
 
             // Connect upper and lower level stairs
@@ -189,6 +211,48 @@ public class GridManager : MonoBehaviour
         }
     }
     
+    // Method to populate all vacant stone tiles with rocks
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithRocks()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.STONE && tile.resource == null)
+            {
+                GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
+                GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
+                rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    // GetAdjacentTiles
+    // Returns a list of all tiles adjacent to the given tile
+    public static List<BaseTile_VM> GetAdjacentTiles(BaseTile_VM tile)
+    {
+        List<BaseTile_VM> adjacentTiles = new List<BaseTile_VM>();
+        Vector3Int[] adjacentPositions = new Vector3Int[4];
+        Vector3Int tilePosition = Vector3Int.FloorToInt(tile.position);
+        adjacentPositions[0] = new Vector3Int(tilePosition.x + 1, tilePosition.y, tilePosition.z);
+        adjacentPositions[1] = new Vector3Int(tilePosition.x - 1, tilePosition.y, tilePosition.z);
+        adjacentPositions[2] = new Vector3Int(tilePosition.x, tilePosition.y + 1, tilePosition.z);
+        adjacentPositions[3] = new Vector3Int(tilePosition.x, tilePosition.y - 1, tilePosition.z);
+
+        foreach (Vector3Int position in adjacentPositions)
+        {
+            BaseTile_VM adjacentTile = (BaseTile_VM)tileMap.GetTile(position);
+            if (adjacentTile != null)
+            {
+                adjacentTiles.Add(adjacentTile);
+            }
+        }
+
+        return adjacentTiles;
+    }
+
+
     public static void PopulateWithChest()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);

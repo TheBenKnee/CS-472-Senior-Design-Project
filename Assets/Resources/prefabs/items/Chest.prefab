@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4004910196945688925}
   - component: {fileID: 5434868645558356449}
-  - component: {fileID: 9119640306104309111}
+  - component: {fileID: 413916503424959374}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9119640306104309111
+--- !u!114 &413916503424959374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,8 +94,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2945824902807215774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a766f500c9a4f6c409abdd82663838cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 04ff0f07f608f2a4a8505c8bda17990d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
-  currentLocation: {fileID: 0}
+  isGatherable: 0
+  location: {fileID: 0}

@@ -7,13 +7,13 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class LaborOrder_Base_VM
 {
-    public LaborType laborType { get; protected set; }           // type of labor needed
+    public LaborType laborType          { get; protected set; }     // type of labor needed
     public Vector3Int location;                                     // location of the labor order in the grid
-    public float timeToComplete { get; protected set; }           // time it takes to complete the labor order
-    public int orderNumber { get; protected set; }           // order number of the labor order
+    public float timeToComplete         { get; protected set; }     // time it takes to complete the labor order
+    public int orderNumber              { get; protected set; }     // order number of the labor order
 
-    public const float MIN_TTC = 1.0f;                          // minimum time to complete
-    public const float MAX_TTC = 3.0f;                          // maximum time to complete
+    public const float MIN_TTC = 1.0f;                              // minimum time to complete
+    public const float MAX_TTC = 3.0f;                              // maximum time to complete
 
     // constructor
     public LaborOrder_Base_VM(LaborType laborType, Vector3Int location, float timeToComplete)

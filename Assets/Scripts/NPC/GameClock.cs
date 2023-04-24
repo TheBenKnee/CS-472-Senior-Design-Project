@@ -13,6 +13,7 @@ public class GameClock : MonoBehaviour
     [SerializeField] private float FREQUENCY = 1f;
     [SerializeField] private int HUNGER_DECREMENT = 1;
     [SerializeField] private int BERRY_INCREMENT = 1;
+    [SerializeField] private int TREE_INCREMENT = 1;
     [SerializeField] private int WHEAT_INCREMENT = 1;
     private bool paused = true;
     private Coroutine coroutine;
@@ -58,8 +59,9 @@ public class GameClock : MonoBehaviour
     public void OnTick()
     {
         lastTick = Time.time;
-        Pawn_VM.DecrementHunger(HUNGER_DECREMENT);
-        Bush.incrementBerries(BERRY_INCREMENT);
-        Wheat.growWheat(WHEAT_INCREMENT);
+        //Pawn_VM.DecrementHunger(HUNGER_DECREMENT);
+        Bush.IncrementAllResources(BERRY_INCREMENT);
+        Tree.IncrementAllResources(TREE_INCREMENT);
+        Wheat.IncrementAllResources(WHEAT_INCREMENT);
     }
 }

@@ -7,9 +7,10 @@ public enum TileType { GENERIC, GRASS, ROCK, WATER, SAND, STAIRS, STONE }
 public class BaseTile_VM : Tile
 {
     public TileType type        { get; private set; }       // type of the tile
-    public GameObject resource  { get; private set; }       // resource on the tile
+    public GameObject resource  { get; set; }               // resource on the tile
     public int resourceCount    { get; private set; }       // number of resources on the tile
-    public Vector3 position     { get; private set; }       // position of the tile in 3D space
+    public Vector3 position     { get; set; }               // position of the tile in 3D space
+    public int level            { get; set; }               // level of the tile
 
     public int distance         { get; set; }               // distance from starting tile
     public bool visited         { get; set; }               // flag to indicate if the tile has been visited
@@ -43,7 +44,7 @@ public class BaseTile_VM : Tile
     }
 
     // method to Set the properties of the tile
-    public virtual void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent)
+    public virtual void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent, int level)
     {
         type = tileType;
         isCollision = collision;
@@ -53,6 +54,7 @@ public class BaseTile_VM : Tile
         this.distance = distance;
         this.visited = visited;
         this.parent = parent;
+        this.level = level;
     }
 
     // override of the GetTileData method from the Tile class

@@ -9,6 +9,8 @@ using UnityEngine;
 
 public static class PawnHunger
 {
+    /*
+
     public static readonly string[] FoodItemNames = new string[] { "Berries" };
     public static readonly int HUNGER_RESPONSE_THRESHOLD = 20;       // Pawns will try to eat if below this value
 
@@ -40,4 +42,6 @@ public static class PawnHunger
         }
         return foodFound;
     }
+
+    */
 }

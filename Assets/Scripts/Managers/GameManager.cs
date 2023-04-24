@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private int NUM_OF_PAWNS_TO_SPAWN = 20;
     //private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 10;
-    private const int NUM_OF_LEVELS = 10;
+    private const int NUM_OF_LEVELS = 1;
 
     //[SerializeField] private InputManager inputManager;
     //[SerializeField] private LaborOrderPanelManager laborOrderPanelManager;

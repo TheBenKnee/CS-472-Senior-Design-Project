@@ -13,9 +13,9 @@ public class StairsTile_VM : BaseTile_VM
         tileData.sprite = Resources.Load<Sprite>("sprites/tiles/stairs");
     }
 
-    public override void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent)
+    public override void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent, int level)
     {
-        base.SetTileData(tileType, collision, resource, resourceCount, position, distance, visited, parent);
+        base.SetTileData(tileType, collision, resource, resourceCount, position, distance, visited, parent, GridManager.mapLevels.Count - 1);
 
         upperLevelStairs = null;
         lowerLevelStairs = null;

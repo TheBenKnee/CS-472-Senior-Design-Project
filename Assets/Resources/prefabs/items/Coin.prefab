@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5342595487527852761}
   - component: {fileID: -7126430473181332434}
-  - component: {fileID: 5306859775797450627}
+  - component: {fileID: 1136794259109461757}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -1808600344, guid: e5f67038c9c8e4345b16d5d68949c5d7, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: cd03c727f1cfb044fbbdea7021c42257, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5306859775797450627
+--- !u!114 &1136794259109461757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,8 +94,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8010982277535823335}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a766f500c9a4f6c409abdd82663838cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d517f54b0cc6494d835eb1924a59612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
-  currentLocation: {fileID: 0}
+  location: {fileID: 0}
+  isGatherable: 0
+  isPlaceable: 0
+  isDesconstructable: 0
+  isWoodcuttable: 0
+  isMineable: 0
+  isForageable: 0
+  isCraftable: 0
+  isPlantcuttable: 0
+  isItemized: 0

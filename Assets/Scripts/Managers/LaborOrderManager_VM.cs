@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 
 // Enum to represent different types of labor tasks
-public enum LaborType { Woodcut, Mine, Forage, Gather, Craft, Place, Deconstruct, Basic };
+public enum LaborType { Woodcut, Mine, Forage, Gather, Craft, Place, Deconstruct, Basic, Plantcut };
 
 // LaborOrderManager_VM class to manage and assign labor tasks for pawns
 public class LaborOrderManager_VM : MonoBehaviour
@@ -251,10 +251,9 @@ public class LaborOrderManager_VM : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             GameObject pawn_prefab = Resources.Load<GameObject>("prefabs/npc/Pawn_VM");
-            Debug.Log(GridManager.LEVEL_WIDTH / 2 + " " + GridManager.LEVEL_HEIGHT / 2);
 
             // Instantiate the pawn and store the reference in a variable
-            GameObject pawn_instance = UnityEngine.Object.Instantiate(pawn_prefab, new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0), Quaternion.identity);
+            GameObject pawn_instance = UnityEngine.Object.Instantiate(pawn_prefab, GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
 
             // Set the parent of the instantiated pawn, not the prefab itself
             pawn_instance.transform.SetParent(GameObject.Find("Pawns").transform);
@@ -306,17 +305,21 @@ public class LaborOrderManager_VM : MonoBehaviour
 
         foreach (GameObject obj in objects)
         {
-            if (obj.name == "Tree(Clone)")
+            if (obj.name == "Tree(Clone)" && obj.GetComponent<Tree>().isForageable == true)
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Woodcut_VM(obj));
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
             }
-            else if (obj.name == "Bush(Clone)" && obj.GetComponent<Bush>().berryCount > 0)
+            else if (obj.name == "Bush(Clone)" && obj.GetComponent<Bush>().isForageable) // && obj.GetComponent<Bush>().berryCount > 0
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, false));
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
             }
-            else if (obj.name == "Wood(Clone)")
+            else if (obj.name == "Wheat(Clone)" && obj.GetComponent<Wheat>().isPlantcuttable == true)
             {
-                //LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather());
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(obj));
+            }
+            else if (obj.name == "Rock(Clone)")
+            {
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(obj));
             }
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TestWindow : EditorWindow
 {
+    
     [MenuItem("Window/Test Functions")]
     public static void ShowWindow()
     {
@@ -27,6 +28,16 @@ public class TestWindow : EditorWindow
         if (GUILayout.Button("Populate with Trees"))
         {
             GridManager.PopulateWithTrees();
+        }
+
+        if (GUILayout.Button("Populate with Wheat"))
+        {
+            GridManager.PopulateWithWheat();
+        }
+
+        if (GUILayout.Button("Populate with Rocks"))
+        {
+            GridManager.PopulateWithRocks();
         }
 
         if (GUILayout.Button("Populate with Tree"))
@@ -59,5 +70,21 @@ public class TestWindow : EditorWindow
         {
             LaborOrderManager_VM.AddDestroyLaborOrder();
         }
+
+        if (GUILayout.Button("Add ErrorObject to Random Chest"))
+        {
+            Chest_VM randomChest = GlobalStorage_VM.GetRandomChest();
+            if (randomChest != null)
+            {
+                GameObject errorObject = Resources.Load("prefabs/items/ErrorObject") as GameObject;
+                randomChest.AddItem(errorObject);
+                Debug.Log("ErrorObject added to a random chest.");
+            }
+            else
+            {
+                Debug.Log("No chests available.");
+            }
+        }
+
     }
 }

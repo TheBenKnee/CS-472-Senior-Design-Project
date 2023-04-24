@@ -2,84 +2,96 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wheat : MonoBehaviour
+public class Wheat : Item
 {
-    public static List<Wheat> WheatList = new List<Wheat>();   // List of all existing wheat. Used to increment wheat growth on a timer.
-    public int growth = 0;
+    // list of plantResources 
+    public static List<Wheat> plantResources = new List<Wheat>();
 
-    private const int MAX_GROWTH = 100;
-    private const int SPROUT_THRESHOLD = 30;
+    [SerializeField] public int resourceCountRef;
 
-    private SpriteRenderer spriteRenderer;
-    public Sprite wheat_sprite_seed;
-    public Sprite wheat_sprite_sprout;
-    public Sprite wheat_sprite_harvestable;
+    public static readonly int FULL_RESOURCE_THRESHOLD = 25;
+    public static readonly int MAX_RESOURCE = 25;
+    public int resourceCount;
+    public SpriteRenderer spriteRenderer;
 
-    // Increment the berries of all bushes
-    public static void growWheat(int incAmount)
+    void Awake()
     {
-        foreach(Wheat w in WheatList)
-        {
-            // create labor order if became fully grown
-            if(w.growth < MAX_GROWTH && w.growth + incAmount >= MAX_GROWTH)
-            {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(w.gameObject, false));
-            }
-
-            w.growth += incAmount;
-
-            if (w.growth > MAX_GROWTH)
-            {
-                w.growth = MAX_GROWTH;
-            }
-
-            w.UpdateSprite();
-        }
-    }
-
-    public void UpdateSprite()
-    {
-        // control sprite based on growth
-        if (growth < SPROUT_THRESHOLD)
-        {
-            spriteRenderer.sprite = wheat_sprite_seed;
-        }
-        else if (growth < MAX_GROWTH)
-        {
-            spriteRenderer.sprite = wheat_sprite_sprout;
-        }
-        else
-        {
-            spriteRenderer.sprite = wheat_sprite_harvestable;
-        }
-    }
-
-    // Destroys this object and removes from the list
-    public void OnDestroy()
-    {
-        WheatList.Remove(this);
-    }
-
-    // Destroy this object if fully grown. true if successful, false if not
-    public bool Harvest()
-    {
-        if(growth >= MAX_GROWTH)
-        {
-            // destory the GameObject
-            Destroy(this);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        WheatList.Add(this);
+        isPlantcuttable = false;
+        resourceCount = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        UpdateSprite();
+
+        resourceCountRef = resourceCount;
+
+        // Add this plant to the list of plantResources
+        plantResources.Add(this);
+    }
+
+    void OnDestroy()
+    {
+        // Remove this plant from the list of plantResources
+        plantResources.Remove(this);
+    }
+
+    // Static method to increment berries for all plantResources
+    public static void IncrementAllResources(int incAmount)
+    {
+        foreach (Wheat plant in plantResources)
+        {
+            if(plant.isItemized == true){
+                continue;
+            }
+
+            // null check spriteRenderer
+            if (plant.spriteRenderer == null)
+            {
+                Debug.Log("spriteRenderer is null");
+                return;
+            }
+
+            if (plant.resourceCount < MAX_RESOURCE)
+            {
+                plant.resourceCount = plant.resourceCount + incAmount;
+
+                if (plant.resourceCount > MAX_RESOURCE)
+                {
+                    plant.resourceCount = MAX_RESOURCE;
+                }
+            }
+
+            if (plant.resourceCount >= FULL_RESOURCE_THRESHOLD)
+            {
+                plant.spriteRenderer.sprite = Resources.Load<Sprite>("sprites/wheat");
+                plant.isPlantcuttable = true;
+            }
+            else
+            {
+                plant.spriteRenderer.sprite = Resources.Load<Sprite>("sprites/seeds");
+                plant.isPlantcuttable = false;
+            }
+
+            plant.resourceCountRef = plant.resourceCount;
+        }
+    }
+
+    public int Harvest()
+    {
+        if(isItemized == true){
+            return -1;
+        }
+
+        int temp = resourceCount;
+        resourceCount = 0;
+        if (resourceCount >= FULL_RESOURCE_THRESHOLD)
+        {
+            spriteRenderer.sprite = Resources.Load<Sprite>("sprites/wheat");
+            isPlantcuttable = true;
+        }
+        else
+        {
+            spriteRenderer.sprite = Resources.Load<Sprite>("sprites/seeds");
+            isPlantcuttable = false;
+        }
+        resourceCountRef = resourceCount;
+        return temp;
     }
 }

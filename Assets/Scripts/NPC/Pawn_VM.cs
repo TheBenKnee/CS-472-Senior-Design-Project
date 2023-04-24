@@ -12,7 +12,7 @@ public class Pawn_VM : MonoBehaviour
     private bool isAssigned;                                                // Indicates if the pawn is currently assigned to a labor order
     private static int pawnCount = 0;                                       // Counter for the total number of pawns
     private const int NUM_OF_PRIORITY_LEVELS = 4;                           // Number of priority levels for labor types
-    public List<Vector3> path { get; private set; }   // List of positions for the pawn to follow
+    public List<Vector3> path { get; set; }   // List of positions for the pawn to follow
     private float pawnSpeed;                                                // Speed of the pawn movement
     private Vector3Int position;                                            // Current position of the pawn in the grid
     private string pawnName;                                                // Name of the pawn
@@ -24,6 +24,12 @@ public class Pawn_VM : MonoBehaviour
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
     [SerializeField] public int hunger = 10000;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
+
+    // Method to return the level of the pawn's current tile 
+    public int GetTileLevel()
+    {
+        return GridManager.GetTile(position).level;
+    }
 
     // Method to return the number of priority levels
     public int GetPriorityLevelsCount()
@@ -105,7 +111,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Coroutine to move the pawn along the path
-    protected IEnumerator TakePath()
+    public IEnumerator TakePath()
     {
         anim.SetAnimParameter("walking", true);
 
@@ -303,6 +309,8 @@ public class Pawn_VM : MonoBehaviour
         isAssigned = false;
     }
 
+
+/*
     // Decrement the hunger for all living pawns
     public static void DecrementHunger(int decAmount)
     {
@@ -321,6 +329,7 @@ public class Pawn_VM : MonoBehaviour
             }
         }
     }
+*/
 
     // cancels the current labor order
     public void CancelCurrentLaborOrder()
