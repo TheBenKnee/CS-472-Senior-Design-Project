@@ -1,8 +1,8 @@
-[+] Base
-[+] Plantcut
-[+] Mine
-[+] Forage
-[+] Gather
-[-] Place
-[-] Deconstruct
-[ ] Craft
++ [X] Base
++ [X] Plantcut
++ [X] Mine
++ [X] Forage
++ [X] Gather
++ [ ] Place
++ [ ] Deconstruct
++ [ ] Craft
