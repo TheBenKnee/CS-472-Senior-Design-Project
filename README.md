@@ -3,6 +3,11 @@ Woodcut
  + Remove the tree. 
  + Spawn wood.
 
+Plantcut
+ + Go to location of a plant.
+ + Remove the plant.
+ + Spawn the resource. Spawn speeds.
+
 Mine
  + Go to location of a rock.
  + Remove the rock.
