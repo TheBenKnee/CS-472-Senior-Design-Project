@@ -3,6 +3,6 @@
 + [X] Mine
 + [X] Forage
 + [X] Gather
-+ [ ] Place
-+ [ ] Deconstruct
++ [ ] Place           (Needs Updated)
++ [ ] Deconstruct     (Needs Updated)
 + [ ] Craft
