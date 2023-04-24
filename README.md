@@ -1,3 +1,5 @@
+TO DO NEXT: Finish Gather (pathfinding to chest portion, StartPath() solution caused freezing)
+
 Woodcut
  + Go to location of a tree.
  + Remove the tree. 
