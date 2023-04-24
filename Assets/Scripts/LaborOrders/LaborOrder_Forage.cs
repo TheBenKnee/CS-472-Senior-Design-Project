@@ -22,6 +22,8 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
     // override of the execute method to perform the labor order
     public override IEnumerator Execute(Pawn_VM pawn)
     {
+        pawn.path.Clear();
+
         if (targetBush != null)
         {
             yield return new WaitForSeconds(timeToComplete);

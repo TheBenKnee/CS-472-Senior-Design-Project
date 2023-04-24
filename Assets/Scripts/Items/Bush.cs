@@ -22,6 +22,8 @@ public class Bush : Item
 
         resourceCountRef = resourceCount;
 
+        itemName = "Bush";
+
         // Add this plant to the list of plantResources
         plantResources.Add(this);
     }

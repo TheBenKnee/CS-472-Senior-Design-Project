@@ -23,6 +23,8 @@ public class LaborOrder_Plantcut : LaborOrder_Base_VM
     // override of the execute method to preform the labor order
     public override IEnumerator Execute(Pawn_VM pawn)
     {
+        pawn.path.Clear();
+
         if (targetPlant != null)
         {
             // cutting down tree

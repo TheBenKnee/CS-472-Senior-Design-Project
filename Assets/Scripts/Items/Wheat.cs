@@ -24,6 +24,8 @@ public class Wheat : Item
 
         // Add this plant to the list of plantResources
         plantResources.Add(this);
+
+        itemName = "Wheat";
     }
 
     void OnDestroy()

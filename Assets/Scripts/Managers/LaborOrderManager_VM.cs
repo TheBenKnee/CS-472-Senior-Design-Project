@@ -317,9 +317,48 @@ public class LaborOrderManager_VM : MonoBehaviour
             {
                 LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(obj));
             }
-            else if (obj.name == "Rock(Clone)")
+            else if (obj.name == "Rock(Clone)" && obj.GetComponent<Rock>().isMineable == true)
             {
                 LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(obj));
+            }else
+            {
+                Item item = obj.GetComponent<Berries>();
+                if(item != null && item.isGatherable)
+                {
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    continue;
+                }
+                item = obj.GetComponent<RockResource>();
+                if(item != null && item.isGatherable)
+                {
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    continue;
+                }
+                item = obj.GetComponent<WheatItem>();
+                if(item != null && item.isGatherable)
+                {
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    continue;
+                }
+                item = obj.GetComponent<Coin>();
+                if(item != null && item.isGatherable)
+                {
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    continue;
+                }
+                item = obj.GetComponent<Wood>();
+                if(item != null && item.isGatherable)
+                {
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    continue;
+                }
+                item = obj.GetComponent<Wheat>();
+                if(item != null && item.isGatherable)
+                {
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    continue;
+                }
+
             }
         }
     }

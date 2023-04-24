@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Rock : Item
 {
+    void Awake()
+    {
+        isMineable = true;
+        itemName = "Rock";
+    }
+
     // Start is called before the first frame update
     void Start()
     {

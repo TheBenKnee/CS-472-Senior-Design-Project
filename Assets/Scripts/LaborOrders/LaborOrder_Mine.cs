@@ -30,6 +30,8 @@ public class LaborOrder_Mine : LaborOrder_Base_VM
     // override of the execute method to preform the labor order
     public override IEnumerator Execute(Pawn_VM pawn)
     {
+        pawn.path.Clear();
+
         if (targetPlant != null)
         {
             // cutting down tree
@@ -47,6 +49,9 @@ public class LaborOrder_Mine : LaborOrder_Base_VM
                 GameObject resourceObject = UnityEngine.Object.Instantiate(resource, treePosition, Quaternion.identity);
                 resourceObject.transform.SetParent(treeParent);
                 tile.SetTileInformation(tile.type, false, resourceObject, tile.resourceCount, tile.position);
+
+                // set the resource of the tile
+                tile.resource = resourceObject;
             }
         }
         yield break;

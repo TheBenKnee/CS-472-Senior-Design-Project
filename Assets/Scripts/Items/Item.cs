@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    public string itemName;
     public BaseTile_VM location;
     public bool isGatherable = false;
     public bool isPlaceable = false;

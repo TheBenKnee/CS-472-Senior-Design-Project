@@ -33,7 +33,7 @@ public class Chest_VM_Editor : Editor
             foreach (var item in chest.contents)
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.ObjectField(item.Key, typeof(GameObject), true);
+                EditorGUILayout.LabelField(item.Key);
                 EditorGUILayout.IntField(item.Value);
                 EditorGUILayout.EndHorizontal();
             }

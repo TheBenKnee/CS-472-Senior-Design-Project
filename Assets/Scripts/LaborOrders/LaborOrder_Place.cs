@@ -36,6 +36,8 @@ public class LaborOrder_Place : LaborOrder_Base_VM
 
     public override IEnumerator Execute(Pawn_VM pawn)
     {
+        pawn.path.Clear();
+
         yield return new WaitForSeconds(timeToComplete);
         BaseTile_VM tile = GridManager.GetTile(location);
 

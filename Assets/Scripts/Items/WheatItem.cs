@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class WheatItem : Item
 {
-
+    void Awake()
+    {
+        isGatherable = true;
+        itemName = "WheatResource";
+    }
 }

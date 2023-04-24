@@ -24,6 +24,8 @@ public class Tree : Item
 
         // Add this plant to the list of plantResources
         plantResources.Add(this);
+
+        itemName = "Tree";
     }
 
     void OnDestroy()

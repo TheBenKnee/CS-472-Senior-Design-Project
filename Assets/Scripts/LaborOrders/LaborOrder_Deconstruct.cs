@@ -35,6 +35,8 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
 
     public override IEnumerator Execute(Pawn_VM pawn)
     {
+        pawn.path.Clear();
+
         yield return new WaitForSeconds(timeToComplete);
         Transform parentTransform = GameObject.Find("Objects").transform;
         // Remove the resources from the tile at the location of the labor order

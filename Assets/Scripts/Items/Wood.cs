@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Wood : Item
 {
+    void Awake()
+    {
+        isGatherable = true;
+        itemName = "Wood";
+    }
+
     // Start is called before the first frame update
     void Start()
     {

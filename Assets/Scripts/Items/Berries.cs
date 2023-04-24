@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Berries : Item
 {
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        isGatherable = true;
+        itemName = "Berries";
     }
 }

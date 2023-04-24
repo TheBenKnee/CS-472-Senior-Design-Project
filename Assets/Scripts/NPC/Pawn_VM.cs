@@ -17,13 +17,26 @@ public class Pawn_VM : MonoBehaviour
     private Vector3Int position;                                            // Current position of the pawn in the grid
     private string pawnName;                                                // Name of the pawn
     private Coroutine currentExecution;                                     // holds a reference to labor order execute() coroutine
-    private Coroutine currentPathExecution;                                     // holds a reference to labor order execute() coroutine
+    public Coroutine currentPathExecution { get; set; }                     // holds a reference to labor order execute() coroutine
     private AnimatorController anim;
 
     public static List<Pawn_VM> PawnList = new List<Pawn_VM>();             // a list of all living pawns
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
     [SerializeField] public int hunger = 10000;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
+
+    private void OnDrawGizmos()
+    {
+        if (path != null)
+        {
+            Vector3 offset = new Vector3(0.5f, 0.5f, 0);
+            Gizmos.color = Color.red;
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                Gizmos.DrawLine(path[i] + offset, path[i + 1] + offset);
+            }
+        }
+    }
 
     // Method to return the level of the pawn's current tile 
     public int GetTileLevel()
@@ -286,20 +299,19 @@ public class Pawn_VM : MonoBehaviour
                 path = PathfindingManager.GetPath(currentPosition, targetPosition, currentLevel, false);
             }
 
-            //Debug.Log("Starting path");
+            if (path.Count == 0)
+            {
+                Debug.Log($"{pawnName,-10} FAILED Labor Order #{currentLaborOrder.orderNumber,-5} UNREACHABLE: {target.ToString(),-80}");
+                break;
+            }
+
             currentPathExecution = StartCoroutine(TakePath());
             yield return currentPathExecution;
-            //Debug.Log("Completed path");
+            currentPathExecution = null;
             currentPosition = Vector3Int.FloorToInt(transform.position);
         }
 
-        // check if returned path is empty 
-        if (path.Count == 0 && currentPosition != targetPosition)
-        {
-            Debug.Log($"{pawnName,-10} FAILED Labor Order #{currentLaborOrder.orderNumber,-5} UNREACHABLE: {target.ToString(),-80}");
-        }
-        else
-        {
+        if(path.Count > 0){
             currentExecution = StartCoroutine(currentLaborOrder.Execute(this));
             yield return currentExecution;
             Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.orderNumber,-5} TTC: {currentLaborOrder.timeToComplete,-10:F2} {"Order Type: " + currentLaborOrder.laborType,-25} {target.ToString(),-80}");
@@ -363,8 +375,13 @@ public class Pawn_VM : MonoBehaviour
         // animator
         anim = GetComponent<AnimatorController>();
 
-        // Initialize the labor type priority list
+        // Initialize the labor type priority list and sublists
         laborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
+        for (int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++)
+        {
+            laborTypePriority[i] = new List<LaborType>();
+        }
+        
 
         // Assign random priority levels to labor types
         foreach (LaborType laborType in System.Enum.GetValues(typeof(LaborType)))
@@ -402,5 +419,9 @@ public class Pawn_VM : MonoBehaviour
 
         // Initialize item dictionary
         items = new Dictionary<string, Item>();
+
+        currentPathExecution = null;
+        currentExecution = null;
+
     }
 }
