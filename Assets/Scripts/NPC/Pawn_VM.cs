@@ -25,6 +25,8 @@ public class Pawn_VM : MonoBehaviour
     [SerializeField] public int hunger = 10000;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
 
+    private int pathIndex;
+
     private Vector3 _offset;
     private Color _color;
     private static List<Color> availableColors;
@@ -62,7 +64,7 @@ public class Pawn_VM : MonoBehaviour
     {
         if (path != null)
         {
-            for (int i = 0; i < path.Count - 1; i++)
+            for (int i = pathIndex; i < path.Count - 1; i++)
             {
                 Gizmos.color = _color;
                 Gizmos.DrawLine(path[i] + _offset, path[i + 1] + _offset);
@@ -160,7 +162,7 @@ public class Pawn_VM : MonoBehaviour
     {
         anim.SetAnimParameter("walking", true);
 
-        int pathIndex = 0;
+        pathIndex = 0;
 
         while (pathIndex < path.Count)
         {
@@ -486,4 +488,5 @@ public class Pawn_VM : MonoBehaviour
         currentExecution = null;
 
     }
+
 }
