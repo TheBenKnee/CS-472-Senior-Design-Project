@@ -47,6 +47,40 @@ public class TestWindow : EditorWindow
 
         EditorGUILayout.Space();
 
+        EditorGUILayout.LabelField("Populate Labor Orders by Type", EditorStyles.boldLabel);
+
+        if (GUILayout.Button("Populate Mineable Labor Orders"))
+        {
+            LaborOrderManager_VM.PopulateObjectLaborOrdersMineable();
+        }
+
+        if (GUILayout.Button("Populate Plantcuttable Labor Orders"))
+        {
+            LaborOrderManager_VM.PopulateObjectLaborOrdersPlantcuttable();
+        }
+
+        if (GUILayout.Button("Populate Forageable Bushes Labor Orders"))
+        {
+            LaborOrderManager_VM.PopulateObjectLaborOrdersForageableBushes();
+        }
+
+        if (GUILayout.Button("Populate Forageable Trees Labor Orders"))
+        {
+            LaborOrderManager_VM.PopulateObjectLaborOrdersForageableTrees();
+        }
+
+        if (GUILayout.Button("Populate Gatherable Labor Orders"))
+        {
+            LaborOrderManager_VM.PopulateObjectLaborOrdersGatherable();
+        }
+
+        if (GUILayout.Button("Populate Deconstructable Labor Orders"))
+        {
+            LaborOrderManager_VM.PopulateObjectLaborOrdersDeconstructable();
+        }
+
+        EditorGUILayout.Space();
+
         EditorGUILayout.LabelField("Populate Multiple Objects", EditorStyles.boldLabel);
 
         if (GUILayout.Button("Wheat Plants"))

@@ -20,6 +20,8 @@ public class InputManager : MonoBehaviour
             Vector3Int gridPosition = GridManager.tileMap.WorldToCell(mousePosition);
             BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(gridPosition);
 
+            LaborOrderManager_VM.PopulateObjectLaborOrderTile(tile);
+
             if (tile != null)
             {
                 Debug.Log("MOUSE CLICK " + mousePosition + " FOUND: " + tile.ToString());

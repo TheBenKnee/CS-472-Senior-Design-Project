@@ -468,6 +468,132 @@ public class LaborOrderManager_VM : MonoBehaviour
         }
     }
 
+    public static void PopulateObjectLaborOrdersMineable()
+    {
+        PopulateObjectLaborOrdersOfType(item => item.isMineable, obj => new LaborOrder_Mine(obj));
+    }
+
+    public static void PopulateObjectLaborOrdersPlantcuttable()
+    {
+        PopulateObjectLaborOrdersOfType(item => item.isPlantcuttable, obj => new LaborOrder_Plantcut(obj));
+    }
+
+    public static void PopulateObjectLaborOrdersForageableBushes()
+    {
+        PopulateObjectLaborOrdersOfType(item => item.isForageable && item.name == "Bush(Clone)", obj => new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
+    }
+
+    public static void PopulateObjectLaborOrdersForageableTrees()
+    {
+        PopulateObjectLaborOrdersOfType(item => item.isForageable && item.name == "Tree(Clone)", obj => new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
+    }
+
+    public static void PopulateObjectLaborOrdersGatherable()
+    {
+        PopulateObjectLaborOrdersOfType(item => item.isGatherable, obj => new LaborOrder_Gather(obj));
+    }
+
+    public static void PopulateObjectLaborOrdersDeconstructable()
+    {
+        PopulateObjectLaborOrdersOfType(item => item.isDeconstructable, obj => new LaborOrder_Deconstruct(obj));
+    }
+
+    private static void PopulateObjectLaborOrdersOfType(Func<Item, bool> itemCondition, Func<GameObject, LaborOrder_Base_VM> createLaborOrder)
+    {
+        GameObject[] objects = FindObjectsOfType<GameObject>();
+
+        // Check if the objects array is null
+        if (objects == null)
+        {
+            Debug.LogError("No GameObjects found in the scene.");
+            return;
+        }
+
+        foreach (GameObject obj in objects)
+        {
+            Item item = obj.GetComponent<Item>();
+
+            if (item != null && itemCondition(item))
+            {
+                LaborOrderManager_VM.AddLaborOrder(createLaborOrder(obj));
+            }
+        }
+    }
+
+    // populate the object labor order at the location of the tile
+    public static void PopulateObjectLaborOrderTile(BaseTile_VM tile)
+    {
+        // check if the tile is null
+        if (tile == null)
+        {
+            Debug.LogError("Tile is null.");
+            return;
+        }
+
+        // check if the tile has an object
+        if (tile.resource == null)
+        {
+            Debug.LogError("Tile does not have an object.");
+            return;
+        }
+
+        // check if the object is an item
+        Item item = tile.resource.GetComponent<Item>();
+        if (item == null)
+        {
+            Debug.LogError("Tile object is not an item.");
+            return;
+        }
+
+        // check if the item is mineable
+        if (item.isMineable)
+        {
+            LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(tile.resource));
+            return;
+        }
+
+        // check if the item is plantcuttable
+        if (item.isPlantcuttable)
+        {
+            LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(tile.resource));
+            return;
+        }
+
+        // check if the item is forageable
+        if (item.isForageable)
+        {
+            // check name to see if it's a bush
+            if (tile.resource.name == "Bush(Clone)")
+            {
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(tile.resource, LaborOrder_Forage.ObjectType.Bush));
+                return;
+            }
+
+            // check name to see if it's a tree
+            if (tile.resource.name == "Tree(Clone)")
+            {
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(tile.resource, LaborOrder_Forage.ObjectType.Tree));
+                return;
+            }
+
+        }
+
+        // check if the item is gatherable
+        if (item.isGatherable)
+        {
+            LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(tile.resource));
+            return;
+        }
+
+        // check if the item is deconstructable
+        if (item.isDeconstructable)
+        {
+            LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Deconstruct(tile.resource));
+            return;
+        }
+
+    }
+
     private void Awake()
     {
         availablePawns = new Queue<Pawn_VM>();

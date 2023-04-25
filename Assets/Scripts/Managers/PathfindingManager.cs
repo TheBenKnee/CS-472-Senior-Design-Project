@@ -6,32 +6,19 @@ using UnityEngine;
 public class PathfindingManager : MonoBehaviour
 {
 
-    // method that returns the location of an adjacent tile of a given tile that is not a collision
-    public static Vector3Int GetAdjacentTile(Vector3Int tile)
+    public static List<Vector3Int> GetAdjacentTiles(Vector3Int tile)
     {
-        Vector3Int adjacentTile = new Vector3Int();
-        List<Vector3Int> adjacentTiles = new List<Vector3Int>();
-        adjacentTiles.Add(new Vector3Int(tile.x + 1, tile.y, tile.z));
-        adjacentTiles.Add(new Vector3Int(tile.x - 1, tile.y, tile.z));
-        adjacentTiles.Add(new Vector3Int(tile.x, tile.y + 1, tile.z));
-        adjacentTiles.Add(new Vector3Int(tile.x, tile.y - 1, tile.z));
-
-        foreach (Vector3Int t in adjacentTiles)
+        List<Vector3Int> adjacentTiles = new List<Vector3Int>
         {
-            // assure the tile is not null
-            if (GridManager.GetTile(t) == null)
-            {
-                continue;
-            }
+            new Vector3Int(tile.x + 1, tile.y, tile.z),
+            new Vector3Int(tile.x - 1, tile.y, tile.z),
+            new Vector3Int(tile.x, tile.y + 1, tile.z),
+            new Vector3Int(tile.x, tile.y - 1, tile.z)
+        };
 
-            if (!GridManager.GetTile(t).isCollision)
-            {
-                adjacentTile = t;
-                break;
-            }
-        }
+        adjacentTiles.RemoveAll(t => GridManager.GetTile(t) == null || GridManager.GetTile(t).isCollision);
 
-        return adjacentTile;
+        return adjacentTiles;
     }
 
     public static List<Vector3> GetPath(Vector3Int start, Vector3Int target, int level, bool isDirectPathing)
@@ -40,16 +27,15 @@ public class PathfindingManager : MonoBehaviour
         PriorityQueue<BaseTile_VM> unvisited = new PriorityQueue<BaseTile_VM>();
         BaseTile_VM startTile = GridManager.GetTile(start);
 
-        // NEW: find an adjacent tile to the target tile that is not a collision
-        BaseTile_VM targetTile = null;
+        List<BaseTile_VM> targetTiles;
         if (!isDirectPathing)
         {
-            Vector3Int adjacentTile = GetAdjacentTile(target);
-            targetTile = GridManager.GetTile(adjacentTile);
+            List<Vector3Int> adjacentTilePositions = GetAdjacentTiles(target);
+            targetTiles = adjacentTilePositions.ConvertAll(GridManager.GetTile);
         }
         else
         {
-            targetTile = GridManager.GetTile(target);
+            targetTiles = new List<BaseTile_VM> { GridManager.GetTile(target) };
         }
 
         startTile.distance = 0;
@@ -59,9 +45,9 @@ public class PathfindingManager : MonoBehaviour
         {
             BaseTile_VM currentTile = unvisited.Dequeue();
 
-            if (currentTile == targetTile)
+            if (targetTiles.Contains(currentTile))
             {
-                return ReconstructPath(targetTile);
+                return ReconstructPath(currentTile);
             }
 
             currentTile.visited = true;
@@ -110,6 +96,7 @@ public class PathfindingManager : MonoBehaviour
 
         return new List<Vector3>(); // Return empty path if no path is found
     }
+
 
     private static List<BaseTile_VM> GetNeighbors(BaseTile_VM tile, int level)
     {
