@@ -1,12 +1,10 @@
-/*
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Zone : Area
 {
-    public enum ZoneType { NormalFoodFarm = 1, PremiumFoodFarm = 2, ClothFarm = 3, NormalMedicineFarm = 4, PremiumMedicineFarm = 5 };
+    /*public enum ZoneType { NormalFoodFarm = 1, PremiumFoodFarm = 2, ClothFarm = 3, NormalMedicineFarm = 4, PremiumMedicineFarm = 5 };
 
     protected ZoneType myType;
     protected Colony myColony;
@@ -59,8 +57,5 @@ public class Zone : Area
     public GameObject GetVisualBox()
     {
         return visualBox;
-    }
+    }*/
 }
-
-
-*/

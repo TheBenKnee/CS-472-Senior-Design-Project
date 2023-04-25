@@ -1,12 +1,10 @@
-/*
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Colony : MonoBehaviour
 {
-    public List<Zone> zones = new List<Zone>();
+    /*public List<Zone> zones = new List<Zone>();
     public List<string> colonyResources = new List<string>();
     private Dictionary<string, ResourceListElement> resourceListRef =  new Dictionary<string, ResourceListElement>();
     [SerializeField] private SpriteRenderer zoneSprite;
@@ -174,8 +172,5 @@ public class Colony : MonoBehaviour
     public List<Zone> GetZones()
     {
         return zones;
-    }
+    }*/
 }
-
-
-*/
