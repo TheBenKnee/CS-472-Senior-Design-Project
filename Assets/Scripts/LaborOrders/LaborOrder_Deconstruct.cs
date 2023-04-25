@@ -30,15 +30,22 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
 
         if (tile != null)
         {
-            Item itemComponent = tile.resource.GetComponent<Item>();
-            if (itemComponent != null && itemComponent.isDeconstructable)
+            if (tile.resource != null) // Add this null check
             {
-                tile.SetTileInformation(tile.type, false, tile.resource, tile.resourceCount, tile.position);
-                itemComponent.Deconstruct();
+                Item itemComponent = tile.resource.GetComponent<Item>();
+                if (itemComponent != null && itemComponent.isDeconstructable)
+                {
+                    tile.SetTileInformation(tile.type, false, tile.resource, tile.resourceCount, tile.position);
+                    itemComponent.Deconstruct();
+                }
+                else
+                {
+                    Debug.LogWarning("Tile does not contain an item. Cannot destroy an item on this tile.");
+                }
             }
             else
             {
-                Debug.LogWarning("Tile does not contain an item. Cannot destroy an item on this tile.");
+                Debug.LogWarning("Tile resource is null. Cannot destroy an item on this tile.");
             }
         }
         else
@@ -46,8 +53,8 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
             Debug.LogWarning("No tile found at the specified location.");
         }
 
-
         yield return null;
     }
+
 
 }

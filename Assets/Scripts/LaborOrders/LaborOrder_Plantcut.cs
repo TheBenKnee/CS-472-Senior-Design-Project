@@ -54,6 +54,7 @@ public class LaborOrder_Plantcut : LaborOrder_Base_VM
                     {
                         GameObject wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
                         wheatItem.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                        resource = wheatItem;
                         adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
                         break;
                     }

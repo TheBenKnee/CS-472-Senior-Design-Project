@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 241000566000305970}
   - component: {fileID: 241000566000305971}
+  - component: {fileID: 4091842938682805355}
   m_Layer: 0
   m_Name: WheatItem
   m_TagString: Untagged
@@ -84,3 +85,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4091842938682805355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241000566000305997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41dbce28becba0b4fb0b5cd2cfdf1176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: 
+  location: {fileID: 0}
+  isGatherable: 0
+  isPlaceable: 0
+  isDeconstructable: 0
+  isWoodcuttable: 0
+  isMineable: 0
+  isForageable: 0
+  isCraftable: 0
+  isPlantcuttable: 0
+  isItemized: 0
