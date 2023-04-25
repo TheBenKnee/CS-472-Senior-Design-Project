@@ -20,6 +20,8 @@ public class ColonyInfoManager : MonoBehaviour
 
     [SerializeField] private GameObject zoneInfoTile;
 
+    [SerializeField] private TextMeshProUGUI pawnCount;
+
     // Resource List Variables
     [SerializeField] private GameObject resourceListContent;
 
@@ -56,6 +58,7 @@ public class ColonyInfoManager : MonoBehaviour
     {
         zoneNumber.text = (myColony.GetNextZoneNumber() - 1).ToString();
         colonyName.text = myColony.GetColonyName();
+        pawnCount.text = LaborOrderManager_VM.GetPawnCount().ToString();
     }
 
     /////////////////////////////////////
