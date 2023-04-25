@@ -68,12 +68,30 @@ public class LaborOrderManager_VM : MonoBehaviour
     }
 
     // Method to add a destroy labor order to the queue
-    public static void AddDestroyLaborOrder()
+    public static void AddDeconstructLaborOrder()
     {
-        // create a new destroy labor order
-        LaborOrder_Deconstruct deconstructOrder = new LaborOrder_Deconstruct();
-        // add the labor order to the queue
-        laborQueues[(int)LaborType.Deconstruct].Enqueue(deconstructOrder);
+        // iterate through all objects and find the first tile with an item that is deconstructable
+        GameObject[] objects = FindObjectsOfType<GameObject>();
+        
+        // Check if the objects array is null
+        if (objects == null)
+        {
+            Debug.LogError("No GameObjects found in the scene.");
+            return;
+        }
+
+        foreach (GameObject obj in objects)
+        {
+            Item itemComponent = obj.GetComponent<Item>();
+            if (itemComponent != null && itemComponent.isDeconstructable)
+            {
+                // create a new deconstruct labor order
+                LaborOrder_Deconstruct deconstructOrder = new LaborOrder_Deconstruct(obj);
+                // add the labor order to the queue
+                laborQueues[(int)LaborType.Deconstruct].Enqueue(deconstructOrder);
+                return;
+            }
+        }
     }
 
     // Method to Get the total number of labor types
@@ -305,22 +323,42 @@ public class LaborOrderManager_VM : MonoBehaviour
 
         foreach (GameObject obj in objects)
         {
-            if (obj.name == "Tree(Clone)" && obj.GetComponent<Tree>().isForageable == true)
+            if (obj.name == "Tree(Clone)")
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
+                if(obj.GetComponent<Tree>().isForageable == true){
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
+                }
+
+                if(obj.GetComponent<Tree>().isDeconstructable == true){
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Deconstruct(obj));
+                }
+
             }
-            else if (obj.name == "Bush(Clone)" && obj.GetComponent<Bush>().isForageable) // && obj.GetComponent<Bush>().berryCount > 0
+            
+            if (obj.name == "Bush(Clone)") // && obj.GetComponent<Bush>().berryCount > 0
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
+                if(obj.GetComponent<Bush>().isForageable){
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
+                }
+                
             }
-            else if (obj.name == "Wheat(Clone)" && obj.GetComponent<Wheat>().isPlantcuttable == true)
+            
+            if (obj.name == "Wheat(Clone)")
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(obj));
+                if(obj.GetComponent<Wheat>().isPlantcuttable){
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(obj));
+                }
+                
             }
-            else if (obj.name == "Rock(Clone)" && obj.GetComponent<Rock>().isMineable == true)
+            
+            if (obj.name == "Rock(Clone)")
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(obj));
-            }else
+                if(obj.GetComponent<Rock>().isMineable == true){
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(obj));
+                }
+                
+            }
+            else
             {
                 Item item = obj.GetComponent<Berries>();
                 if(item != null && item.isGatherable)
@@ -360,6 +398,73 @@ public class LaborOrderManager_VM : MonoBehaviour
                 }
 
             }
+        }
+    }
+
+    // Finds all objects that can be associated with a labor order and adds them to the manager
+    //  For testing purposes
+    public static void PopulateObjectLaborOrdersUpdated()
+    {
+        GameObject[] objects = FindObjectsOfType<GameObject>();
+        
+        // Check if the objects array is null
+        if (objects == null)
+        {
+            Debug.LogError("No GameObjects found in the scene.");
+            return;
+        }
+
+        foreach (GameObject obj in objects)
+        {
+            Item item = obj.GetComponent<Item>();
+
+            // check if the item is mineable
+            if (item != null && item.isMineable)
+            {
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(obj));
+                continue;
+            }
+
+            // check if the item is plantcuttable
+            if (item != null && item.isPlantcuttable)
+            {
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(obj));
+                continue;
+            }
+
+            // check if the item is forageable
+            if (item != null && item.isForageable)
+            {
+                // check name to see if it's a bush
+                if (obj.name == "Bush(Clone)")
+                {
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
+                    continue;
+                }
+
+                // check name to see if it's a tree
+                if (obj.name == "Tree(Clone)")
+                {
+                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
+                    continue;
+                }
+
+            }
+
+            // check if the item is gatherable
+            if (item != null && item.isGatherable)
+            {
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                continue;
+            }
+
+            // check if the item is deconstructable
+            if (item != null && item.isDeconstructable)
+            {
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Deconstruct(obj));
+                continue;
+            }
+
         }
     }
 

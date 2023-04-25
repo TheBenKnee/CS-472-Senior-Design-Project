@@ -5,7 +5,7 @@ using UnityEngine;
 public class Chest_VM : Item
 {
     // dictionary of item names and their quantities
-    public Dictionary<string, int> contents = new Dictionary<string, int>();
+    [SerializeField] public Dictionary<string, int> contents = new Dictionary<string, int>();
 
     // Method to add an item to the chest
     public void AddItem(GameObject item)
@@ -75,10 +75,25 @@ public class Chest_VM : Item
         }
     }
 
+    public new void Deconstruct()
+    {
+        // check if the chest is empty and debug log if it is not
+        if (contents.Count != 0)
+        {
+            Debug.Log("Chest is not empty. Cannot deconstruct.");
+            return;
+        }
+
+        // remove the chest from the global storage
+        GlobalStorage_VM.RemoveChest(this);
+        Itemize();
+    }
+
     void Awake()
     {
         isGatherable = false;
         isPlaceable = true;
+        isDeconstructable = true;
         // initialize the contents dictionary
         contents = new Dictionary<string, int>();
         // initialize the location

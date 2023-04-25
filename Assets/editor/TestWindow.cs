@@ -40,6 +40,11 @@ public class TestWindow : EditorWindow
             LaborOrderManager_VM.PopulateObjectLaborOrders();
         }
 
+        if (GUILayout.Button("Populate Object Labor Orders (UPDATED)"))
+        {
+            LaborOrderManager_VM.PopulateObjectLaborOrdersUpdated();
+        }
+
         EditorGUILayout.Space();
 
         EditorGUILayout.LabelField("Populate Multiple Objects", EditorStyles.boldLabel);
@@ -101,9 +106,9 @@ public class TestWindow : EditorWindow
             LaborOrderManager_VM.ClearLaborOrders();
         }
 
-        if (GUILayout.Button("Generate Destroy Order"))
+        if (GUILayout.Button("Generate Deconstruct Order"))
         {
-            LaborOrderManager_VM.AddDestroyLaborOrder();
+            LaborOrderManager_VM.AddDeconstructLaborOrder();
         }
 
         EditorGUILayout.Space();

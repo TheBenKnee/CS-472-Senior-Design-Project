@@ -41,7 +41,8 @@ public class LaborOrder_Plantcut : LaborOrder_Base_VM
                 BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(Vector3Int.FloorToInt(treePosition));
                 GameObject resourceItem = Resources.Load<GameObject>("prefabs/items/Wheat");
                 GameObject resourceObject = UnityEngine.Object.Instantiate(resourceItem, treePosition, Quaternion.identity);
-                resourceObject.transform.SetParent(treeParent);
+                resourceObject.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+
                 resourceObject.GetComponent<Wheat>().Itemize();
                 tile.SetTileInformation(tile.type, false, resourceObject, tile.resourceCount, tile.position);
 
@@ -52,7 +53,7 @@ public class LaborOrder_Plantcut : LaborOrder_Base_VM
                     if (!adjacentTile.isCollision && adjacentTile.resource == null)
                     {
                         GameObject wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
-                        wheatItem.transform.SetParent(treeParent);
+                        wheatItem.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                         adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
                         break;
                     }

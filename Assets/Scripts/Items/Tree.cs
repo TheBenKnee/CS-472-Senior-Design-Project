@@ -17,6 +17,7 @@ public class Tree : Item
     void Awake()
     {
         isForageable = false;
+        isDeconstructable = true;
         resourceCount = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -69,6 +70,12 @@ public class Tree : Item
 
             plant.resourceCountRef = plant.resourceCount;
         }
+    }
+
+    public new void Deconstruct()
+    {
+        plantResources.Remove(this);
+        Itemize();
     }
 
     public int Harvest()

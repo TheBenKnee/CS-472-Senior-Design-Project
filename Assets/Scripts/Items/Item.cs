@@ -7,16 +7,16 @@ public class Item : MonoBehaviour
     // list reference to all items
     public static List<GameObject> items = new List<GameObject>();
 
-    public string itemName;
-    public BaseTile_VM location;
-    public bool isGatherable = false;
-    public bool isPlaceable = false;
-    public bool isDesconstructable = false;
-    public bool isWoodcuttable = false;
-    public bool isMineable = false;
-    public bool isForageable = false;
-    public bool isCraftable = false;
-    public bool isPlantcuttable = false;
+    [SerializeField] public string itemName;
+    [SerializeField] public BaseTile_VM location;
+    [SerializeField] public bool isGatherable = false;
+    [SerializeField] public bool isPlaceable = false;
+    [SerializeField] public bool isDeconstructable = false;
+    [SerializeField] public bool isWoodcuttable = false;
+    [SerializeField] public bool isMineable = false;
+    [SerializeField] public bool isForageable = false;
+    [SerializeField] public bool isCraftable = false;
+    [SerializeField] public bool isPlantcuttable = false;
 
     public bool isItemized = false;
 
@@ -25,6 +25,9 @@ public class Item : MonoBehaviour
         isItemized = true;
         isGatherable = true;
         isPlaceable = true;
+
+        isForageable = false;
+        isPlantcuttable = false;
     }
 
     public void Unitemize()

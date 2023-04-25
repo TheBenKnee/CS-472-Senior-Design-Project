@@ -15,6 +15,8 @@ public class Chest_VM_Editor : Editor
 
     public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
+
         serializedObject.Update();
 
         Chest_VM chest = (Chest_VM)target;

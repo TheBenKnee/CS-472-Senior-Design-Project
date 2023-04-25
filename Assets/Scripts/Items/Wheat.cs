@@ -17,6 +17,7 @@ public class Wheat : Item
     void Awake()
     {
         isPlantcuttable = false;
+        isDeconstructable = true;
         resourceCount = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -73,6 +74,12 @@ public class Wheat : Item
 
             plant.resourceCountRef = plant.resourceCount;
         }
+    }
+
+    public new void Deconstruct()
+    {
+        plantResources.Remove(this);
+        Itemize();
     }
 
     public int Harvest()

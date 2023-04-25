@@ -7,30 +7,16 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class LaborOrder_Deconstruct : LaborOrder_Base_VM
 {
+    private static float BASE_TTC = 3f;
+    private GameObject target;
 
     // constructor
-    public LaborOrder_Deconstruct() : base()
+    public LaborOrder_Deconstruct(GameObject target)
     {
         laborType = LaborType.Deconstruct;
-        timeToComplete = 3f;
-        orderNumber = LaborOrderManager_VM.GetNumOfLaborOrders();
-
-        // get tile with resource
-        BaseTile_VM tile;
-        do
-        {
-            // Get a random level
-            int randomLevelIndex = UnityEngine.Random.Range(0, GridManager.mapLevels.Count);
-            Level level = GridManager.mapLevels[randomLevelIndex];
-            // Get a random x and y
-            int randomX = UnityEngine.Random.Range(level.getXMin(), level.getXMax());
-            int randomY = UnityEngine.Random.Range(level.getYMin(), level.getYMax());
-
-            // Set labor order location
-            location = new Vector3Int(randomX, randomY, 0);
-            tile = GridManager.GetTile(location);
-        }
-        while(tile.resource == null);
+        timeToComplete = BASE_TTC;
+        this.target = target;
+        location = Vector3Int.FloorToInt(target.transform.position);
     }
 
     public override IEnumerator Execute(Pawn_VM pawn)
@@ -45,7 +31,7 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
         if (tile != null)
         {
             Item itemComponent = tile.resource.GetComponent<Item>();
-            if (itemComponent != null && itemComponent.isDesconstructable)
+            if (itemComponent != null && itemComponent.isDeconstructable)
             {
                 tile.SetTileInformation(tile.type, false, tile.resource, tile.resourceCount, tile.position);
                 itemComponent.Deconstruct();

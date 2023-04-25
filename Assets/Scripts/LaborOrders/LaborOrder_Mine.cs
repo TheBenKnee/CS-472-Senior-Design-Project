@@ -48,7 +48,7 @@ public class LaborOrder_Mine : LaborOrder_Base_VM
                 BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(Vector3Int.FloorToInt(treePosition));
                 
                 GameObject resourceObject = UnityEngine.Object.Instantiate(resource, treePosition, Quaternion.identity);
-                resourceObject.transform.SetParent(treeParent);
+                resourceObject.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, false, resourceObject, tile.resourceCount, tile.position);
 
                 // set the resource of the tile

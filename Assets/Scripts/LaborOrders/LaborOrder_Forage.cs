@@ -24,7 +24,7 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
     {
         pawn.path.Clear();
 
-        if (targetBush != null && targetBush.GetComponent<Bush>().isForageable == true && targetBush.GetComponent<Tree>().isItemized == false)
+        if (targetBush != null && targetBush.GetComponent<Item>().isForageable == true && targetBush.GetComponent<Item>().isItemized == false)
         {
             yield return new WaitForSeconds(timeToComplete);
 
@@ -39,7 +39,7 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
                     {
                         GameObject resource = Resources.Load<GameObject>("prefabs/items/berries");
                         GameObject wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
-                        wheatItem.transform.SetParent(targetBush.transform);
+                        wheatItem.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                         adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
                         break;
                     }
@@ -58,7 +58,7 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
                     {
                         GameObject resource = Resources.Load<GameObject>("prefabs/items/Wood");
                         GameObject wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
-                        wheatItem.transform.SetParent(targetBush.transform);
+                        wheatItem.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                         adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
                         break;
                     }

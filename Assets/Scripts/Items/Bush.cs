@@ -17,7 +17,7 @@ public class Bush : Item
     void Awake()
     {
         isPlaceable = true;
-        isDesconstructable = true;
+        isDeconstructable = true;
         isForageable = false;
         resourceCount = 0;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,6 +41,10 @@ public class Bush : Item
     {
         foreach (Bush plant in plantResources)
         {
+            if(plant.isItemized){
+                continue;
+            }
+
             // null check spriteRenderer
             if (plant.spriteRenderer == null)
             {
@@ -71,6 +75,12 @@ public class Bush : Item
 
             plant.resourceCountRef = plant.resourceCount;
         }
+    }
+
+    public new void Deconstruct()
+    {
+        plantResources.Remove(this);
+        Itemize();
     }
 
     public int Harvest()

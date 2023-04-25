@@ -58,6 +58,10 @@ public class GameClock : MonoBehaviour
     // Executes functions every tick
     public void OnTick()
     {
+        if(FREQUENCY == 0){
+            return;
+        }
+
         lastTick = Time.time;
         //Pawn_VM.DecrementHunger(HUNGER_DECREMENT);
         Bush.IncrementAllResources(BERRY_INCREMENT);
