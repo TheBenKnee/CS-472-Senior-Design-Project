@@ -76,7 +76,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         // Check if the objects array is null
         if (objects == null)
         {
-            Debug.LogError("No GameObjects found in the scene.");
+            Debug.LogWarning("No GameObjects found in the scene.");
             return;
         }
 
@@ -317,7 +317,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         // Check if the objects array is null
         if (objects == null)
         {
-            Debug.LogError("No GameObjects found in the scene.");
+            Debug.LogWarning("No GameObjects found in the scene.");
             return;
         }
 
@@ -410,7 +410,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         // Check if the objects array is null
         if (objects == null)
         {
-            Debug.LogError("No GameObjects found in the scene.");
+            Debug.LogWarning("No GameObjects found in the scene.");
             return;
         }
 
@@ -505,7 +505,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         // Check if the objects array is null
         if (objects == null)
         {
-            Debug.LogError("No GameObjects found in the scene.");
+            Debug.LogWarning("No GameObjects found in the scene.");
             return;
         }
 
@@ -526,14 +526,14 @@ public class LaborOrderManager_VM : MonoBehaviour
         // check if the tile is null
         if (tile == null)
         {
-            Debug.LogError("Tile is null.");
+            Debug.LogWarning("Tile is null.");
             return;
         }
 
         // check if the tile has an object
         if (tile.resource == null)
         {
-            Debug.LogError("Tile does not have an object.");
+            Debug.LogWarning("Tile does not have an object.");
             return;
         }
 
@@ -541,7 +541,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         Item item = tile.resource.GetComponent<Item>();
         if (item == null)
         {
-            Debug.LogError("Tile object is not an item.");
+            Debug.LogWarning("Tile object is not an item.");
             return;
         }
 

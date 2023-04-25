@@ -29,6 +29,11 @@ public class LaborOrder_Gather : LaborOrder_Base_VM
             yield break;
         }
 
+        if(chest == null){
+            Debug.LogWarning("Chest is null. Aborting.");
+            yield break;
+        }
+
         chest.AddItem(resource);
         UnityEngine.Object.Destroy(targetTile.resource);
         targetTile.resource = null;
