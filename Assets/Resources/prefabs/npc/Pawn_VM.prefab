@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1110198859314352595}
-  - component: {fileID: 7419830210777840979}
   - component: {fileID: 1110198859314352597}
   - component: {fileID: -6212351786046154490}
   - component: {fileID: -8397261251115020685}
+  - component: {fileID: 7419830210777840979}
   m_Layer: 0
   m_Name: Pawn_VM
   m_TagString: Untagged
@@ -35,20 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7419830210777840979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110198859314352592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8452b855f641a14bab79af4bd1bdbce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  refuseLaborOrders: 0
-  hunger: 100
 --- !u!212 &1110198859314352597
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -111,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 1110198859314352592}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cfbd5008afdf72440a4ebaacd1ae1062, type: 2}
+  m_Controller: {fileID: 9100000, guid: 188d0bbe7236a6046b80d3212bc82441, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -134,3 +120,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: -6212351786046154490}
+--- !u!114 &7419830210777840979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110198859314352592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8452b855f641a14bab79af4bd1bdbce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  refuseLaborOrders: 0
+  hunger: 100

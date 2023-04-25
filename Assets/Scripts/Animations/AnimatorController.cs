@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class AnimatorController : MonoBehaviour
 {
-    [SerializeField] public Animator anim;
+    private Animator anim;
+    private static int currentAnimatorIndex = 0; // Add this static variable
+
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+        RuntimeAnimatorController[] animators = Resources.LoadAll<RuntimeAnimatorController>("Animations/Animators");
+
+        // Assign the animator at the current index
+        anim.runtimeAnimatorController = animators[currentAnimatorIndex];
+
+        // Increment the index and reset it if it reaches the end of the array
+        currentAnimatorIndex++;
+        if (currentAnimatorIndex >= animators.Length)
+        {
+            currentAnimatorIndex = 0;
+        }
+    }
 
     public void SetAnimParameter(string floatName, float floatValue)
     {
