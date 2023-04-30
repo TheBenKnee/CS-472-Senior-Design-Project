@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test Scenes/ItemTests.unity
     guid: ffe2f3322dfa69147b004a282383b96d
+  - enabled: 1
+    path: Assets/Scenes/Test Scenes/InputManagerTest.unity
+    guid: 47ec071a2ba812643a87d8b4f41c399f
   m_configObjects: {}
