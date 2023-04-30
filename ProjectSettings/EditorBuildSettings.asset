@@ -41,4 +41,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test Scenes/ItemTests.unity
     guid: ffe2f3322dfa69147b004a282383b96d
+  - enabled: 1
+    path: Assets/Scenes/Test Scenes/TileTestScene.unity
+    guid: 1aa5706b82f144b44a6fc170baa9d5fe
+  - enabled: 1
+    path: Assets/Scenes/CombinedManagers.unity
+    guid: e2ad43ffe0d7a0d418c50f2e8ed94e43
   m_configObjects: {}
