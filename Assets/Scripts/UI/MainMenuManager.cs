@@ -7,53 +7,25 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
 
-    public static MainMenuManager instance;
-
-    // Animations
-    private bool isAnimating = false;
-
-    // Sounds
-    private AudioSource Audio;
-
-    // Home Screen
-    [SerializeField, HideInInspector]
+    [SerializeField]
     public GameObject homeScreen;
-
-    // Menu Options
-    [SerializeField, HideInInspector]
+    [SerializeField]
     public GameObject newMenu;
-    [SerializeField, HideInInspector]
+    [SerializeField]
     public GameObject loadMenu;
-    [SerializeField, HideInInspector]
+    [SerializeField]
     public GameObject settingsMenu;
-    [SerializeField, HideInInspector]
+    [SerializeField]
     public GameObject exitMenu;
 
     // Start is called before the first frame update
-    void Start()
+    public void Awake()
     {
-        Audio = gameObject.GetComponent<AudioSource>();
-        instance = this;
-
-        // PLAY ANIMATION HERE
-        returnHome();
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!homeScreen.activeSelf && !isAnimating)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                returnHome();
-            }
-        }
+        ReturnHome();
     }
 
     // Disable all menus within main menu
-    public void disableMenus()
+    public void DisableMenus()
     {
         homeScreen.SetActive(false);
         newMenu.SetActive(false);
@@ -63,37 +35,32 @@ public class MainMenuManager : MonoBehaviour
     }
 
     // Return to home screen
-    public void returnHome()
+    public void ReturnHome()
     {
-        disableMenus();
+        DisableMenus();
         homeScreen.SetActive(true);
     }
 
     // Manages the selected option from home screen
     public void selectOption(string option)
     {
-        if (homeScreen.activeSelf && !isAnimating)
+        Debug.Log("click");
+        if (homeScreen.activeSelf)
         {
-            disableMenus();
+            DisableMenus();
             switch (option)
             {
                 case "new":
                     newMenu.SetActive(true);
-                    //PlayGame();
-                    // PLAY ANIMATION HERE
                     break;
                 case "load":
                     loadMenu.SetActive(true);
-                    //LoadSaveGame();
-                    // PLAY ANIMATION HERE
                     break;
                 case "settings":
                     settingsMenu.SetActive(true);
-                    // PLAY ANIMATION HERE
                     break;
                 case "exit":
                     exitMenu.SetActive(true);
-                    // PLAY ANIMATION HERE
                     break;
                 default:
                     homeScreen.SetActive(true);
@@ -116,9 +83,4 @@ public class MainMenuManager : MonoBehaviour
     {
         Application.Quit();
     }
-
 }
-
-
-
-
