@@ -1469,7 +1469,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2542,8 +2542,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1025195478}
         m_TargetAssemblyTypeName: MainMenuManager, Scripts
-        m_MethodName: ExitGame
-        m_Mode: 1
+        m_MethodName: selectOption
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2980,10 +2980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be81ba56604af1a448537f6046e95877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySaveManager: {fileID: 759738482}
-  saveSlot: {fileID: 1445603468551350029, guid: a4c7f426a71449c45bd510ff05e55ce9, type: 3}
-  content: {fileID: 1628531083}
-  activeSlot: -1
 --- !u!114 &759738484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9557,9 +9553,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiCanvas: {fileID: 1135278201}
-  saveSystemUI: {fileID: 759738480}
   colonyInfo: {fileID: 0}
   colonyInfoManager: {fileID: 0}
+  laborOrderPanel: {fileID: 0}
 --- !u!114 &1135278204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9572,7 +9568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6d4dbfda5575c47af08b5c51d546ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabList: {fileID: 11400000, guid: 1974452ef6652ea42ae8a59b6aa76423, type: 2}
 --- !u!114 &1135278205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11876,7 +11871,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1025195478}
         m_TargetAssemblyTypeName: MainMenuManager, Scripts
-        m_MethodName: ExitGame
+        m_MethodName: returnHome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13860,7 +13855,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2028507256
 GameObject:
