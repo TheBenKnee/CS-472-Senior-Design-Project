@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>4/30/2023 - 8:33:00 PM</Generatedon>
+    <Parser>MultiReportParser (36x OpenCoverParser)</Parser>
+    <Assemblies>1</Assemblies>
+    <Classes>109</Classes>
+    <Files>119</Files>
+    <Coveredlines>4017</Coveredlines>
+    <Uncoveredlines>820</Uncoveredlines>
+    <Coverablelines>4837</Coverablelines>
+    <Totallines>6048</Totallines>
+    <Linecoverage>83</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+    <Coveredmethods>611</Coveredmethods>
+    <Totalmethods>660</Totalmethods>
+    <Methodcoverage>92.5</Methodcoverage>
+  </Summary>
+  <Coverage>
+    <Assembly name="Scripts" classes="109" coverage="83" coveredlines="4017" coverablelines="4837" totallines="6148" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="611" totalmethods="660" methodcoverage="92.5">
+      <Class name="ActionUIManager" coverage="14.2" coveredlines="1" coverablelines="7" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="2" methodcoverage="50" />
+      <Class name="ActiveQuestUIElement" coverage="47.8" coveredlines="11" coverablelines="23" totallines="65" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="3" methodcoverage="33.3" />
+      <Class name="AnimatorController" coverage="100" coveredlines="82" coverablelines="82" totallines="75" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="11" methodcoverage="100" />
+      <Class name="Area" coverage="29" coveredlines="16" coverablelines="55" totallines="100" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="6" methodcoverage="33.3" />
+      <Class name="Armor" coverage="100" coveredlines="9" coverablelines="9" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="AvailableQuestUIElement" coverage="100" coveredlines="16" coverablelines="16" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="BaseNPC" coverage="100" coveredlines="22" coverablelines="22" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+      <Class name="BaseTile" coverage="95" coveredlines="57" coverablelines="60" totallines="111" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="27" totalmethods="27" methodcoverage="100" />
+      <Class name="BaseTile_VM" coverage="94.1" coveredlines="32" coverablelines="34" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="20" totalmethods="20" methodcoverage="100" />
+      <Class name="BasicFollowingCamera" coverage="100" coveredlines="9" coverablelines="9" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Berries" coverage="100" coveredlines="6" coverablelines="6" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Bush" coverage="90.7" coveredlines="59" coverablelines="65" totallines="108" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="CameraManager" coverage="18.3" coveredlines="34" coverablelines="185" totallines="252" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="9" methodcoverage="66.6" />
+      <Class name="Chest" coverage="93.7" coveredlines="120" coverablelines="128" totallines="125" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="18" totalmethods="18" methodcoverage="100" />
+      <Class name="Coin" coverage="100" coveredlines="5" coverablelines="5" totallines="17" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Colony" coverage="76.9" coveredlines="60" coverablelines="78" totallines="107" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="17" totalmethods="21" methodcoverage="80.9" />
+      <Class name="ColonyInfoManager" coverage="67.5" coveredlines="27" coverablelines="40" totallines="70" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="10" methodcoverage="80" />
+      <Class name="Condition" coverage="100" coveredlines="5" coverablelines="5" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="ControlledMovement" coverage="75" coveredlines="15" coverablelines="20" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="DestroyOverTime" coverage="100" coveredlines="7" coverablelines="7" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="EntityDictionary" coverage="90.9" coveredlines="20" coverablelines="22" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="EntityDictionaryStats" coverage="100" coveredlines="1" coverablelines="1" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Equipment" coverage="100" coveredlines="4" coverablelines="4" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="ErrorObject" coverage="100" coveredlines="9" coverablelines="9" totallines="29" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="Exit" coverage="0" coveredlines="0" coverablelines="3" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="GameClock" coverage="95" coveredlines="38" coverablelines="40" totallines="78" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="GameManager" coverage="91.5" coveredlines="65" coverablelines="71" totallines="75" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="15" totalmethods="15" methodcoverage="100" />
+      <Class name="GameObjectTile" coverage="94.5" coveredlines="87" coverablelines="92" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="11" methodcoverage="100" />
+      <Class name="GameUserInterfaceManager" coverage="0" coveredlines="0" coverablelines="15" totallines="37" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="GlobalInstance" coverage="95" coveredlines="19" coverablelines="20" totallines="38" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="GlobalSelection" coverage="74" coveredlines="60" coverablelines="81" totallines="137" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="9" totalmethods="9" methodcoverage="100" />
+      <Class name="GlobalStorage" coverage="94.3" coveredlines="149" coverablelines="158" totallines="135" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="31" totalmethods="31" methodcoverage="100" />
+      <Class name="GrassTile" coverage="100" coveredlines="3" coverablelines="3" totallines="15" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="GrassTile_VM" coverage="100" coveredlines="3" coverablelines="3" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="GridManager" coverage="86.9" coveredlines="314" coverablelines="361" totallines="410" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="21" totalmethods="23" methodcoverage="91.3" />
+      <Class name="Health" coverage="100" coveredlines="6" coverablelines="6" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Initializer" coverage="100" coveredlines="7" coverablelines="7" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="InputManager" coverage="49" coveredlines="25" coverablelines="51" totallines="58" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="3" methodcoverage="66.6" />
+      <Class name="Item" coverage="92.3" coveredlines="60" coverablelines="65" totallines="57" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="9" totalmethods="10" methodcoverage="90" />
+      <Class name="ItemList" coverage="100" coveredlines="1" coverablelines="1" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="LaborOrder" coverage="100" coveredlines="13" coverablelines="13" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="LaborOrder_Base" coverage="93.4" coveredlines="43" coverablelines="46" totallines="88" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="11" methodcoverage="100" />
+      <Class name="LaborOrder_Base_VM" coverage="87.5" coveredlines="21" coverablelines="24" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="LaborOrder_Craft" coverage="80.2" coveredlines="61" coverablelines="76" totallines="120" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="LaborOrder_Deconstruct" coverage="75.6" coveredlines="28" coverablelines="37" totallines="64" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="LaborOrder_Eat" coverage="100" coveredlines="18" coverablelines="18" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="LaborOrder_Forage" coverage="95.6" coveredlines="44" coverablelines="46" totallines="77" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="LaborOrder_Gather" coverage="82.1" coveredlines="69" coverablelines="84" totallines="142" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="LaborOrder_Mine" coverage="100" coveredlines="33" coverablelines="33" totallines="65" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="LaborOrder_Place" coverage="78.5" coveredlines="44" coverablelines="56" totallines="92" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="LaborOrder_Plantcut" coverage="100" coveredlines="39" coverablelines="39" totallines="71" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="LaborOrder_Woodcut" coverage="100" coveredlines="8" coverablelines="8" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="LaborOrderManager" coverage="85" coveredlines="416" coverablelines="489" totallines="635" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="55" totalmethods="55" methodcoverage="100" />
+      <Class name="LaborOrderManager_VM" coverage="95.7" coveredlines="91" coverablelines="95" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="13" totalmethods="13" methodcoverage="100" />
+      <Class name="LaborOrderPanelManager" coverage="0" coveredlines="0" coverablelines="73" totallines="157" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="Layer" coverage="100" coveredlines="15" coverablelines="15" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+      <Class name="Level" coverage="100" coveredlines="85" coverablelines="85" totallines="130" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="14" totalmethods="14" methodcoverage="100" />
+      <Class name="MainMenuManager" coverage="61.5" coveredlines="32" coverablelines="52" totallines="124" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="9" methodcoverage="66.6" />
+      <Class name="MainMenuUIObject" coverage="0" coveredlines="0" coverablelines="6" totallines="21" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="Map" coverage="96.9" coveredlines="63" coverablelines="65" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="Movement" coverage="100" coveredlines="7" coverablelines="7" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="NPCStats" coverage="100" coveredlines="2" coverablelines="2" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="PanelManager" coverage="84.2" coveredlines="48" coverablelines="57" totallines="65" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="14" totalmethods="14" methodcoverage="100" />
+      <Class name="PathfindingManager" coverage="92.5" coveredlines="150" coverablelines="162" totallines="144" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="Pawn" coverage="92.7" coveredlines="305" coverablelines="329" totallines="538" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="31" totalmethods="33" methodcoverage="93.9" />
+      <Class name="Pawn_VM" coverage="83.6" coveredlines="87" coverablelines="104" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="11" methodcoverage="100" />
+      <Class name="PawnButton" coverage="0" coveredlines="0" coverablelines="16" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="PopupUI" coverage="75.8" coveredlines="22" coverablelines="29" totallines="56" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="4" methodcoverage="75" />
+      <Class name="PrefabList" coverage="57.1" coveredlines="8" coverablelines="14" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="PriorityQueue" coverage="100" coveredlines="24" coverablelines="24" totallines="46" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="Quest" coverage="79.3" coveredlines="23" coverablelines="29" totallines="66" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="8" methodcoverage="75" />
+      <Class name="QuestInfo" coverage="100" coveredlines="7" coverablelines="7" totallines="100" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="QuestManager" coverage="85.4" coveredlines="41" coverablelines="48" totallines="100" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="14" totalmethods="15" methodcoverage="93.3" />
+      <Class name="QuestUIManager" coverage="80" coveredlines="56" coverablelines="70" totallines="116" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="9" methodcoverage="77.7" />
+      <Class name="RandomWalk" coverage="94.5" coveredlines="69" coverablelines="73" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="Resource" coverage="100" coveredlines="30" coverablelines="30" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="ResourceListElement" coverage="100" coveredlines="11" coverablelines="11" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="ResourceManager" coverage="100" coveredlines="1" coverablelines="1" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Rock" coverage="100" coveredlines="8" coverablelines="8" totallines="28" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="RockResource" coverage="100" coveredlines="4" coverablelines="4" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="RockTile_VM" coverage="100" coveredlines="3" coverablelines="3" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="RockWall" coverage="100" coveredlines="14" coverablelines="14" totallines="29" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+      <Class name="SandTile" coverage="100" coveredlines="3" coverablelines="3" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="SandTile_VM" coverage="100" coveredlines="3" coverablelines="3" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="SaveableEntity" coverage="100" coveredlines="28" coverablelines="28" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="SaveSlot" coverage="100" coveredlines="13" coverablelines="13" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="SaveStats" coverage="100" coveredlines="8" coverablelines="8" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="SaveSystemManager" coverage="75" coveredlines="9" coverablelines="12" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="SaveSystemUIManager" coverage="96.2" coveredlines="77" coverablelines="80" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="SettingsMenu" coverage="100" coveredlines="7" coverablelines="7" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="SliderValueChange" coverage="100" coveredlines="6" coverablelines="6" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Staircase" coverage="84.6" coveredlines="33" coverablelines="39" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="StaircaseItem" coverage="100" coveredlines="14" coverablelines="14" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="StairsTile" coverage="100" coveredlines="28" coverablelines="28" totallines="55" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="StaticUIHelper" coverage="0" coveredlines="0" coverablelines="6" totallines="23" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="StoneTile" coverage="100" coveredlines="3" coverablelines="3" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="TestUIScript" coverage="0" coveredlines="0" coverablelines="8" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="Tree" coverage="93.4" coveredlines="57" coverablelines="61" totallines="102" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="UIButton" coverage="88.4" coveredlines="23" coverablelines="26" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+      <Class name="UIManager" coverage="100" coveredlines="38" coverablelines="38" totallines="73" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="Utils" coverage="100" coveredlines="27" coverablelines="27" totallines="57" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="WaterTile" coverage="100" coveredlines="3" coverablelines="3" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="WaterTile_VM" coverage="100" coveredlines="3" coverablelines="3" totallines="0" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Wheat" coverage="91" coveredlines="61" coverablelines="67" totallines="112" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="WheatItem" coverage="100" coveredlines="4" coverablelines="4" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Wood" coverage="100" coveredlines="8" coverablelines="8" totallines="28" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="WoodWall" coverage="100" coveredlines="9" coverablelines="9" totallines="30" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="Zone" coverage="91.1" coveredlines="31" coverablelines="34" totallines="64" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+      <Class name="ZoneUIElement" coverage="50" coveredlines="14" coverablelines="28" totallines="37" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="6" methodcoverage="50" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>
