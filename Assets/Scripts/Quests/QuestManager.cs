@@ -64,7 +64,13 @@ public class QuestManager : MonoBehaviour
 
     public void CancelAllQuests()
     {
+        List<Quest> tmpList = new List<Quest>();
         foreach (Quest quest in activeQuests)
+        {
+            tmpList.Add(quest);
+        }
+
+        foreach (Quest quest in tmpList)
         {
             RemoveActiveQuest(quest);
         }
@@ -84,7 +90,6 @@ public class QuestManager : MonoBehaviour
     {
         activeQuests.Add(acceptedQuest);
         pendingQuests.Remove(acceptedQuest);
-        Debug.Log("Pending Quests left: " + pendingQuests.Count);
     }
 
     public void DeclineQuest(Quest declinedQuest)
@@ -126,13 +131,11 @@ public class QuestManager : MonoBehaviour
             {
                 if(quest.GetRewardItemName() == "Pawn")
                 {
-                    Debug.Log("Pawn quest found");
                     pawnQuestExists = true;
                     break;
                 }
             }
 
-            Debug.Log("Pnw" + pawnQuestExists);
             if(!pawnQuestExists)
             {
                 pendingQuests.Add(new Quest("Pawn", 1, "Coin", 5, myColony));

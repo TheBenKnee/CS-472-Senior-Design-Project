@@ -11,8 +11,11 @@ public static class GlobalStorage
 
     public static void UpdateQuestUIManager()
     {
-        myQuestUIManager = GameObject.Find("Canvas").GetComponent<QuestUIManager>();
-        myQuestUIManager.UpdateActiveQuestProgression();
+        if(GameObject.Find("Canvas"))
+        {
+            myQuestUIManager = GameObject.Find("Canvas").GetComponent<QuestUIManager>();
+            myQuestUIManager.UpdateActiveQuestProgression();
+        }
     }
 
     public static void AddChest(Chest chest, Vector3 location)
