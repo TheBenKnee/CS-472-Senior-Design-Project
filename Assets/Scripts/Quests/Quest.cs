@@ -51,13 +51,17 @@ public class Quest
 
     public bool CompleteQuest()
     {
-        // if(myColony.RemoveItemFromColony(requirementName, requirementQuantity))
-        // {
-        //     myColony.AddItemToColony(rewardName, rewardQuantity);
-        //     return true;
-        // }
-        // return false;
-        return true;
+        if(myColony.RemoveItemFromColony(requirementName, requirementQuantity))
+        {
+            myColony.AddItemToColony(rewardName, rewardQuantity);
+            return true;
+        }
+        return false;
+    }
+
+    public void PrintQuest()
+    {
+        Debug.Log("Seeking " + requirementQuantity + " " + requirementName + "(s). Rewarding " + rewardQuantity + " " + rewardName + "(s).");
     }
 }
 

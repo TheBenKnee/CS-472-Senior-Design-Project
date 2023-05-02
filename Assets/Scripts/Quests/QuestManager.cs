@@ -31,10 +31,29 @@ public class QuestManager : MonoBehaviour
         new QuestInfo("Honey", 5, "Bread", 5)
     };
 
-    private List<Quest> activeQuests = new List<Quest>();
-    private List<Quest> pendingQuests = new List<Quest>();
+    public List<Quest> activeQuests = new List<Quest>();
+    public List<Quest> pendingQuests = new List<Quest>();
 
     [SerializeField] private Colony myColony;
+
+    [SerializeField] private float newQuestDurationSeconds = 10.0f;
+
+    private float timeSinceLastQuest = 0f;
+
+    [ContextMenu("PrintPendingQuests")]
+    public void PrintPendingQuests()
+    {
+        foreach(Quest quest in pendingQuests)
+        {
+            quest.PrintQuest();
+        }
+    }
+
+    [ContextMenu("PrintPendingQuestNumber")]
+    public void PrintPendingQuestNumber()
+    {
+        Debug.Log("Pending Quests left: " + pendingQuests.Count);
+    }
 
     private void OnEnable()
     {
@@ -65,6 +84,7 @@ public class QuestManager : MonoBehaviour
     {
         activeQuests.Add(acceptedQuest);
         pendingQuests.Remove(acceptedQuest);
+        Debug.Log("Pending Quests left: " + pendingQuests.Count);
     }
 
     public void DeclineQuest(Quest declinedQuest)
@@ -92,6 +112,34 @@ public class QuestManager : MonoBehaviour
         QuestInfo questInfo = possibleQuests[questNumber];
 
         pendingQuests.Add(new Quest(questInfo.rewardItemName, questInfo.rewardItemQuantity, questInfo.requiredItemName, questInfo.requiredItemQuantity, myColony));
+    }
+
+    private void Update() 
+    {
+        timeSinceLastQuest += Time.timeScale / 50f;
+
+        if(timeSinceLastQuest > newQuestDurationSeconds)
+        {
+            bool pawnQuestExists = false;
+
+            foreach(Quest quest in pendingQuests)
+            {
+                if(quest.GetRewardItemName() == "Pawn")
+                {
+                    Debug.Log("Pawn quest found");
+                    pawnQuestExists = true;
+                    break;
+                }
+            }
+
+            Debug.Log("Pnw" + pawnQuestExists);
+            if(!pawnQuestExists)
+            {
+                pendingQuests.Add(new Quest("Pawn", 1, "Coin", 5, myColony));
+            }
+
+            timeSinceLastQuest = 0f;
+        }
     }
 }
 

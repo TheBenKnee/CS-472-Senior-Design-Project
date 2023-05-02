@@ -66,6 +66,7 @@ public class QuestUIManager : MonoBehaviour
 
     public void ReloadPendingQuestPanel()
     {
+        Debug.Log("Reloading panel");
         foreach (Transform child in pendingQuestListContent.transform)
         {
             Destroy(child.gameObject);
@@ -74,6 +75,8 @@ public class QuestUIManager : MonoBehaviour
         List<Quest> questList = questManager.GetPendingQuestList();
         foreach (Quest quest in questList)
         {
+            Debug.Log("Loading:");
+            quest.PrintQuest();
             GameObject newElement = Instantiate(pendingQuestUIElement);
             newElement.GetComponent<AvailableQuestUIElement>().Initialize(quest, this);
             newElement.transform.SetParent(pendingQuestListContent.transform);

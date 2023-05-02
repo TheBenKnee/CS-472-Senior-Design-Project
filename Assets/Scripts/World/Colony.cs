@@ -27,14 +27,14 @@ public class Colony : MonoBehaviour
         return GlobalStorage.GetItemCount(itemName);
     }
 
-    /*public bool RemoveItemFromColony(Item item, int quantity)
+    public bool RemoveItemFromColony(string itemName, int quantity)
     {
-        if(GlobalStorage.GetItemCount(item.itemName) < quantity)
+        if(GlobalStorage.GetItemCount(itemName) < quantity)
         {
             return false;
         }
 
-        List<Chest> chestWithItem = GlobalStorage.GetChestWithItem(item);
+        List<Chest> chestWithItem = GlobalStorage.GetChestsWithItem(itemName);
         foreach(Chest chest in chestWithItem)
         {
             if(quantity <= 0)
@@ -42,32 +42,40 @@ public class Colony : MonoBehaviour
                 break;
             }
 
-            int itemsDeleted = chest.ItemCountInChest(item.itemName);
+            int itemsDeleted = chest.GetItemQuantity(itemName);
             if(itemsDeleted < quantity)
             {
-                chest.RemoveItemFromChest(item.itemName, itemsDeleted);
+                chest.RemoveNumberOfItems(itemName, itemsDeleted);
                 quantity -= itemsDeleted;
             }
             else
             {
-                chest.RemoveItemFromChest(item.itemName, quantity);
+                chest.RemoveAllItems(itemName);
                 quantity = 0;
             }
         }
 
         return true;
-    }*/
+    }
 
-    /*public void AddItemToColony(Item item)
+    public void AddItemToColony(string itemName, int itemQuantity)
     {
-        Chest lootLocation = GlobalStorage.GetClosestChest(new Vector3());
-        if(lootLocation == null)
+        if(itemName == "Pawn")
         {
-            return;
+            for(int i = 0; i < itemQuantity; i++)
+            {
+                LaborOrderManager.CreateNewPawn();
+            }
         }
 
-        lootLocation.AddItem(item);
-    }*/
+        // Chest lootLocation = GlobalStorage.GetClosestChest(new Vector3());
+        // if(lootLocation == null)
+        // {
+        //     return;
+        // }
+
+        // lootLocation.AddItem(item);
+    }
 
     /////////////////////////////////////
     // Zone Methods 

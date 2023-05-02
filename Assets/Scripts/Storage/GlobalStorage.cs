@@ -7,6 +7,14 @@ public static class GlobalStorage
 {
     public static Dictionary<Chest, Vector3> chests = new Dictionary<Chest, Vector3>();
 
+    [SerializeField] private static QuestUIManager myQuestUIManager;
+
+    public static void UpdateQuestUIManager()
+    {
+        myQuestUIManager = GameObject.Find("Canvas").GetComponent<QuestUIManager>();
+        myQuestUIManager.UpdateActiveQuestProgression();
+    }
+
     public static void AddChest(Chest chest, Vector3 location)
     {
         // if the chest is already in the global storage, update its location

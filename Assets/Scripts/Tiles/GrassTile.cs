@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 public class GrassTile : BaseTile
 {
@@ -8,8 +9,16 @@ public class GrassTile : BaseTile
     {
         tileData.sprite = Resources.Load<Sprite>("sprites/tiles/grass");
     }
+
+    public override void AdjustSprite()
+    {
+        List<BaseTile> neighbors = base.GetNeighborTiles();
+        
+        string waterLocations = "";
+        foreach(BaseTile baseTile in neighbors)
+        {
+            
+        }
+    }
+
 }
-
-
-
-
