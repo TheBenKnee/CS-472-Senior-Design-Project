@@ -20,6 +20,8 @@ public class Chest : Item
         {
             contents.Add(itemName, 1);
         }
+
+        UpdateGlobalStorage();
     }
 
     // Method to remove an item from the chest
@@ -39,6 +41,46 @@ public class Chest : Item
         {
             contents.Remove(itemName);
         }
+
+        UpdateGlobalStorage();
+    }
+
+    public void RemoveNumberOfItems(string itemName, int count)
+    {
+        // if the item is in the chest, decrement its quantity
+        if (contents.ContainsKey(itemName) && contents[itemName] >= count)
+        {
+            contents[itemName] -= count;
+        }
+        else
+        {
+            Debug.Log("Not enough items exist in chest");
+            return;
+        }
+
+        // if the item's quantity is 0, remove it from the chest
+        if (contents[itemName] <= 0)
+        {
+            contents.Remove(itemName);
+        }
+
+        UpdateGlobalStorage();
+    }
+
+    public void RemoveAllItems(string itemName)
+    {
+        // if the item is in the chest, decrement its quantity
+        if (contents.ContainsKey(itemName))
+        {
+            contents.Remove(itemName);
+        }
+        else
+        {
+            Debug.Log("Item does not exist in chest");
+            return;
+        }
+
+        UpdateGlobalStorage();
     }
 
     // Method to get the quantity of an item in the chest
@@ -116,6 +158,11 @@ public class Chest : Item
     public void ResetPosition()
     {
         location = GridManager.GetTile(new Vector3Int((int)Mathf.Ceil(transform.position.x), (int)Mathf.Ceil(transform.position.y), 0));
+    }
+
+    public void UpdateGlobalStorage()
+    {
+        GlobalStorage.UpdateQuestUIManager();
     }
 
 }

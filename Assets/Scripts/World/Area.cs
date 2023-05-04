@@ -74,15 +74,11 @@ public class Area
             Debug.LogWarning("No GameObjects found in the scene.");
             return;
         }
-        Debug.Log(topRight);
-        Debug.Log(bottomLeft);
 
         foreach (Item itemComponent in gameObjectsInScene)
         {
             if (itemComponent.isDeconstructable)
             {
-                Debug.Log(itemComponent.location.GetXPosition());
-                Debug.Log(itemComponent.location.GetYPosition());
                 if (itemComponent.location.GetXPosition() <= topRight.x && itemComponent.location.GetXPosition() > bottomLeft.x)
                 {
                     if (itemComponent.location.GetYPosition() <= topRight.y && itemComponent.location.GetYPosition() > bottomLeft.y)
