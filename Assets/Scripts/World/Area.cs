@@ -51,17 +51,6 @@ public class Area
             {
                 Item itemToPlace = Resources.Load<GameObject>("prefabs/items/Chest").GetComponent<Item>();
                 LaborOrderManager.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
-
-                // // AUTO CREATION OF CHESTS
-                // BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(new Vector3Int(i, j, 0));
-                // if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
-                // {
-
-                //     GameObject chestPrefab = Resources.Load<GameObject>("prefabs/items/Chest");
-                //     GameObject chestInstance = UnityEngine.Object.Instantiate(chestPrefab, tile.position, Quaternion.identity);
-                //     chestInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
-                //     tile.SetTileInformation(tile.type, true, chestInstance, tile.resourceCount, tile.position);
-                // }
             }
         }
     }
@@ -74,15 +63,11 @@ public class Area
             Debug.LogWarning("No GameObjects found in the scene.");
             return;
         }
-        Debug.Log(topRight);
-        Debug.Log(bottomLeft);
 
         foreach (Item itemComponent in gameObjectsInScene)
         {
             if (itemComponent.isDeconstructable)
             {
-                Debug.Log(itemComponent.location.GetXPosition());
-                Debug.Log(itemComponent.location.GetYPosition());
                 if (itemComponent.location.GetXPosition() <= topRight.x && itemComponent.location.GetXPosition() > bottomLeft.x)
                 {
                     if (itemComponent.location.GetYPosition() <= topRight.y && itemComponent.location.GetYPosition() > bottomLeft.y)

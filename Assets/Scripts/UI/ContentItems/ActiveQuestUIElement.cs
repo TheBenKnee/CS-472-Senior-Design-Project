@@ -47,16 +47,20 @@ public class ActiveQuestUIElement : MonoBehaviour
         {
             finishQuestButton.SetActive(true);
         }
+        else
+        {
+            finishQuestButton.SetActive(false);
+        }
     }
 
     public void FinishQuest()
     {
-        // if(myQuest.CompleteQuest())
-        // {
-        //     myManager.RemoveActiveQuest(myQuest);
-        //     return;
-        // }
-        // UpdateStatus();
+        if(myQuest.CompleteQuest())
+        {
+            myManager.RemoveActiveQuest(myQuest);
+            return;
+        }
+        UpdateStatus();
     }
 }
 

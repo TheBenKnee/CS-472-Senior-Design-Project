@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 // enum of the different types of tiles
 public enum TileType { GENERIC, GRASS, ROCK, WATER, SAND, STAIRS, STONE }
@@ -41,6 +42,27 @@ public class BaseTile : Tile
         {
             return false;
         }
+    }
+
+    public List<BaseTile> GetNeighborTiles()
+    {
+        List<BaseTile> neighbors = new List<BaseTile>();
+
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x-1, (int)position.y+1, (int)position.z)));
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x, (int)position.y+1, (int)position.z)));
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x+1, (int)position.y+1, (int)position.z)));
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x-1, (int)position.y, (int)position.z)));
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x+2, (int)position.y, (int)position.z)));
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x-1, (int)position.y-1, (int)position.z)));
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x, (int)position.y-1, (int)position.z)));
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x+1, (int)position.y-1, (int)position.z)));
+
+        return neighbors;
+    }
+
+    public virtual void AdjustSprite()
+    {
+        // Adjust texture
     }
 
     // method to Set the properties of the tile

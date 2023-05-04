@@ -324,6 +324,18 @@ public class LaborOrderManager : MonoBehaviour
         }
     }
 
+    public static void CreateNewPawn()
+    {
+        GameObject pawn_prefab = Resources.Load<GameObject>("prefabs/npc/Pawn");
+
+        // Instantiate the pawn and store the reference in a variable
+        GameObject pawn_instance = UnityEngine.Object.Instantiate(pawn_prefab, GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
+
+        // Set the parent of the instantiated pawn, not the prefab itself
+        pawn_instance.transform.SetParent(GameObject.Find("Pawns").transform);
+        AddAvailablePawn(pawn_instance.GetComponent<Pawn>());
+    }
+
 
     // Method to fill the labor order queues with random labor tasks
     public static void FillWithRandomLaborOrders(int count)
