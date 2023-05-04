@@ -48,6 +48,8 @@ public class BaseTile : Tile
     {
         List<BaseTile> neighbors = new List<BaseTile>();
 
+        //NW, N, NE, W, E, SW, S, SE
+
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x-1, (int)position.y+1, (int)position.z)));
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x, (int)position.y+1, (int)position.z)));
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x+1, (int)position.y+1, (int)position.z)));
@@ -60,9 +62,74 @@ public class BaseTile : Tile
         return neighbors;
     }
 
-    public virtual void AdjustSprite()
+    // Base = 0, Up = 1, Down = 2, Right = 3, Left = 4,
+    // UpRight = 5, UpLeft = 6, DownRight = 7, DownLeft = 8, 
+    // UpRightCorn = 9, UpLeftCorn = 10, DownRightCorn = 11, DownLeftCorn = 12
+    public int DetermineSprite(BaseTile checkTileType)
+    {
+        List<BaseTile> neighbors = GetNeighborTiles();
+        //NW, N, NE, W, E, SW, S, SE
+
+        if(neighbors[1] != null && neighbors[1].GetType() == checkTileType.GetType())
+        {
+            if(neighbors[3] != null && neighbors[3].GetType() == checkTileType.GetType())
+            {
+                return 6;
+            }
+            if(neighbors[4] != null && neighbors[4].GetType() == checkTileType.GetType())
+            {
+                return 5;
+            }
+            return 1;
+        }
+
+        if(neighbors[6] != null && neighbors[6].GetType() == checkTileType.GetType())
+        {
+            if(neighbors[3] != null && neighbors[3].GetType() == checkTileType.GetType())
+            {
+                return 8;
+            }
+            if(neighbors[4] != null && neighbors[4].GetType() == checkTileType.GetType())
+            {
+                return 7;
+            }
+            return 2;
+        }
+
+        if(neighbors[3] != null && neighbors[3].GetType() == checkTileType.GetType())
+        {
+            return 4;
+        }
+        if(neighbors[4] != null && neighbors[4].GetType() == checkTileType.GetType())
+        {
+            return 3;
+        }
+
+        if(neighbors[0] != null && neighbors[0].GetType() == checkTileType.GetType())
+        {
+            return 10;
+        }
+        if(neighbors[2] != null && neighbors[2].GetType() == checkTileType.GetType())
+        {
+            return 9;
+        }
+        if(neighbors[5] != null && neighbors[5].GetType() == checkTileType.GetType())
+        {
+            return 12;
+        }
+        if(neighbors[7] != null && neighbors[7].GetType() == checkTileType.GetType())
+        {
+            return 11;
+        }
+
+        return 0;
+    }
+
+    public virtual int AdjustSprite()
     {
         // Adjust texture
+
+        return 0;
     }
 
     // method to Set the properties of the tile

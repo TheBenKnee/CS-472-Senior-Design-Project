@@ -30,6 +30,8 @@ public class InputManager : MonoBehaviour
             {
                 Debug.Log("No tile found at position: " + mousePosition);
             }
+
+            Debug.Log(tile.DetermineSprite(new WaterTile()));
         }
 
         if (Input.GetKey("delete"))
@@ -44,6 +46,18 @@ public class InputManager : MonoBehaviour
         if (Input.GetKey("z"))
         {
             TestUIScript.AddResourcesToWorld();
+        }
+
+        if(Input.GetKey("l"))
+        {
+            GridManager.PrintSits();
+            // var foundTextMeshObjects = FindObjectsOfType(typeof(SandTile));
+            // Debug.Log(foundTextMeshObjects.Length);
+            // foreach(SandTile myTile in foundTextMeshObjects)
+            // {
+            //     myTile.AdjustSprite();
+            //     GridManager.tileMap.RefreshAllTiles();
+            // }
         }
     }
 

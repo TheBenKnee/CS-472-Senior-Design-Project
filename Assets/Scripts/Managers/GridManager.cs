@@ -46,6 +46,46 @@ public class GridManager : MonoBehaviour
         return (BaseTile)tileMap.GetTile(position);
     }
 
+        // Method to create and add a level to the grid
+    public static void PrintSits()
+    {
+        int xMin, xMax, yMin, yMax;
+        xMin = 0; xMax = LEVEL_WIDTH - 1; yMin = 0; yMax = LEVEL_HEIGHT;
+
+        // Set tiles for level
+        for (int x = xMin; x < xMax; x++)
+        {
+            for (int y = yMin; y < yMax; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                BaseTile thisTile = GetTile(position);
+
+                // Water tiles on the outer perimeter
+                if (thisTile.GetType() == typeof(WaterTile))
+                {
+                    WaterTile newWaterTile = ScriptableObject.CreateInstance<WaterTile>();
+                    tileMap.SetTile(position, newWaterTile);
+                    newWaterTile.SetTileData(TileType.WATER, true, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null, mapLevels.Count - 1);
+                }   
+                // Sand tiles in jagged circular portion
+                else if (thisTile.GetType() == typeof(SandTile))
+                {
+                    Debug.Log(thisTile.AdjustSprite());
+                    SandTile newSandTile = ScriptableObject.CreateInstance<SandTile>();
+                    tileMap.SetTile(position, newSandTile);
+                    newSandTile.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                }
+                // Grass tiles in smaller jagged circular portion
+                else
+                {
+                    GrassTile newGrassTile = ScriptableObject.CreateInstance<GrassTile>();
+                    tileMap.SetTile(position, newGrassTile);
+                    newGrassTile.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                }
+            }
+        }
+    }
+
     // Method to create and add a level to the grid
     public static void CreateLevel()
     {
@@ -89,7 +129,7 @@ public class GridManager : MonoBehaviour
                         WaterTile newWaterTile = ScriptableObject.CreateInstance<WaterTile>();
                         tileMap.SetTile(position, newWaterTile);
                         newWaterTile.SetTileData(TileType.WATER, true, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null, mapLevels.Count - 1);
-                    }
+                    }   
                     // Sand tiles in jagged circular portion
                     else if (distanceFromCenter < sandRadius + (sandRadius * 0.5f * noiseValue) &&
                             distanceFromCenter >= grassRadius + (grassRadius * 0.5f * noiseValue))
@@ -401,8 +441,33 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public static void AdjustTileSprites()
+    {
+        // // Reset only the level used for pathfinding
+        // Level level = mapLevels[0];
+        // for (int x = level.getXMin(); x < level.getXMax(); x++)
+        // {
+        //     for (int y = level.getYMin(); y < level.getYMax(); y++)
+        //     {
+        //         BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(new Vector3Int(x, y, 0));
+        //         if (tile != null)
+        //         {
+        //             Sprite newSprite = tile.AdjustSprite();
+        //             if(newSprite != null)
+        //             {
+        //                 Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //                 Debug.Log(tile.ToString());
+        //                 Debug.Log(newSprite);
+        //                 Debug.Log(x + ", " + y);
+        //                 Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //                 tile.sprite = newSprite;
+        //             }
+        //         }
+        //     }
+        // }
 
-
+        // tileMap.RefreshAllTiles();
+    }
 }
 
 
