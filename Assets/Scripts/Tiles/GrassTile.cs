@@ -4,21 +4,19 @@ using System.Collections.Generic;
 
 public class GrassTile : BaseTile
 {
-    List<string> tileSpriteLocations = new List<string>{
-        ""
-    };
-
     // Method to Get the tile data for the tile
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
-        tileData.sprite = Resources.Load<Sprite>("sprites/tiles/grass");
+
+        int mySituation = DetermineSprite(new SandTile());
+
+        tileData.sprite = Resources.Load<Sprite>("sprites/tiles/grass/grass_sand_" + mySituation.ToString());
     }
 
-    public override int AdjustSprite()
+    public void SetSprite()
     {
         int mySituation = DetermineSprite(new SandTile());
 
-        return mySituation;
+        sprite = Resources.Load<Sprite>("sprites/tiles/grass/grass_sand_" + mySituation.ToString());
     }
-
 }

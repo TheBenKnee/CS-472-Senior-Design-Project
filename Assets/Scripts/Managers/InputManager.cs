@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
                 Debug.Log("No tile found at position: " + mousePosition);
             }
 
-            Debug.Log(tile.DetermineSprite(new WaterTile()));
+            Debug.Log("ON type: " + tile.GetType() + " got #" + tile.DetermineSprite(new WaterTile()));
         }
 
         if (Input.GetKey("delete"))

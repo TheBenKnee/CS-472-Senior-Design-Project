@@ -60,27 +60,16 @@ public class GridManager : MonoBehaviour
                 Vector3Int position = new Vector3Int(x, y, 0);
                 BaseTile thisTile = GetTile(position);
 
-                // Water tiles on the outer perimeter
-                if (thisTile.GetType() == typeof(WaterTile))
+                if (thisTile.GetType() == typeof(SandTile))
                 {
-                    WaterTile newWaterTile = ScriptableObject.CreateInstance<WaterTile>();
-                    tileMap.SetTile(position, newWaterTile);
-                    newWaterTile.SetTileData(TileType.WATER, true, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null, mapLevels.Count - 1);
-                }   
-                // Sand tiles in jagged circular portion
-                else if (thisTile.GetType() == typeof(SandTile))
-                {
-                    Debug.Log(thisTile.AdjustSprite());
-                    SandTile newSandTile = ScriptableObject.CreateInstance<SandTile>();
-                    tileMap.SetTile(position, newSandTile);
-                    newSandTile.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                    ((SandTile)thisTile).SetSprite();
+                    tileMap.RefreshTile(position);
                 }
                 // Grass tiles in smaller jagged circular portion
-                else
+                if(thisTile.GetType() == typeof(GrassTile))
                 {
-                    GrassTile newGrassTile = ScriptableObject.CreateInstance<GrassTile>();
-                    tileMap.SetTile(position, newGrassTile);
-                    newGrassTile.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                    ((GrassTile)thisTile).SetSprite();
+                    tileMap.RefreshTile(position);
                 }
             }
         }

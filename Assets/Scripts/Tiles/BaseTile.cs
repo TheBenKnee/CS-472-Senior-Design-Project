@@ -54,7 +54,7 @@ public class BaseTile : Tile
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x, (int)position.y+1, (int)position.z)));
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x+1, (int)position.y+1, (int)position.z)));
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x-1, (int)position.y, (int)position.z)));
-        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x+2, (int)position.y, (int)position.z)));
+        neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x+1, (int)position.y, (int)position.z)));
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x-1, (int)position.y-1, (int)position.z)));
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x, (int)position.y-1, (int)position.z)));
         neighbors.Add((BaseTile)GridManager.tileMap.GetTile(new Vector3Int((int)position.x+1, (int)position.y-1, (int)position.z)));

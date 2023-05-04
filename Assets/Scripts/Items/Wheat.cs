@@ -64,12 +64,12 @@ public class Wheat : Item
 
             if (plant.resourceCount >= FULL_RESOURCE_THRESHOLD)
             {
-                plant.spriteRenderer.sprite = Resources.Load<Sprite>("sprites/wheat");
+                plant.spriteRenderer.sprite = Resources.Load<Sprite>("sprites/big_wheat");
                 plant.isPlantcuttable = true;
             }
             else
             {
-                plant.spriteRenderer.sprite = Resources.Load<Sprite>("sprites/seeds");
+                plant.spriteRenderer.sprite = Resources.Load<Sprite>("sprites/small_wheat");
                 plant.isPlantcuttable = false;
             }
 
@@ -94,12 +94,12 @@ public class Wheat : Item
         resourceCount = 0;
         if (resourceCount >= FULL_RESOURCE_THRESHOLD)
         {
-            spriteRenderer.sprite = Resources.Load<Sprite>("sprites/wheat");
+            spriteRenderer.sprite = Resources.Load<Sprite>("sprites/big_wheat");
             isPlantcuttable = true;
         }
         else
         {
-            spriteRenderer.sprite = Resources.Load<Sprite>("sprites/seeds");
+            spriteRenderer.sprite = Resources.Load<Sprite>("sprites/small_wheat");
             isPlantcuttable = false;
         }
         resourceCountRef = resourceCount;
