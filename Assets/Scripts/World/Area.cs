@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Area
 {
-    protected Vector2 topRight;
-    protected Vector2 bottomLeft;
+    public Vector2 topRight             { get; protected set; }
+    public Vector2 bottomLeft           { get; protected set; }
     protected List<Vector2> corners;
 
     protected float height;
@@ -50,7 +50,7 @@ public class Area
             for (int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
             {
                 Item itemToPlace = Resources.Load<GameObject>("prefabs/items/Chest").GetComponent<Item>();
-                LaborOrderManager.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
+                LaborOrderManager.AddCraftLaborOrder(itemToPlace, new Vector2(i, j));
 
                 // // AUTO CREATION OF CHESTS
                 // BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(new Vector3Int(i, j, 0));

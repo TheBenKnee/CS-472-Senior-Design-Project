@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Colony : MonoBehaviour
 {
-    public List<Zone> zones = new List<Zone>();
+    public static List<Zone> zones = new List<Zone>();
     [SerializeField] private SpriteRenderer zoneSprite;
     [SerializeField] private string colonyName = "Test Colony";
 
@@ -25,6 +25,27 @@ public class Colony : MonoBehaviour
     public int GetNumberOfItemInGalaxy(string itemName)
     {
         return GlobalStorage.GetItemCount(itemName);
+    }
+
+    public static void GenerateLaborOrdersFromZones()
+    {
+        foreach(Zone zone in zones){
+            if((int)zone.GetZoneType() == 1)
+            {
+                for (int i = (int)zone.bottomLeft.x; i < (int)zone.topRight.x; i++)
+                {
+                    for (int j = (int)zone.bottomLeft.y; j < (int)zone.topRight.y; j++)
+                    {
+                        // if there is no resource at this tile
+                        if (((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource == null)
+                        {
+                            Item itemToPlace = Resources.Load<GameObject>("prefabs/items/Wheat").GetComponent<Wheat>();
+                            LaborOrderManager.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /*public bool RemoveItemFromColony(Item item, int quantity)
