@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Area
 {
-    protected Vector2 topRight;
-    protected Vector2 bottomLeft;
+    public Vector2 topRight             { get; protected set; }
+    public Vector2 bottomLeft           { get; protected set; }
     protected List<Vector2> corners;
 
     protected float height;
@@ -43,38 +43,71 @@ public class Area
         return middle;
     }
 
-    public void CreateChests()
+    public void CreateItems(Item itemToCreate)
     {
         for (int i = (int)bottomLeft.x; i < (int)topRight.x; i++)
         {
             for (int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
             {
-                Item itemToPlace = Resources.Load<GameObject>("prefabs/items/Chest").GetComponent<Item>();
-                LaborOrderManager.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
+                LaborOrderManager.AddCraftLaborOrder(itemToCreate, new Vector2(i, j));
             }
         }
     }
 
-    public void DestroyObjects(Item[] gameObjectsInScene)
+    public void GatherObjects()
     {
-        // Check if the objects array is null
-        if (gameObjectsInScene == null)
+        for (int i = (int)bottomLeft.x; i < (int)topRight.x; i++)
         {
-            Debug.LogWarning("No GameObjects found in the scene.");
-            return;
-        }
-
-        foreach (Item itemComponent in gameObjectsInScene)
-        {
-            if (itemComponent.isDeconstructable)
+            for (int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
             {
-                if (itemComponent.location.GetXPosition() <= topRight.x && itemComponent.location.GetXPosition() > bottomLeft.x)
+                // get the resource at the tile
+                Item resource = ((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource;
+
+                // add a gather labor order for the resource
+                if (resource != null)
                 {
-                    if (itemComponent.location.GetYPosition() <= topRight.y && itemComponent.location.GetYPosition() > bottomLeft.y)
-                    {
-                        LaborOrderManager.AddSpecificDeconstructLaborOrder(itemComponent);
-                    }
+                    LaborOrderManager.AddSpecificGatherLaborOrder(resource);
                 }
+
+            }
+        }
+    }
+
+    public void DestroyObjects()
+    {
+        for (int i = (int)bottomLeft.x; i < (int)topRight.x; i++)
+        {
+            for (int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
+            {
+                // get the resource at the tile
+                Item resource = ((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource;
+
+                // add a deconstruct labor order for the resource
+                if (resource != null)
+                {
+                    LaborOrderManager.AddSpecificDeconstructLaborOrder(resource);
+                }
+
+            }
+        }
+    }
+
+    // MineObjects
+    public void MineObjects()
+    {
+        for (int i = (int)bottomLeft.x; i < (int)topRight.x; i++)
+        {
+            for (int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
+            {
+                // get the resource at the tile
+                Item resource = ((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource;
+
+                // add a mine labor order for the resource
+                if (resource != null)
+                {
+                    LaborOrderManager.AddSpecificMineLaborOrder(resource);
+                }
+
             }
         }
     }

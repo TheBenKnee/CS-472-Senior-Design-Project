@@ -37,28 +37,9 @@ public class LaborOrder_Plantcut : LaborOrder_Base
                 Transform treeParent = targetPlant.transform.parent;
                 UnityEngine.Object.Destroy(targetPlant.gameObject);
 
-                // create wheat in tree's place
-                BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(Vector3Int.FloorToInt(treePosition));
-                Item resourceItem = Resources.Load<Item>("prefabs/items/Wheat").GetComponent<Item>();
-                Item resourceObject = UnityEngine.Object.Instantiate(resourceItem, treePosition, Quaternion.identity).GetComponent<Item>();
-                resourceObject.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
-
-                resourceObject.GetComponent<Wheat>().Itemize();
-                tile.SetTileInformation(tile.type, false, resourceObject, tile.resourceCount, tile.position);
-
                 // spawn seeds in an adjacent tile that is not collision and does not have a resource
-                List<BaseTile> adjacentTiles = GridManager.GetAdjacentTiles(tile);
-                foreach (BaseTile adjacentTile in adjacentTiles)
-                {
-                    if (!adjacentTile.isCollision && adjacentTile.resource == null)
-                    {
-                        Item wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity).GetComponent<Item>();
-                        wheatItem.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
-                        resource = wheatItem;
-                        adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
-                        break;
-                    }
-                }
+                GlobalStorage.AddItemToChest(resource);
+                Debug.Log("Added item to storage because there was no adjacent tile to spawn the item.");
             }
         }
         yield break;

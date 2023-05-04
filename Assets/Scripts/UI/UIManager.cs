@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class UIManager
 {
-    public enum UIMode { normal = 1, normalFoodFarm = 2, premiumFoodFarm = 3, clothFarm = 4, normalMedFarm = 5, premiumMedFarm = 6, destroy = 7, create = 8 };
+    public enum UIMode { normal = 1, normalFoodFarm = 2, premiumFoodFarm = 3, clothFarm = 4, normalMedFarm = 5, premiumMedFarm = 6, destroy = 7, create = 8, gather = 9, auto_cursor = 10, mine = 11 };
 
     public static UIMode myMode;
 
@@ -31,6 +31,7 @@ public static class UIManager
                     Cursor.SetCursor(farmCursor, hotSpot, cursorMode);
                     break;
                 }
+            case 11:
             case 7:
                 {
                     GameObject.Find("Canvas/Warnings/CancelHint").SetActive(true);

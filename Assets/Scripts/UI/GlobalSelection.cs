@@ -7,6 +7,8 @@ public class GlobalSelection : MonoBehaviour
 {
     [SerializeField] private Colony myColony;
 
+    public static int craftItemIndex = 0;
+
     bool dragSelect = false;
 
     Vector3 p1;
@@ -72,14 +74,33 @@ public class GlobalSelection : MonoBehaviour
                             Area newZone = new Area(topRight, bottomLeft);
                             if ((int)UIManager.myMode == 8)
                             {
-                                newZone.CreateChests();
+                                switch(craftItemIndex)
+                                {
+                                    case 0:
+                                        newZone.CreateItems(Resources.Load<GameObject>("prefabs/items/Chest").GetComponent<Item>());
+                                        break;
+                                    case 1:
+                                        newZone.CreateItems(Resources.Load<GameObject>("prefabs/items/RockWall").GetComponent<Item>());
+                                        break;
+                                    case 2:
+                                        newZone.CreateItems(Resources.Load<GameObject>("prefabs/items/WoodWall").GetComponent<Item>());
+                                        break;
+                                }   
                             }
-                            else
+                            else if((int)UIManager.myMode == 7)
                             {
-                                // iterate through all objects and find the first tile with an item that is deconstructable
-                                Item[] items = GameObject.Find("Objects").GetComponentsInChildren<Item>();
-
-                                newZone.DestroyObjects(items);
+                                newZone.DestroyObjects();
+                            }else if((int)UIManager.myMode == 9)
+                            {
+                                newZone.GatherObjects();
+                            }
+                            else if((int)UIManager.myMode == 12)
+                            {
+                                Debug.Log("Object Mouse: ");
+                            }
+                            else if((int)UIManager.myMode == 11)
+                            {
+                                newZone.MineObjects();
                             }
                         }
                     }

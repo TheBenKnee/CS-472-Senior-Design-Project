@@ -17,7 +17,6 @@ public class BaseTile : Tile
     public bool visited { get; set; }               // flag to indicate if the tile has been visited
     public bool isCollision { get; set; }               // flag to indicate if the tile can be collided with
     public BaseTile parent { get; set; }               // parent tile used in pathfinding
-
     // method to return the x position of the tile
     public int GetXPosition()
     {

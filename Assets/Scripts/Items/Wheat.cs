@@ -9,8 +9,8 @@ public class Wheat : Item
 
     [SerializeField] public int resourceCountRef;
 
-    public static readonly int FULL_RESOURCE_THRESHOLD = 25;
-    public static readonly int MAX_RESOURCE = 25;
+    public static readonly int FULL_RESOURCE_THRESHOLD = 200;
+    public static readonly int MAX_RESOURCE = 200;
     public int resourceCount;
     public SpriteRenderer spriteRenderer;
 
