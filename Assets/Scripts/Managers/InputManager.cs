@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
 {
 
     [SerializeField] private static ActionUIManager myActionManager;
+    [SerializeField] public static bool isObjectMouse = false;
 
     // Check for user input
     public static void CheckForInput()
@@ -20,7 +21,10 @@ public class InputManager : MonoBehaviour
             Vector3Int gridPosition = GridManager.tileMap.WorldToCell(mousePosition);
             BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(gridPosition);
 
-            LaborOrderManager.PopulateObjectLaborOrderTile(tile);
+            if(isObjectMouse)
+            {
+                LaborOrderManager.PopulateObjectLaborOrderTile(tile);
+            }
 
             if (tile != null)
             {
@@ -45,6 +49,13 @@ public class InputManager : MonoBehaviour
         {
             TestUIScript.AddResourcesToWorld();
         }
+    }
+
+    // ToggleObjectMouse
+    public static void ToggleObjectMouse()
+    {
+        isObjectMouse = !isObjectMouse;
+        Debug.Log("Object Mouse: " + isObjectMouse);
     }
 
     private void Awake()

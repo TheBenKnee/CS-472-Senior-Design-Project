@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static readonly int NUM_OF_PAWNS_TO_SPAWN = 10;
+    public static readonly int NUM_OF_PAWNS_TO_SPAWN = 5;
     //private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 10;
     private const int NUM_OF_LEVELS = 2;
 

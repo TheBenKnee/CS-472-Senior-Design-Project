@@ -76,6 +76,15 @@ public class LaborOrderManager : MonoBehaviour
         return total;
     }
 
+    // AddPlantcutLaborOrder
+    public static void AddPlantcutLaborOrder(Item itemToPlantcut)
+    {
+        // Create a new plantcut labor order
+        LaborOrder_Plantcut plantcutOrder = new LaborOrder_Plantcut(itemToPlantcut);
+        // Add the labor order to the queue
+        laborQueues[(int)LaborType.Plantcut].Enqueue(plantcutOrder);
+    }
+
     // Method to add a place labor order to the queue
     public static void AddPlaceLaborOrder(Item itemToPlace)
     {
@@ -129,6 +138,24 @@ public class LaborOrderManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    // AddSpecificMineLaborOrder
+    public static void AddSpecificMineLaborOrder(Item obj)
+    {
+        // create a new mine labor order
+        LaborOrder_Mine mineOrder = new LaborOrder_Mine(obj);
+        // add the labor order to the queue
+        laborQueues[(int)LaborType.Mine].Enqueue(mineOrder);
+    }
+
+    // AddSpecificGatherLaborOrder
+    public static void AddSpecificGatherLaborOrder(Item obj)
+    {
+        // create a new gather labor order
+        LaborOrder_Gather gatherOrder = new LaborOrder_Gather(obj);
+        // add the labor order to the queue
+        laborQueues[(int)LaborType.Gather].Enqueue(gatherOrder);
     }
 
     public static void AddSpecificDeconstructLaborOrder(Item obj)

@@ -143,4 +143,14 @@ public static class GlobalStorage
 
         return closestChest;
     }
+
+    // add item to any chest
+    public static void AddItemToChest(Item item)
+    {
+        Chest randomChest = GetRandomChest();
+        if (randomChest != null)
+        {
+            randomChest.AddItem(item.itemName);
+        }
+    }
 }

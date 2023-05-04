@@ -11,7 +11,7 @@ public class Item : MonoBehaviour
     [SerializeField] public BaseTile location;
     [SerializeField] public bool isGatherable = false;
     [SerializeField] public bool isPlaceable = false;
-    [SerializeField] public bool isDeconstructable = false;
+    [SerializeField] public bool isDeconstructable = true;
     [SerializeField] public bool isWoodcuttable = false;
     [SerializeField] public bool isMineable = false;
     [SerializeField] public bool isForageable = false;

@@ -14,7 +14,7 @@ public class GrassTile : BaseTile
     {
         List<BaseTile> neighbors = base.GetNeighborTiles();
         
-        string waterLocations = "";
+        //string waterLocations = "";
         foreach(BaseTile baseTile in neighbors)
         {
             

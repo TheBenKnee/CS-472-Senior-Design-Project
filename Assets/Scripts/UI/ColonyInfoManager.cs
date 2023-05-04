@@ -29,7 +29,7 @@ public class ColonyInfoManager : MonoBehaviour
     {
         zoneNumber.text = (myColony.GetNextZoneNumber() - 1).ToString();
         colonyName.text = myColony.GetColonyName();
-        pawnCount.text = LaborOrderManager.GetPawnCount().ToString();
+        pawnCount.text = Pawn.PawnList.Count.ToString();
     }
 
     /////////////////////////////////////

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8397261251115020685}
   - component: {fileID: 7419830210777840979}
   m_Layer: 0
-  m_Name: Pawn_VM
+  m_Name: Pawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1142510081, guid: 4e61e2b2b29f35741af9d7dbfffa5f80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,7 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: -6212351786046154490}
 --- !u!114 &7419830210777840979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,5 +131,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8452b855f641a14bab79af4bd1bdbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refuseLaborOrders: 0
   hunger: 100
