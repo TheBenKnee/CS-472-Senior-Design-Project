@@ -16,6 +16,12 @@ public class StaticUIHelper : MonoBehaviour
     {
         UIManager.SelectUIMode(newMode);
     }
+
+    public void ToggleAutoMouse()
+    {
+        InputManager.isObjectMouse = !InputManager.isObjectMouse;
+        Debug.Log("ToggleAutoMouse = " + InputManager.isObjectMouse);
+    }
 }
 
 

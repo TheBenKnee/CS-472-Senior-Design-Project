@@ -70,7 +70,8 @@ public class GameClock : MonoBehaviour
         Tree.IncrementAllResources(TREE_INCREMENT);
         Wheat.IncrementAllResources(WHEAT_INCREMENT);
         Pawn.DecrementAllHunger(HUNGER_DECREMENT);
-        Colony.GenerateLaborOrdersFromZones();
+        Colony.GenerateLaborOrdersFromGrowZones();
+        Colony.GenerateLaborOrdersFromPlantcuttableZones();
     }
 }
 

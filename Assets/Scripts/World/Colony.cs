@@ -27,27 +27,6 @@ public class Colony : MonoBehaviour
         return GlobalStorage.GetItemCount(itemName);
     }
 
-    public static void GenerateLaborOrdersFromZones()
-    {
-        foreach(Zone zone in zones){
-            if((int)zone.GetZoneType() == 1)
-            {
-                for (int i = (int)zone.bottomLeft.x; i < (int)zone.topRight.x; i++)
-                {
-                    for (int j = (int)zone.bottomLeft.y; j < (int)zone.topRight.y; j++)
-                    {
-                        // if there is no resource at this tile
-                        if (((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource == null)
-                        {
-                            Item itemToPlace = Resources.Load<GameObject>("prefabs/items/Wheat").GetComponent<Wheat>();
-                            LaborOrderManager.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public bool RemoveItemFromColony(string itemName, int quantity)
     {
         if(GlobalStorage.GetItemCount(itemName) < quantity)
@@ -88,14 +67,6 @@ public class Colony : MonoBehaviour
                 LaborOrderManager.CreateNewPawn();
             }
         }
-
-        // Chest lootLocation = GlobalStorage.GetClosestChest(new Vector3());
-        // if(lootLocation == null)
-        // {
-        //     return;
-        // }
-
-        // lootLocation.AddItem(item);
     }
 
     /////////////////////////////////////
@@ -129,6 +100,57 @@ public class Colony : MonoBehaviour
     public List<Zone> GetZones()
     {
         return zones;
+    }
+
+    public static void GenerateLaborOrdersFromGrowZones()
+    {
+        foreach(Zone zone in zones){
+            if((int)zone.GetZoneType() == 1)
+            {
+                for (int i = (int)zone.bottomLeft.x; i < (int)zone.topRight.x; i++)
+                {
+                    for (int j = (int)zone.bottomLeft.y; j < (int)zone.topRight.y; j++)
+                    {
+                        if (((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource == null)
+                        {
+                            // add temp item to resource var
+                            ((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource = Resources.Load<Item>("prefabs/items/TempItem");
+                            Item itemToPlace = Resources.Load<Item>("prefabs/items/Wheat");
+                            itemToPlace.isPlantcuttable = false;
+                            LaborOrderManager.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
+                        }
+                        else
+                        {
+                            //Debug.Log("Resource already exists at " + i + ", " + j);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void GenerateLaborOrdersFromPlantcuttableZones()
+    {
+        foreach (Zone zone in zones)
+        {
+            if ((int)zone.GetZoneType() == 1)
+            {
+                for (int i = (int)zone.bottomLeft.x; i < (int)zone.topRight.x; i++)
+                {
+                    for (int j = (int)zone.bottomLeft.y; j < (int)zone.topRight.y; j++)
+                    {
+                        if (((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource.isPlantcuttable == true)
+                        {
+                            LaborOrderManager.AddPlantcutLaborOrder(((BaseTile)(GridManager.tileMap.GetTile(new Vector3Int(i, j, 0)))).resource);
+                        }
+                        else
+                        {
+                            //Debug.Log("Resource already exists at " + i + ", " + j);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

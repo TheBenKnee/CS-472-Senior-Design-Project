@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5055290136322021479}
   - component: {fileID: 7178664966283040266}
-  - component: {fileID: -8704499653929890309}
+  - component: {fileID: 4382736855154550529}
   m_Layer: 0
-  m_Name: RockWall
+  m_Name: TempItem
   m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 37ea15f3da8fb9b4cbe08118d487d615, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,10 +82,10 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-8704499653929890309
+--- !u!114 &4382736855154550529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,23 +94,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3567930871531141257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150991ab8da137f4f8bdfe07c58ae738, type: 3}
+  m_Script: {fileID: 11500000, guid: 39d1312971c60784b9537d347d2be3b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: RockWall
+  itemName: baseItem
   location: {fileID: 0}
   isGatherable: 0
   isPlaceable: 0
-  isDeconstructable: 0
+  isDeconstructable: 1
   isWoodcuttable: 0
   isMineable: 0
   isForageable: 0
-  isCraftable: 1
+  isCraftable: 0
   isPlantcuttable: 0
   isItemized: 0
   isCollision: 0
-  requiredForCrafting:
-  - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}
-  - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}
-  - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}
-  - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}
+  requiredForCrafting: []

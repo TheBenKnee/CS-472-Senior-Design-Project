@@ -54,7 +54,7 @@ public class LaborOrder_Place : LaborOrder_Base
 
         if (tile != null)
         {
-            if (tile.resource == null)
+            if (tile.resource == null || tile.resource.GetComponent<TempItem>() != null)
             {
                 tile.SetTileInformation(tile.type, false, itemToPlace, 1, tile.position);
                 GameObject parentObjects = GameObject.Find("Objects");
