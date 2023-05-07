@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 391775932}
   - component: {fileID: 391775931}
   - component: {fileID: 391775930}
+  - component: {fileID: 391775940}
   m_Layer: 6
   m_Name: NobleMan
   m_TagString: Untagged
@@ -360,7 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 391775938}
 --- !u!95 &391775938
 Animator:
   serializedVersion: 5
@@ -371,7 +371,7 @@ Animator:
   m_GameObject: {fileID: 391775928}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cfbd5008afdf72440a4ebaacd1ae1062, type: 2}
+  m_Controller: {fileID: 9100000, guid: a903a674c0af24a499c87e31ba445fe8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -433,6 +433,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &391775940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391775928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &501642449
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +467,7 @@ GameObject:
   - component: {fileID: 501642453}
   - component: {fileID: 501642452}
   - component: {fileID: 501642451}
+  - component: {fileID: 501642461}
   m_Layer: 6
   m_Name: Queen
   m_TagString: Untagged
@@ -637,7 +653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 501642459}
 --- !u!95 &501642459
 Animator:
   serializedVersion: 5
@@ -648,7 +663,7 @@ Animator:
   m_GameObject: {fileID: 501642449}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3d135948a23a57447b37a1fe658a1724, type: 2}
+  m_Controller: {fileID: 9100000, guid: c1a97e33079a6814fb739a414579a46e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -710,6 +725,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &501642461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501642449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &525920703
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,6 +875,7 @@ GameObject:
   - component: {fileID: 615677272}
   - component: {fileID: 615677271}
   - component: {fileID: 615677270}
+  - component: {fileID: 615677280}
   m_Layer: 6
   m_Name: OldWoman
   m_TagString: Untagged
@@ -1030,7 +1061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 615677278}
 --- !u!95 &615677278
 Animator:
   serializedVersion: 5
@@ -1041,7 +1071,7 @@ Animator:
   m_GameObject: {fileID: 615677268}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e4adbbb452a51f54abf85b63f85303f6, type: 2}
+  m_Controller: {fileID: 9100000, guid: cfbd5008afdf72440a4ebaacd1ae1062, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1103,6 +1133,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &615677280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615677268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &661375533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1167,7 @@ GameObject:
   - component: {fileID: 661375537}
   - component: {fileID: 661375536}
   - component: {fileID: 661375535}
+  - component: {fileID: 661375545}
   m_Layer: 6
   m_Name: OldMan
   m_TagString: Untagged
@@ -1307,7 +1353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 661375543}
 --- !u!95 &661375543
 Animator:
   serializedVersion: 5
@@ -1318,7 +1363,7 @@ Animator:
   m_GameObject: {fileID: 661375533}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 188d0bbe7236a6046b80d3212bc82441, type: 2}
+  m_Controller: {fileID: 9100000, guid: d3aef3511cb8ff34ca9c039aba8000f0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1380,6 +1425,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &661375545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661375533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &694195417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1550,7 @@ GameObject:
   - component: {fileID: 744163352}
   - component: {fileID: 744163351}
   - component: {fileID: 744163350}
+  - component: {fileID: 744163360}
   m_Layer: 6
   m_Name: NobleWoman
   m_TagString: Untagged
@@ -1675,7 +1736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 744163358}
 --- !u!95 &744163358
 Animator:
   serializedVersion: 5
@@ -1686,7 +1746,7 @@ Animator:
   m_GameObject: {fileID: 744163348}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d3aef3511cb8ff34ca9c039aba8000f0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 188d0bbe7236a6046b80d3212bc82441, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1748,6 +1808,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &744163360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744163348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &904998333
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,7 +2107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1348974062}
   m_Layer: 0
-  m_Name: NobleWomanNPC
+  m_Name: NobleWomanNPCa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2248,6 +2323,7 @@ GameObject:
   - component: {fileID: 1684904197}
   - component: {fileID: 1684904196}
   - component: {fileID: 1684904195}
+  - component: {fileID: 1684904205}
   m_Layer: 6
   m_Name: Princess
   m_TagString: Untagged
@@ -2433,7 +2509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1684904203}
 --- !u!95 &1684904203
 Animator:
   serializedVersion: 5
@@ -2444,7 +2519,7 @@ Animator:
   m_GameObject: {fileID: 1684904193}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7c1aaba77e710904099b0a5077db7756, type: 2}
+  m_Controller: {fileID: 9100000, guid: e4adbbb452a51f54abf85b63f85303f6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2506,6 +2581,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1684904205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684904193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &1741758601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,6 +2648,7 @@ GameObject:
   - component: {fileID: 1754581540}
   - component: {fileID: 1754581539}
   - component: {fileID: 1754581538}
+  - component: {fileID: 1754581548}
   m_Layer: 6
   m_Name: FemaleVillager
   m_TagString: Untagged
@@ -2743,7 +2834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1754581546}
 --- !u!95 &1754581546
 Animator:
   serializedVersion: 5
@@ -2754,7 +2844,7 @@ Animator:
   m_GameObject: {fileID: 1754581536}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a903a674c0af24a499c87e31ba445fe8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7c1aaba77e710904099b0a5077db7756, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2816,6 +2906,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1754581548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754581536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &1947540052
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,6 +2940,7 @@ GameObject:
   - component: {fileID: 1947540056}
   - component: {fileID: 1947540055}
   - component: {fileID: 1947540054}
+  - component: {fileID: 1947540064}
   m_Layer: 6
   m_Name: MaleVillager
   m_TagString: Untagged
@@ -3020,7 +3126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1947540062}
 --- !u!95 &1947540062
 Animator:
   serializedVersion: 5
@@ -3031,7 +3136,7 @@ Animator:
   m_GameObject: {fileID: 1947540052}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c1a97e33079a6814fb739a414579a46e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3d135948a23a57447b37a1fe658a1724, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3093,6 +3198,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1947540064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947540052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &2040639636
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,8 +3368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91d8d59cadf6844f947942521b2224b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabList: {fileID: 11400000, guid: 1974452ef6652ea42ae8a59b6aa76423, type: 2}
-  entityDictionary: {fileID: 11400000, guid: ee0af8e1914615c48969381aa513aa83, type: 2}
+  sceneCamera: {fileID: 0}
 --- !u!4 &2286447857603467879
 Transform:
   m_ObjectHideFlags: 0
@@ -3477,7 +3596,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiCanvas: {fileID: 4313398083729370467}
-  saveSystemUI: {fileID: 7086682536159226023}
+  colonyInfo: {fileID: 0}
+  colonyInfoManager: {fileID: 0}
+  laborOrderPanel: {fileID: 0}
 --- !u!222 &7086682535272293601
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5738,7 +5859,7 @@ Animator:
   m_GameObject: {fileID: 7303823384498438509}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7d7d385cdb416774299fcb8e94ec30cf, type: 2}
+  m_Controller: {fileID: 9100000, guid: a903a674c0af24a499c87e31ba445fe8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5764,6 +5885,7 @@ GameObject:
   - component: {fileID: 7303823384498438803}
   - component: {fileID: 7303823384498438807}
   - component: {fileID: 7303823384498438802}
+  - component: {fileID: 7303823384498438808}
   m_Layer: 0
   m_Name: TestCharacter
   m_TagString: Player
@@ -5824,4 +5946,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 7303823384498438507}
+--- !u!114 &7303823384498438808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303823384498438509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
